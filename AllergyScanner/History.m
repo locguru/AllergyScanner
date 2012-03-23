@@ -98,6 +98,10 @@
     return [[listOfItems objectAtIndex:section] count];
 }
 
+- (void) printBS {
+    
+    NSLog(@"NEW PRODUCT ISand NEW BRAND");
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     

@@ -342,6 +342,8 @@
         ingredients.text = [NSString stringWithFormat:@"%@ %@ %@ %@", @"This product may not be good for", userAllergyText, @"allergy since it containts the following ingredients:", tempOutputText];
     }
     
+    History *temp = [[History alloc] init];
+    [temp printBS];
 }
 
 - (IBAction) dismissScreen : (id)sender

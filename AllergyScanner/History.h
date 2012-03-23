@@ -40,6 +40,6 @@
 
 - (void) addNewItem:(NSString *)newProduct withNewBrand:(NSString *)newBrand;
 - (UITableViewCell *) getCellContentView:(NSString *)cellIdentifier;
-
+- (void) printBS;
 
 @end

@@ -37,17 +37,17 @@
 
 #pragma mark - View lifecycle
 
-+ (void) initialize {
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSMutableDictionary *defaultsDict = [NSMutableDictionary dictionary];
-    
-	[defaultsDict setObject:[NSNumber numberWithBool:YES] forKey:@"shouldLookForEAN13AndUPCACodes"];
-	[defaultsDict setObject:[NSNumber numberWithBool:YES] forKey:@"shouldLookForEAN8Codes"];
-	[defaultsDict setObject:[NSNumber numberWithBool:YES] forKey:@"shouldLookForUPCECodes"];
-	[defaultsDict setObject:[NSNumber numberWithBool:NO] forKey:@"shouldLookForQRCodes"];
-    
-	[defaults registerDefaults:defaultsDict];	
-}
+//+ (void) initialize {
+//	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//	NSMutableDictionary *defaultsDict = [NSMutableDictionary dictionary];
+//    
+//	[defaultsDict setObject:[NSNumber numberWithBool:YES] forKey:@"shouldLookForEAN13AndUPCACodes"];
+//	[defaultsDict setObject:[NSNumber numberWithBool:YES] forKey:@"shouldLookForEAN8Codes"];
+//	[defaultsDict setObject:[NSNumber numberWithBool:YES] forKey:@"shouldLookForUPCECodes"];
+//	[defaultsDict setObject:[NSNumber numberWithBool:NO] forKey:@"shouldLookForQRCodes"];
+//    
+//	[defaults registerDefaults:defaultsDict];	
+//}
 
 - (void)viewDidLoad
 {
@@ -280,6 +280,8 @@
                 
                 // EXAMPLE: disable rarely used I2/5 to improve performance
                 [scanner1 setSymbology: ZBAR_I25 config: ZBAR_CFG_ENABLE to: 0];
+              //  [scanner1 setSymbology: 0 config: ZBAR_CFG_ENABLE to: 0];
+                [scanner1 setSymbology: ZBAR_QRCODE config: ZBAR_CFG_ENABLE to: 0];
                 
                 // present and release the controller
                 [self presentModalViewController: navCntrl1 animated: YES];
