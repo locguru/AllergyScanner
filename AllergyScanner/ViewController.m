@@ -12,6 +12,7 @@
 #import "About.h"
 #import "History.h"
 #import "ServerConnectionController.h"
+#import "FlurryAnalytics.h"
 
 
 @implementation ViewController
@@ -29,25 +30,8 @@
 @synthesize keyAccessArray;
 
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Release any cached data, images, etc that aren't in use.
-}
 
 #pragma mark - View lifecycle
-
-//+ (void) initialize {
-//	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-//	NSMutableDictionary *defaultsDict = [NSMutableDictionary dictionary];
-//    
-//	[defaultsDict setObject:[NSNumber numberWithBool:YES] forKey:@"shouldLookForEAN13AndUPCACodes"];
-//	[defaultsDict setObject:[NSNumber numberWithBool:YES] forKey:@"shouldLookForEAN8Codes"];
-//	[defaultsDict setObject:[NSNumber numberWithBool:YES] forKey:@"shouldLookForUPCECodes"];
-//	[defaultsDict setObject:[NSNumber numberWithBool:NO] forKey:@"shouldLookForQRCodes"];
-//    
-//	[defaults registerDefaults:defaultsDict];	
-//}
 
 - (void)viewDidLoad
 {
@@ -150,6 +134,8 @@
 
 - (IBAction)about:(id)sender {  
     
+    [FlurryAnalytics logEvent:@"CLICKING 'ABOUT' SECTION"];
+    
     About *aboutViewController = [[About alloc] initWithNibName:nil bundle:nil];
     UINavigationController *aboutNavigationController = [[UINavigationController alloc] initWithRootViewController:aboutViewController];
     aboutNavigationController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;    
@@ -159,6 +145,8 @@
 
 - (IBAction)history:(id)sender {  
     
+    [FlurryAnalytics logEvent:@"CLICKING 'HISTORY' SECTION"];
+
     History *historyViewController = [[History alloc] initWithNibName:nil bundle:nil];
     UINavigationController *historyNavigationController = [[UINavigationController alloc] initWithRootViewController:historyViewController];
     historyNavigationController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;    
@@ -168,6 +156,8 @@
 
 - (IBAction)selectAllergy:(id)sender {  
     
+    [FlurryAnalytics logEvent:@"CLICKING 'SELECT ALLERGY' BUTTON"];
+
     actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
     [actionSheet setActionSheetStyle:UIActionSheetStyleDefault];
         
@@ -204,9 +194,13 @@
 //Called when the user taps on our "Scan A Barcode" button
 - (IBAction)scan:(id)sender {  
     
+    [FlurryAnalytics logEvent:@"CLICKING 'SCAN BARCODE' BUTTON"];
+
     //First check if the user selected an allergy to scan for
     if (userAllergy.text == @"Placeholder")
     {        
+        [FlurryAnalytics logEvent:@"'ENTER ALLERGY FIRST' ALERT"];
+
         UIAlertView *selectAlert = [[UIAlertView alloc] initWithTitle:@"Error" 
                                                               message:@"Please select an allergy first"
                                                              delegate:self 
@@ -251,6 +245,8 @@
         //CHECKING IF THE KEY IS VALID
         if ([keyAccess length] < 5 )
         {
+            [FlurryAnalytics logEvent:@"KEY IS NOT VALID, LESS THAN 5 CHARATECTERS"];
+
             UIAlertView *selectAlert = [[UIAlertView alloc] initWithTitle:@"AllergyScanner" 
                                                                   message:@"Service unavailable. Please try again later."
                                                                  delegate:self 
@@ -265,7 +261,8 @@
             
             if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) 
             {
-                
+                [FlurryAnalytics logEvent:@"SCANNING PROPERLY"];
+
                 // ADD: present a barcode reader that scans from the camera feed
                 ZBarReaderViewController *reader = [ZBarReaderViewController new];
                 UINavigationController *navCntrl1 = [[UINavigationController alloc] initWithRootViewController:reader];
@@ -286,31 +283,11 @@
                 // present and release the controller
                 [self presentModalViewController: navCntrl1 animated: YES];
                 
-                
-                //SHOPSAVVY - SCANNER ACTION
-                //            if([SKScannerViewController canRecognizeBarcodes]) { //Make sure we can even attempt barcode recognition, (i.e. on a device without a camera, you wouldn't be able to scan anything).
-                //                
-                //                SKScannerViewController *scannerVC = [[SKScannerViewController alloc] init]; //Insantiate a new SKScannerViewController
-                //                
-                //                scannerVC.delegate = self;
-                //                scannerVC.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelTapped)];
-                //                scannerVC.title = @"Scan a Barcode";
-                //                
-                //                _codeInfoLabel.text = @""; =//Reset our info text label.
-                //                
-                //                scannerVC.shouldLookForEAN13AndUPCACodes = [[NSUserDefaults standardUserDefaults] boolForKey:@"shouldLookForEAN13AndUPCACodes"];
-                //                scannerVC.shouldLookForEAN8Codes = [[NSUserDefaults standardUserDefaults] boolForKey:@"shouldLookForEAN8Codes"];
-                //                scannerVC.shouldLookForQRCodes = [[NSUserDefaults standardUserDefaults] boolForKey:@"shouldLookForQRCodes"];
-                //                scannerVC.shouldLookForUPCECodes = [[NSUserDefaults standardUserDefaults] boolForKey:@"shouldLookForUPCECodes"];
-                //                
-                //                UINavigationController *_nc = [[UINavigationController alloc] initWithRootViewController:scannerVC]; //Put our SKScannerViewController into a UINavigationController. (So it looks nice).
-                //                
-                //                [self presentModalViewController:_nc animated:YES]; //Slide it up onto the screen.
-                
-                
             } 
             else //for debug and if there isnt a camera
             {  
+                [FlurryAnalytics logEvent:@"DEBUG MODE - CAMERA IS NOT AVAILABLE IN THE DEVICE"];
+
                 NSString *temp = [[NSString alloc] init];
                 //temp = @"073731001059";
                 //temp = @"036632026071"; //missing ingredients 
@@ -357,32 +334,6 @@
 	[self dismissModalViewControllerAnimated:YES];
 }
 
-//#pragma mark SKScannerViewControllerDelegate Methods
-//
-//- (void) scannerViewController:(SKScannerViewController *)scanner didRecognizeCode:(SKCode *)code {
-//	NSLog(@"didRecognizeCode = %@", code.rawContent);
-//    
-//	AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
-//    
-//	[self dismissModalViewControllerAnimated:YES]; //We're done scanning barcodes so we should dismiss our modal view controller.
-//    
-//	_codeInfoLabel.text = code.rawContent; //Grab the nice pretty description of our "Code" object and set it as our label's text so users will know what they've scanned.
-//    
-//    inputBarcode.text = code.rawContent;
-//    
-//    //   NSLog(@"SHOW ME %@", code.rawContent);
-//    [self showResults:code.rawContent];
-//    
-//    
-//    //userInput.text = code.rawContent;
-//    
-//    //    NSLog(@"SHOW ME %@", code.rawContent);
-//    
-//    //   [lookupAlergie userInput.text];
-//    //  UILabel *temp = [[UILabel alloc] init];
-//    //   [self lookupAlergie:userInput.text withMethod:@"FetchProductByUPC"];
-//    //  [self lookupAlergie:userInput.text withMethod:@"FetchNutritionFactsByUPC"];
-//}
 
 
 - (void) showResults: (NSString *) barcode {
@@ -404,20 +355,15 @@
 }
 
 
-//- (void) scannerViewController:(SKScannerViewController *)scanner didStopLookingForCodesWithError:(NSError *)error {
-//	[self dismissModalViewControllerAnimated:YES];
-//    
-//	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:[[error userInfo] objectForKey:@"Reason"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-//    
-//	[alert show];
-//}
-
-
 - (IBAction)dismissActionSheet:(id)sender {  
     
     NSInteger row = [pickerView selectedRowInComponent:0]; 
     userAllergy.text = [pickerList objectAtIndex:row];
     [actionSheet dismissWithClickedButtonIndex:0 animated:YES];
+    
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:userAllergy.text, @"user input allergy", nil];
+    [FlurryAnalytics logEvent:@"DISMISS ALLERGIES ACTION SHEET AND SEND USER ALLERGY" withParameters:dictionary];
+
 }
 
 
@@ -445,15 +391,6 @@
 }
 
 
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-    _codeInfoLabel = nil;
-    
-}
 
 //- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 //{

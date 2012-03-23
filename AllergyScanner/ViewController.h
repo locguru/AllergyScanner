@@ -10,12 +10,11 @@
 
 #import <UIKit/UIKit.h>
 #import <AudioToolbox/AudioServices.h>
-#import "ScannerKit.h"
 //#import <ScannerKit/ScannerKit.h>
 #import "Results.h"
 #import "ZBarSDK.h"
 
-@interface ViewController : UIViewController <SKScannerViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, ResultsDelegate, ZBarReaderDelegate> {
+@interface ViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource, ResultsDelegate, ZBarReaderDelegate> {
     
     UILabel *_codeInfoLabel;
     UILabel *userAllergy;

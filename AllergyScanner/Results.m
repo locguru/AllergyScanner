@@ -12,6 +12,7 @@
 #import "History.h"
 #import "ServerConnectionController.h"
 #import "ViewController.h"
+#import "FlurryAnalytics.h"
 
 @implementation Results
 
@@ -143,6 +144,10 @@
 //    else if ([productDescription.text length] == 0){
         else if (0){
         
+        NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:productDescription.text, @"productDescription.text", nil];
+        [FlurryAnalytics logEvent:@"GETPRODUCTINFO METHOD: PRODUCT WAS NOT FOUND IN DB" withParameters:dictionary];
+
+            
         alert = [[UIAlertView alloc] initWithTitle:@"Item Not Found" 
                                                         message:@"This product was not found in the database"
                                                        delegate:self 
@@ -165,6 +170,10 @@
 }
 
 - (void) lookupAlergie:(NSString *)barcodeLabel withMethod:(NSString *) method withAlergy:(NSString *)allergyText{
+    
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:allergyText, @"allergyText", nil];
+    [FlurryAnalytics logEvent:@"ENTERING LOOKUPALLERGY METHOD" withParameters:dictionary];
+
     
     NSLog(@"BARCODE IS: %@", barcodeLabel);
     
@@ -333,13 +342,20 @@
     
     if ([ingredientsProcessorObject.badIngredients count] == 0) 
     {
+        [FlurryAnalytics logEvent:@"ENTERING PROCESSINGREDIENTS METHOD - PRODUCT DOESN'T CONTAIN USER ALLERGY"];
+
         ingredients.text = [NSString stringWithFormat:@"%@ %@", @"This product does not contain", userAllergyText];
+        
     }
     else
     {
         //        ingredients.text = [ingredientsProcessorObject.badIngredients description]; //converting an NSArray to an NSString
         NSString *tempOutputText = [[ingredientsProcessorObject.badIngredients valueForKey:@"description"] componentsJoinedByString:@", "];
         ingredients.text = [NSString stringWithFormat:@"%@ %@ %@ %@", @"This product may not be good for", userAllergyText, @"allergy since it containts the following ingredients:", tempOutputText];
+        
+        NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:ingredients.text, @"ingredients.text", nil];
+        [FlurryAnalytics logEvent:@"ENTERING PROCESSINGREDIENTS METHOD - SAVING THE BAD INGRESIENTS STRING" withParameters:dictionary];
+
     }
     
     History *temp = [[History alloc] init];
