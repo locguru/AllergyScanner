@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7C2A209E151D1D3600A8C08D /* libFlurryAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C2A209D151D1D3600A8C08D /* libFlurryAnalytics.a */; };
+		7C45AC0E1523574B00B273DF /* sample.mov in Resources */ = {isa = PBXBuildFile; fileRef = 7C45AC0D1523574B00B273DF /* sample.mov */; };
 		7C6B9EFF146EC0E1002EA429 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C6B9EFE146EC0E1002EA429 /* UIKit.framework */; };
 		7C6B9F01146EC0E1002EA429 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C6B9F00146EC0E1002EA429 /* Foundation.framework */; };
 		7C6B9F03146EC0E1002EA429 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C6B9F02146EC0E1002EA429 /* CoreGraphics.framework */; };
@@ -38,16 +39,24 @@
 		7C6BA02A146EDA6B002EA429 /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C6BA01D146EDA6B002EA429 /* SBJsonBase.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7C6BA02B146EDA6B002EA429 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C6BA01E146EDA6B002EA429 /* SBJsonParser.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7C6BA02C146EDA6B002EA429 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C6BA01F146EDA6B002EA429 /* SBJsonWriter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7C959AA8152A5F62009C3CFF /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C959AA7152A5F62009C3CFF /* Twitter.framework */; };
 		7C9CBDBC151CDB2800692BF9 /* libzbar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C9CBDB6151CDB2800692BF9 /* libzbar.a */; };
 		7C9CBDBD151CDB2800692BF9 /* zbar-back.png in Resources */ = {isa = PBXBuildFile; fileRef = 7C9CBDB8151CDB2800692BF9 /* zbar-back.png */; };
 		7C9CBDBE151CDB2800692BF9 /* zbar-help.html in Resources */ = {isa = PBXBuildFile; fileRef = 7C9CBDB9151CDB2800692BF9 /* zbar-help.html */; };
 		7C9CBDBF151CDB2800692BF9 /* zbar-helpicons.png in Resources */ = {isa = PBXBuildFile; fileRef = 7C9CBDBA151CDB2800692BF9 /* zbar-helpicons.png */; };
 		7C9CBDC0151CDB2800692BF9 /* zbar-samples.png in Resources */ = {isa = PBXBuildFile; fileRef = 7C9CBDBB151CDB2800692BF9 /* zbar-samples.png */; };
+		7CC703AA152283D5006D1A90 /* Facebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CC7038D152283D5006D1A90 /* Facebook.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7CC703AB152283D5006D1A90 /* FBDialog.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7CC70390152283D5006D1A90 /* FBDialog.bundle */; };
+		7CC703AC152283D5006D1A90 /* FBDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CC70392152283D5006D1A90 /* FBDialog.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7CC703AD152283D5006D1A90 /* FBFrictionlessRequestSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CC70394152283D5006D1A90 /* FBFrictionlessRequestSettings.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7CC703AE152283D5006D1A90 /* FBLoginDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CC70396152283D5006D1A90 /* FBLoginDialog.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7CC703AF152283D5006D1A90 /* FBRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CC70398152283D5006D1A90 /* FBRequest.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		7C2A209C151D1D3600A8C08D /* FlurryAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryAnalytics.h; sourceTree = "<group>"; };
 		7C2A209D151D1D3600A8C08D /* libFlurryAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurryAnalytics.a; sourceTree = "<group>"; };
+		7C45AC0D1523574B00B273DF /* sample.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = sample.mov; sourceTree = "<group>"; };
 		7C6B9EFA146EC0E1002EA429 /* AllergyScanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AllergyScanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C6B9EFE146EC0E1002EA429 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		7C6B9F00146EC0E1002EA429 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -95,6 +104,7 @@
 		7C6BA024146EDA6B002EA429 /* SBJsonBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonBase.h; sourceTree = "<group>"; };
 		7C6BA025146EDA6B002EA429 /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
 		7C6BA026146EDA6B002EA429 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
+		7C959AA7152A5F62009C3CFF /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		7C9CBDA2151CDB2800692BF9 /* Decoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Decoder.h; sourceTree = "<group>"; };
 		7C9CBDA3151CDB2800692BF9 /* Exception.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exception.h; sourceTree = "<group>"; };
 		7C9CBDA4151CDB2800692BF9 /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
@@ -120,6 +130,18 @@
 		7C9CBDB9151CDB2800692BF9 /* zbar-help.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "zbar-help.html"; sourceTree = "<group>"; };
 		7C9CBDBA151CDB2800692BF9 /* zbar-helpicons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zbar-helpicons.png"; sourceTree = "<group>"; };
 		7C9CBDBB151CDB2800692BF9 /* zbar-samples.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zbar-samples.png"; sourceTree = "<group>"; };
+		7CC7038C152283D5006D1A90 /* Facebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Facebook.h; sourceTree = "<group>"; };
+		7CC7038D152283D5006D1A90 /* Facebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Facebook.m; sourceTree = "<group>"; };
+		7CC7038F152283D5006D1A90 /* FBConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBConnect.h; sourceTree = "<group>"; };
+		7CC70390152283D5006D1A90 /* FBDialog.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FBDialog.bundle; sourceTree = "<group>"; };
+		7CC70391152283D5006D1A90 /* FBDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBDialog.h; sourceTree = "<group>"; };
+		7CC70392152283D5006D1A90 /* FBDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBDialog.m; sourceTree = "<group>"; };
+		7CC70393152283D5006D1A90 /* FBFrictionlessRequestSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBFrictionlessRequestSettings.h; sourceTree = "<group>"; };
+		7CC70394152283D5006D1A90 /* FBFrictionlessRequestSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBFrictionlessRequestSettings.m; sourceTree = "<group>"; };
+		7CC70395152283D5006D1A90 /* FBLoginDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBLoginDialog.h; sourceTree = "<group>"; };
+		7CC70396152283D5006D1A90 /* FBLoginDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBLoginDialog.m; sourceTree = "<group>"; };
+		7CC70397152283D5006D1A90 /* FBRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBRequest.h; sourceTree = "<group>"; };
+		7CC70398152283D5006D1A90 /* FBRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBRequest.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +149,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7C959AA8152A5F62009C3CFF /* Twitter.framework in Frameworks */,
 				7C6B9F44146EC1EF002EA429 /* CoreMedia.framework in Frameworks */,
 				7C6B9F42146EC1E2002EA429 /* AVFoundation.framework in Frameworks */,
 				7C6B9F40146EC1D1002EA429 /* SystemConfiguration.framework in Frameworks */,
@@ -158,6 +181,7 @@
 		7C6B9EEF146EC0E0002EA429 = {
 			isa = PBXGroup;
 			children = (
+				7CC70388152283D5006D1A90 /* src */,
 				7C6BA031146F0647002EA429 /* Libraries  */,
 				7C6B9F1B146EC0EC002EA429 /* Classes */,
 				7C6B9F04146EC0E1002EA429 /* AllergyScanner */,
@@ -177,6 +201,7 @@
 		7C6B9EFD146EC0E1002EA429 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7C959AA7152A5F62009C3CFF /* Twitter.framework */,
 				7C6B9F43146EC1EF002EA429 /* CoreMedia.framework */,
 				7C6B9F41146EC1E2002EA429 /* AVFoundation.framework */,
 				7C6B9F3F146EC1D1002EA429 /* SystemConfiguration.framework */,
@@ -217,6 +242,7 @@
 		7C6B9F05146EC0E1002EA429 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				7C45AC0D1523574B00B273DF /* sample.mov */,
 				7C6B9F06146EC0E1002EA429 /* AllergyScanner-Info.plist */,
 				7C6B9F07146EC0E1002EA429 /* InfoPlist.strings */,
 				7C6B9F0A146EC0E1002EA429 /* main.m */,
@@ -330,6 +356,25 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		7CC70388152283D5006D1A90 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				7CC7038C152283D5006D1A90 /* Facebook.h */,
+				7CC7038D152283D5006D1A90 /* Facebook.m */,
+				7CC7038F152283D5006D1A90 /* FBConnect.h */,
+				7CC70390152283D5006D1A90 /* FBDialog.bundle */,
+				7CC70391152283D5006D1A90 /* FBDialog.h */,
+				7CC70392152283D5006D1A90 /* FBDialog.m */,
+				7CC70393152283D5006D1A90 /* FBFrictionlessRequestSettings.h */,
+				7CC70394152283D5006D1A90 /* FBFrictionlessRequestSettings.m */,
+				7CC70395152283D5006D1A90 /* FBLoginDialog.h */,
+				7CC70396152283D5006D1A90 /* FBLoginDialog.m */,
+				7CC70397152283D5006D1A90 /* FBRequest.h */,
+				7CC70398152283D5006D1A90 /* FBRequest.m */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -390,6 +435,8 @@
 				7C9CBDBE151CDB2800692BF9 /* zbar-help.html in Resources */,
 				7C9CBDBF151CDB2800692BF9 /* zbar-helpicons.png in Resources */,
 				7C9CBDC0151CDB2800692BF9 /* zbar-samples.png in Resources */,
+				7CC703AB152283D5006D1A90 /* FBDialog.bundle in Resources */,
+				7C45AC0E1523574B00B273DF /* sample.mov in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -414,6 +461,11 @@
 				7C6BA02A146EDA6B002EA429 /* SBJsonBase.m in Sources */,
 				7C6BA02B146EDA6B002EA429 /* SBJsonParser.m in Sources */,
 				7C6BA02C146EDA6B002EA429 /* SBJsonWriter.m in Sources */,
+				7CC703AA152283D5006D1A90 /* Facebook.m in Sources */,
+				7CC703AC152283D5006D1A90 /* FBDialog.m in Sources */,
+				7CC703AD152283D5006D1A90 /* FBFrictionlessRequestSettings.m in Sources */,
+				7CC703AE152283D5006D1A90 /* FBLoginDialog.m in Sources */,
+				7CC703AF152283D5006D1A90 /* FBRequest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -445,8 +497,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Itai Ram";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Itai Ram";
+				CODE_SIGN_IDENTITY = "iPhone Developer: ITAI RAM (C8VWQ56ELU)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: ITAI RAM (C8VWQ56ELU)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -465,8 +517,8 @@
 					"-all_load",
 					"-lstdc++",
 				);
-				PROVISIONING_PROFILE = "E378DB94-0989-49CA-A8F9-7D26D1399CF9";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E378DB94-0989-49CA-A8F9-7D26D1399CF9";
+				PROVISIONING_PROFILE = "DAC85DAB-D8AC-4745-BD36-60B2CD712BCD";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "DAC85DAB-D8AC-4745-BD36-60B2CD712BCD";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -477,8 +529,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Itai Ram";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Itai Ram";
+				CODE_SIGN_IDENTITY = "iPhone Developer: ITAI RAM (C8VWQ56ELU)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: ITAI RAM (C8VWQ56ELU)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -491,8 +543,8 @@
 					"-all_load",
 					"-lstdc++",
 				);
-				PROVISIONING_PROFILE = "E378DB94-0989-49CA-A8F9-7D26D1399CF9";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E378DB94-0989-49CA-A8F9-7D26D1399CF9";
+				PROVISIONING_PROFILE = "DAC85DAB-D8AC-4745-BD36-60B2CD712BCD";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "DAC85DAB-D8AC-4745-BD36-60B2CD712BCD";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

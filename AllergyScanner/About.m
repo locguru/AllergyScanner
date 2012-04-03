@@ -61,14 +61,14 @@
     
     //TITLE LABEL
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(45, 10, 300, 40)];
-	titleLabel.text = @"Welcome to AllergyScanner!";
+	titleLabel.text = @"Welcome to Allergy Scanner!";
 	titleLabel.backgroundColor = [UIColor clearColor]; // [UIColor brownColor];
     titleLabel.font = [UIFont systemFontOfSize:18];
 	[self.view addSubview:titleLabel];
     
     //DISCLAIMER LABEL
     UILabel *disclaimerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 285, 380)];
-	disclaimerLabel.text = @"AllergyScanner was created with the purpose of educating and providing information to our users. Though our data is frequently updated, users of this application should not rely exclusively on the information provided. Users are advised to consult with their own healthcare professional and understand that this information should not be interpreted as a medical warning, advice or opinion. \n\nOur application is supported by a third-party database including over 100,000 products. AllergyScanner is not and cannot be held responsible and accountable for the accuracy or content of this database information. Food manufacturers may also change the content of their products at any given time without notice and therefore AllergyScanner cannot be liable for these changes. \n\nAllergyScanner will not be liable for any damage resulting directly or indirectly from the use of this application. The information in this application is presented without any guarantee, expressed or implied.";
+	disclaimerLabel.text = @"Allergy Scanner was created with the purpose of educating and providing information to our users. Though our data is frequently updated, users of this application should not rely exclusively on the information provided. Users are advised to consult with their own healthcare professional and understand that this information should not be interpreted as a medical warning, advice or opinion. \n\nOur application is supported by a third-party database including over 100,000 products. AllergyScanner is not and cannot be held responsible and accountable for the accuracy or content of this database information. Food manufacturers may also change the content of their products at any given time without notice and therefore AllergyScanner cannot be liable for these changes. \n\nAllergyScanner will not be liable for any damage resulting directly or indirectly from the use of this application. The information in this application is presented without any guarantee, expressed or implied.";
     
     disclaimerLabel.backgroundColor = [UIColor clearColor]; // [UIColor brownColor];
     disclaimerLabel.font = [UIFont systemFontOfSize:12];
@@ -94,7 +94,7 @@
     MFMailComposeViewController* controller = [[MFMailComposeViewController alloc] init];
     controller.mailComposeDelegate = self;
     [controller setToRecipients:[NSArray arrayWithObject:@"support@delengo.com"]];
-    [controller setSubject:@"Feedback Re: AllergyScanner"];
+    [controller setSubject:@"Feedback Re: Allergy Scanner"];
     [controller setMessageBody:nil isHTML:NO]; 
     if (controller) [self presentModalViewController:controller animated:YES];
 }

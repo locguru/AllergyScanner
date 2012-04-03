@@ -13,7 +13,9 @@
 #import "History.h"
 #import "ServerConnectionController.h"
 #import "FlurryAnalytics.h"
+#import <Twitter/Twitter.h>
 
+static NSString* kAppId = @"210437135727485";
 
 @implementation ViewController
 
@@ -28,7 +30,7 @@
 @synthesize keyAccess;
 @synthesize enableLocalKey;
 @synthesize keyAccessArray;
-
+@synthesize facebook;
 
 
 #pragma mark - View lifecycle
@@ -38,7 +40,9 @@
     [super viewDidLoad];
     
     //VIEW TITLE
-    self.navigationItem.title = @"AllergyScanner";
+    //self.navigationItem.title = @"AllergyScanner";
+    self.navigationItem.title= [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"];
+
     
     //BACKGROUND COLOR 
     self.view.backgroundColor = [UIColor brownColor];
@@ -48,7 +52,9 @@
     self.navigationItem.rightBarButtonItem = rightButton;
     
     //NAV ITEMS
-    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"History" style:UIBarButtonItemStylePlain target:self action:@selector(history:)];      
+//    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"History" style:UIBarButtonItemStylePlain target:self action:@selector(history:)];      
+    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"Share" style:UIBarButtonItemStylePlain target:self action:@selector(sharingOption:)];      
+
     self.navigationItem.leftBarButtonItem = leftButton;
     
     //LABELS
@@ -62,7 +68,9 @@
     userAllergy = [[UILabel alloc] initWithFrame:CGRectMake(170, 40, 120, 40)];
     userAllergy.backgroundColor = [UIColor clearColor]; 
     userAllergy.font = [UIFont systemFontOfSize:18];
-    userAllergy.text = @"Placeholder";
+//    userAllergy.text = @"Placeholder";
+    userAllergy.text = @"";
+
     [self.view addSubview:userAllergy];
     
     //BARCODE LABEL
@@ -118,21 +126,148 @@
 //	[self.view addSubview:debugText];
     
     //SERVER SANITY CHECK
-    NSString *urlString =  @"http://www.delengo.com/getkey.php";
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
-    [request setTimeoutInterval:60.0];
-    [request setURL:[NSURL URLWithString:urlString]];
-    [request setHTTPMethod:@"POST"];
-
-    NSString *accessKey = [[NSString alloc] initWithData:[NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil] encoding:NSUTF8StringEncoding];
-    NSLog(@"string from server is: %@", accessKey);
-    NSString *alertKey = [NSString stringWithFormat:@"accessKey is %@", accessKey];
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Allergy Scanner" message:alertKey delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [alertView show];
+//    NSString *urlString =  @"http://www.delengo.com/getkey.php";
+//    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
+//    [request setTimeoutInterval:60.0];
+//    [request setURL:[NSURL URLWithString:urlString]];
+//    [request setHTTPMethod:@"POST"];
+//
+//    NSString *accessKey = [[NSString alloc] initWithData:[NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil] encoding:NSUTF8StringEncoding];
+//    NSLog(@"string from server is: %@", accessKey);
+//    NSString *alertKey = [NSString stringWithFormat:@"accessKey is %@", accessKey];
+//    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Allergy Scanner" message:alertKey delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+//    [alertView show];
+    
+        
+    //Facebook
+    facebook = [[Facebook alloc] initWithAppId:@"210437135727485" andDelegate:self];
+    
 }
 
 
+- (IBAction)sharingOption:(id)sender {  
+    
+    NSLog(@"entering sharingOption");
+    [FlurryAnalytics logEvent:@"SELECTING OPTIONS"];
+    
+    //ACTION SHEET
+    UIActionSheet *popupQuery = [[UIActionSheet alloc] initWithTitle:@"Share Options" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share on Facebook", @"Post to Twitter", nil];  
+    
+    popupQuery.actionSheetStyle = UIActionSheetStyleBlackOpaque;
+    [popupQuery showInView:self.view];    
+}
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+
+    if (buttonIndex == 1) //Twitter 
+    {
+        [FlurryAnalytics logEvent:@"CLICK ON SHARE ON TWITTER"];
+        
+        NSString* versionNumber = [[UIDevice currentDevice] systemVersion];
+        int version;
+        version = [versionNumber intValue];
+        NSLog(@"versionNumber %d", version);
+        
+        if (version < 5)
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Smart Phone" message:@"Youd OS version doesn't support Twitter on this app. Please upgrade your OS an try again" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles: nil];
+            [alert show];
+        }
+        else    
+        {
+            TWTweetComposeViewController *twitter = [[TWTweetComposeViewController alloc] init];
+            [twitter setInitialText:@"Enjoying using @Delengo recent app - AllergyScanner, what a great application! #iphone #appstore"];
+            [self presentModalViewController:twitter animated:YES];
+            
+            // Called when the tweet dialog has been closed
+            twitter.completionHandler = ^(TWTweetComposeViewControllerResult result) 
+            {
+                NSString *title = @"Smart Phone";
+                NSString *msg; 
+                
+                if (result == TWTweetComposeViewControllerResultCancelled)
+                    msg = @"Tweet compostion was canceled";
+                else if (result == TWTweetComposeViewControllerResultDone)
+                    msg = @"Your tweet has been posted!";
+                
+                UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:title message:msg delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [alertView show];
+                
+                [self dismissModalViewControllerAnimated:YES];
+            };
+            
+            return;
+            
+        }
+        
+    } 
+    else if (buttonIndex == 0) //Facebook
+    {
+        
+        [FlurryAnalytics logEvent:@"POSTING ON FACEBOOK"];
+        
+        NSLog(@"entering POSTING ON FACEBOOK");
+        [facebook authorize:[NSArray arrayWithObjects:@"publish_stream", nil]];
+        
+        return;
+    } 
+    
+    [FlurryAnalytics logEvent:@"CANCELING ACTION SHEET"];
+    
+}
+
+
+//FACEBOOK API
+- (void)fbDidLogin {
+
+    NSLog(@"entering fbDidLogin");
+    
+    NSString *link = @"http://itunes.apple.com/us/app/smart-phone/id511179270?ls=1&mt=8";
+    NSString *linkName = @"AllergyScanner app By Delengo";
+    NSString *linkCaption = @"Check it out on the App Store!";
+    NSString *linkDescription = @"";
+    NSString *message = @"AllergyScanner app for the iPhone has made my life so much easier!";
+    
+    NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                   kAppId, @"api_key",
+                                   message, @"message",
+                                   linkName, @"name",
+                                   linkDescription, @"description",
+                                   link, @"link",
+                                   linkCaption, @"caption",
+                                   nil];
+    
+    [facebook requestWithGraphPath: @"me/feed" andParams: params andHttpMethod: @"POST" andDelegate: self];
+
+
+}
+
+-(void)fbDidNotLogin:(BOOL)cancelled {
+	NSLog(@"did not login");
+}
+
+- (void)request:(FBRequest *)request didLoad:(id)result {
+	if ([result isKindOfClass:[NSArray class]]) {
+		result = [result objectAtIndex:0];
+	}
+	NSLog(@"Result of API call: %@", result);
+}
+
+- (void)request:(FBRequest *)request didFailWithError:(NSError *)error{
+    NSLog(@"didFailWithError: %@", [error description]);
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Share on Facebook" 
+                                                    message:@"An error occured" 
+                                                   delegate:nil 
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
+}
+
+//CUSTOME METHODS 
 - (IBAction)about:(id)sender {  
+
+    NSLog(@"entering about");
     
     [FlurryAnalytics logEvent:@"CLICKING 'ABOUT' SECTION"];
     
@@ -196,8 +331,10 @@
     
     [FlurryAnalytics logEvent:@"CLICKING 'SCAN BARCODE' BUTTON"];
 
+     NSLog(@"userAllergy.text is %@", userAllergy.text);
+    
     //First check if the user selected an allergy to scan for
-    if (userAllergy.text == @"Placeholder")
+    if (userAllergy.text == @"")
     {        
         [FlurryAnalytics logEvent:@"'ENTER ALLERGY FIRST' ALERT"];
 
@@ -281,7 +418,7 @@
                 [scanner1 setSymbology: ZBAR_QRCODE config: ZBAR_CFG_ENABLE to: 0];
                 
                 // present and release the controller
-                [self presentModalViewController: navCntrl1 animated: YES];
+                [self presentModalViewController:navCntrl1 animated:YES];
                 
             } 
             else //for debug and if there isnt a camera
@@ -335,9 +472,7 @@
 }
 
 
-
 - (void) showResults: (NSString *) barcode {
-    
     
     NSLog(@"SHOW ME BARCODE %@", barcode);
     
@@ -351,7 +486,6 @@
     [[[UIApplication sharedApplication]delegate].window setRootViewController:resultsNavigationController];
     
     //[self presentModalViewController:resultsViewController animated:YES];
-    
 }
 
 
@@ -367,6 +501,7 @@
 }
 
 
+//TABLE VIEW METHODS 
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)thePickerView
 {
     return 1;

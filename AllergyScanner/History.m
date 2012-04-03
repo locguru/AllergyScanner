@@ -9,6 +9,7 @@
 #import "History.h"
 
 @implementation History
+
 @synthesize tblSimpleTable;
 @synthesize product;
 @synthesize brand;
@@ -18,6 +19,7 @@
 @synthesize productNamesArray;
 @synthesize defaults;
 
+@synthesize delegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -45,15 +47,15 @@
     self.navigationItem.rightBarButtonItem = rightButton;
     
     //TABLE DATA MANAGEMENT 
-    listOfItems = [[NSMutableArray alloc] init];
-    
-    defaults = [NSUserDefaults standardUserDefaults];  //load NSUserDefaults
-    brandsArray = [[NSMutableArray alloc] initWithArray:[defaults arrayForKey:@"brands"]]; 
-    productNamesArray = [[NSMutableArray alloc] initWithArray:[defaults arrayForKey:@"productNames"]];     
-    [listOfItems addObject:brandsArray];
-    [listOfItems addObject:productNamesArray];
-    
-    NSLog(@"listOfItems array %@", listOfItems);
+//    listOfItems = [[NSMutableArray alloc] init];
+//    
+//    defaults = [NSUserDefaults standardUserDefaults];  //load NSUserDefaults
+//    brandsArray = [[NSMutableArray alloc] initWithArray:[defaults arrayForKey:@"brands"]]; 
+//    productNamesArray = [[NSMutableArray alloc] initWithArray:[defaults arrayForKey:@"productNames"]];     
+//    [listOfItems addObject:brandsArray];
+//    [listOfItems addObject:productNamesArray];
+//    
+//    NSLog(@"listOfItems array %@", listOfItems);
     
     //    if ([brandsArray count] == 0 || [productNamesArray count] == 0){
     //        
@@ -62,18 +64,23 @@
     //    }
     //    else
     //    {
-    //CREATING THE TABLE 
-    tblSimpleTable = [[UITableView alloc]  initWithFrame:CGRectMake(0, 0, 320, 420) style:UITableViewStylePlain ];
-    tblSimpleTable.dataSource = self;
-    tblSimpleTable.delegate = self;
-    [self.view addSubview:tblSimpleTable];
-    self.navigationController.title = @"My Location Diary";
-    tblSimpleTable.delegate = self;
-    //   }
-    
-    NSLog(@"NEW PRODUCT IS %@ and NEW BRAND %@", product, brand);
+//    //CREATING THE TABLE 
+//    tblSimpleTable = [[UITableView alloc]  initWithFrame:CGRectMake(0, 0, 320, 420) style:UITableViewStylePlain ];
+//    tblSimpleTable.dataSource = self;
+//    tblSimpleTable.delegate = self;
+//    [self.view addSubview:tblSimpleTable];
+//    self.navigationController.title = @"My Location Diary";
+//    //   }
+//    
+//    NSLog(@"NEW PRODUCT IS %@ and NEW BRAND %@", product, brand);
     
 }
+
+- (void) blabla {
+    
+    NSLog(@"NEW PRODUCT ISand NEW BRAND");
+}
+
 
 - (void)done:(id)sender {
 	[self dismissModalViewControllerAnimated:YES];
@@ -98,10 +105,10 @@
     return [[listOfItems objectAtIndex:section] count];
 }
 
-- (void) printBS {
-    
-    NSLog(@"NEW PRODUCT ISand NEW BRAND");
-}
+//- (void) printBS {
+//    
+//    NSLog(@"NEW PRODUCT ISand NEW BRAND");
+//}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     

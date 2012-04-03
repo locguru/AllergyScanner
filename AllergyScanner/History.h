@@ -11,8 +11,7 @@
 
 @protocol HistoryDelegate  
 @required
-//- (void)setPlacemark:(MKPlacemark *)placemark;
-//- (void) getResults:(NSString *)barcode withMethod:(NSString *)method;
+- (void) printBS;
 @end
 
 
@@ -27,6 +26,8 @@
     NSMutableArray *productNamesArray;
     NSUserDefaults *defaults;
     
+     id <HistoryDelegate> delegate;
+    
 }
 
 @property (nonatomic, retain) IBOutlet UITableView *tblSimpleTable;
@@ -38,8 +39,9 @@
 @property (nonatomic, retain) NSMutableArray *productNamesArray;
 @property (nonatomic, retain) NSUserDefaults *defaults;
 
+@property (nonatomic, retain) id <HistoryDelegate> delegate;
+
+- (void) blabla;
 - (void) addNewItem:(NSString *)newProduct withNewBrand:(NSString *)newBrand;
-- (UITableViewCell *) getCellContentView:(NSString *)cellIdentifier;
-- (void) printBS;
 
 @end

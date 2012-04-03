@@ -7,14 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-
-#import <UIKit/UIKit.h>
 #import <AudioToolbox/AudioServices.h>
 //#import <ScannerKit/ScannerKit.h>
 #import "Results.h"
 #import "ZBarSDK.h"
+#import "Facebook.h"
 
-@interface ViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource, ResultsDelegate, ZBarReaderDelegate> {
+@interface ViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource, ResultsDelegate, ZBarReaderDelegate, FBSessionDelegate, FBRequestDelegate, UIActionSheetDelegate> {
     
     UILabel *_codeInfoLabel;
     UILabel *userAllergy;
@@ -29,6 +28,7 @@
     UISwitch *enableLocalKey;
     NSArray *keyAccessArray;
     
+    Facebook *facebook;
     
 }
 
@@ -43,6 +43,7 @@
 @property (nonatomic, retain) NSString *keyAccess;
 @property (nonatomic, retain) UISwitch *enableLocalKey;
 @property (nonatomic, retain) NSArray *keyAccessArray;
+@property (nonatomic, retain) Facebook *facebook;
 
 - (IBAction)selectAllergy:(id)sender;
 - (IBAction)scan:(id)sender;

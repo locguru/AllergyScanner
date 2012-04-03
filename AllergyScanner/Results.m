@@ -9,7 +9,7 @@
 #import "Results.h"
 #import "JSON.h"
 #import "IngredientsProcessor.h"
-#import "History.h"
+//#import "History.h"
 #import "ServerConnectionController.h"
 #import "ViewController.h"
 #import "FlurryAnalytics.h"
@@ -28,6 +28,8 @@
 @synthesize key;
 @synthesize success;
 @synthesize alert;
+
+@synthesize HistoryMgr;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -174,6 +176,14 @@
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:allergyText, @"allergyText", nil];
     [FlurryAnalytics logEvent:@"ENTERING LOOKUPALLERGY METHOD" withParameters:dictionary];
 
+    
+    
+    HistoryMgr = [[History alloc] init];
+    HistoryMgr.delegate = self;
+    [HistoryMgr blabla];
+    
+    
+    
     
     NSLog(@"BARCODE IS: %@", barcodeLabel);
     
@@ -322,6 +332,8 @@
         }
         else
         {
+            
+
             [self.view addSubview:ingredients];
             [self processIngredients:myArray];
         }
@@ -358,8 +370,6 @@
 
     }
     
-    History *temp = [[History alloc] init];
-    [temp printBS];
 }
 
 - (IBAction) dismissScreen : (id)sender

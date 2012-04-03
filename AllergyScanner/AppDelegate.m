@@ -44,6 +44,10 @@
     return YES;
 }
 
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    return [[_viewController facebook] handleOpenURL:url];
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     /*

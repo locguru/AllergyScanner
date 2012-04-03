@@ -32,7 +32,9 @@
     NSString *success;
     UIAlertView *alert;
     
+    History *HistoryMgr;
 }
+
 @property (nonatomic, retain) UILabel *brand;
 @property (nonatomic, retain) UILabel *description;
 @property (nonatomic, retain) UIButton *dismissResults; 
@@ -45,6 +47,8 @@
 @property (nonatomic, retain) NSString *key;
 @property (nonatomic, retain) NSString *success;
 @property (nonatomic, retain) UIAlertView *alert;
+
+@property (nonatomic, retain) History *HistoryMgr;
 
 - (void) getProductInfo:(id)sender;
 - (void) lookupAlergie:(NSString *)barcodeLabel withMethod:(NSString *) method withAlergy:(NSString *)allergyText;
