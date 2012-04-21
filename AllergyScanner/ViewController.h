@@ -27,6 +27,8 @@
     NSString *keyAccess;
     UISwitch *enableLocalKey;
     NSArray *keyAccessArray;
+    UIImageView *allergyImage;
+    UIImageView *allergyTextImage;
     
     Facebook *facebook;
     
@@ -43,6 +45,8 @@
 @property (nonatomic, retain) NSString *keyAccess;
 @property (nonatomic, retain) UISwitch *enableLocalKey;
 @property (nonatomic, retain) NSArray *keyAccessArray;
+@property (nonatomic, retain) UIImageView *allergyImage;
+@property (nonatomic, retain) UIImageView *allergyTextImage;
 @property (nonatomic, retain) Facebook *facebook;
 
 - (IBAction)selectAllergy:(id)sender;

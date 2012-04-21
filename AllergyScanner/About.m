@@ -39,33 +39,43 @@
     
     //NAV TITLE
     self.navigationItem.title = @"About";
-    
+
     //BACKGROUND COLOR 
-    self.view.backgroundColor = [UIColor brownColor];
-    
+ //   self.view.backgroundColor = [UIColor brownColor];
+    self.view.backgroundColor = [UIColor clearColor];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"brown_back.png"]];
+
     //NAV ITEMS
     UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(done:)];      
     self.navigationItem.rightBarButtonItem = rightButton;
     
     //ADDING FEEDBACK BUTTON
     feedback = [[UIButton alloc] init];
-    feedback = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    feedback = [UIButton buttonWithType:UIButtonTypeCustom];
     [feedback addTarget:self action:@selector(sendFeedback:) forControlEvents:UIControlEventTouchUpInside];
-    feedback.frame = CGRectMake(40, 350, 240, 40);
+    UIImage* myButtonImage3 = [UIImage imageNamed:@"send_feedback_button.png"];    
+    feedback.frame = CGRectMake((320 - myButtonImage3.size.width*0.40)/2, 350, myButtonImage3.size.width*0.4, myButtonImage3.size.height*0.4);
+    [feedback setImage:myButtonImage3 forState:UIControlStateNormal];
+    feedback.contentMode = UIViewContentModeScaleToFill;
+ //   feedback.frame = CGRectMake(40, 350, 240, 40);
     //   feedback.titleLabel.text = @"Click here to scan ingredients";
-    [feedback setTitle:@"Send us feedback!" forState: UIControlStateNormal];
+  //  [feedback setTitle:@"Send us feedback!" forState: UIControlStateNormal];
     //    feedback.titleLabel.font = [UIFont systemFontOfSize:18];
-    feedback.titleLabel.font = [UIFont boldSystemFontOfSize:18];
+    //feedback.titleLabel.font = [UIFont boldSystemFontOfSize:18];
     [self.view addSubview:feedback];    
     
-    
     //TITLE LABEL
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(45, 10, 300, 40)];
-	titleLabel.text = @"Welcome to Allergy Scanner!";
-	titleLabel.backgroundColor = [UIColor clearColor]; // [UIColor brownColor];
-    titleLabel.font = [UIFont systemFontOfSize:18];
-	[self.view addSubview:titleLabel];
+//    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(45, 10, 300, 40)];
+//	titleLabel.text = @"Welcome to Allergy Scanner!";
+//	titleLabel.backgroundColor = [UIColor clearColor]; // [UIColor brownColor];
+//    titleLabel.font = [UIFont systemFontOfSize:18];
+//	[self.view addSubview:titleLabel];
     
+    //IMAGE VIEWS 
+    UIImageView *welcomImage = [[UIImageView alloc] initWithFrame:CGRectMake((320-264)/2, 25, 264, 21)]; 
+    welcomImage.image = [UIImage imageNamed:@"welcome_title.png"];
+    [self.view addSubview: welcomImage];
+
     //DISCLAIMER LABEL
     UILabel *disclaimerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 285, 380)];
 	disclaimerLabel.text = @"Allergy Scanner was created with the purpose of educating and providing information to our users. Though our data is frequently updated, users of this application should not rely exclusively on the information provided. Users are advised to consult with their own healthcare professional and understand that this information should not be interpreted as a medical warning, advice or opinion. \n\nOur application is supported by a third-party database including over 100,000 products. AllergyScanner is not and cannot be held responsible and accountable for the accuracy or content of this database information. Food manufacturers may also change the content of their products at any given time without notice and therefore AllergyScanner cannot be liable for these changes. \n\nAllergyScanner will not be liable for any damage resulting directly or indirectly from the use of this application. The information in this application is presented without any guarantee, expressed or implied.";
@@ -74,6 +84,7 @@
     disclaimerLabel.font = [UIFont systemFontOfSize:12];
     disclaimerLabel.numberOfLines = 0;
     disclaimerLabel.lineBreakMode = UILineBreakModeWordWrap;
+    disclaimerLabel.textColor = [UIColor whiteColor];
     
     //ADDING SCROLL VIEW
     scrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(20, 50, 285, 275)];   

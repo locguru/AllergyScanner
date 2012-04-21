@@ -47,15 +47,15 @@
     self.navigationItem.rightBarButtonItem = rightButton;
     
     //TABLE DATA MANAGEMENT 
-//    listOfItems = [[NSMutableArray alloc] init];
-//    
-//    defaults = [NSUserDefaults standardUserDefaults];  //load NSUserDefaults
-//    brandsArray = [[NSMutableArray alloc] initWithArray:[defaults arrayForKey:@"brands"]]; 
-//    productNamesArray = [[NSMutableArray alloc] initWithArray:[defaults arrayForKey:@"productNames"]];     
-//    [listOfItems addObject:brandsArray];
-//    [listOfItems addObject:productNamesArray];
-//    
-//    NSLog(@"listOfItems array %@", listOfItems);
+    listOfItems = [[NSMutableArray alloc] init];
+    
+    defaults = [NSUserDefaults standardUserDefaults];  //load NSUserDefaults
+    brandsArray = [[NSMutableArray alloc] initWithArray:[defaults arrayForKey:@"brands"]]; 
+    productNamesArray = [[NSMutableArray alloc] initWithArray:[defaults arrayForKey:@"productNames"]];     
+    [listOfItems addObject:brandsArray];
+    [listOfItems addObject:productNamesArray];
+    
+    NSLog(@"listOfItems array %@", listOfItems);
     
     //    if ([brandsArray count] == 0 || [productNamesArray count] == 0){
     //        
@@ -64,15 +64,15 @@
     //    }
     //    else
     //    {
-//    //CREATING THE TABLE 
-//    tblSimpleTable = [[UITableView alloc]  initWithFrame:CGRectMake(0, 0, 320, 420) style:UITableViewStylePlain ];
-//    tblSimpleTable.dataSource = self;
-//    tblSimpleTable.delegate = self;
-//    [self.view addSubview:tblSimpleTable];
-//    self.navigationController.title = @"My Location Diary";
-//    //   }
-//    
-//    NSLog(@"NEW PRODUCT IS %@ and NEW BRAND %@", product, brand);
+    //CREATING THE TABLE 
+    tblSimpleTable = [[UITableView alloc]  initWithFrame:CGRectMake(0, 0, 320, 420) style:UITableViewStylePlain ];
+    tblSimpleTable.dataSource = self;
+    tblSimpleTable.delegate = self;
+    [self.view addSubview:tblSimpleTable];
+    self.navigationController.title = @"My Location Diary";
+    //   }
+    
+    NSLog(@"NEW PRODUCT IS %@ and NEW BRAND %@", product, brand);
     
 }
 
@@ -88,6 +88,16 @@
 
 - (void) addNewItem:(NSString *)newProduct withNewBrand:(NSString *)newBrand {
     
+
+    NSLog(@"newProduct %@", newProduct);
+    NSLog(@"newBrand %@", newBrand);
+
+    [brandsArray addObject:newBrand];
+    [productNamesArray addObject:newProduct];
+
+
+    [tblSimpleTable reloadData];
+
 }
 
 
@@ -97,10 +107,6 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    //    NSDictionary *dictionary = [listOfItems objectAtIndex:section];
-    //    NSArray *array = [dictionary objectForKey:@"Products"];
-    //    return [array count];
     
     return [[listOfItems objectAtIndex:section] count];
 }
@@ -185,23 +191,8 @@
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    
+        
     return UITableViewCellEditingStyleDelete;
-    //    //int sections = listOfItems.count;
-    //    int sections = 1;
-    //    int numrows = [[listOfItems objectAtIndex:(sections-1)] count];
-    //    
-    //    NSLog(@"listOfItems  %@", listOfItems);
-    //     NSLog(@"sections  %d", sections);
-    //     NSLog(@"numrows  %d", numrows);
-    //    
-    //    if (indexPath.section == (sections-1) && indexPath.row == (numrows-1) ) {
-    //        return UITableViewCellEditingStyleInsert;
-    //    } else {
-    //        return UITableViewCellEditingStyleDelete;
-    //    }
-    
 }
 
 - (void)tableView:(UITableView *)aTableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -300,12 +291,9 @@
     return nil;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
-
-{
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     return @"Delete";
-    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

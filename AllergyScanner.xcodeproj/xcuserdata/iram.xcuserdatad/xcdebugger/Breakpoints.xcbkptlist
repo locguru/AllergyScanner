@@ -7,26 +7,13 @@
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "AllergyScanner/Results.m"
-         timestampString = "356706136.766315"
+         filePath = "AllergyScanner/ViewController.m"
+         timestampString = "356577811.162877"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "137"
-         endingLineNumber = "137"
-         landmarkName = "-getProductInfo:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "AllergyScanner/Results.m"
-         timestampString = "356706136.766315"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "125"
-         endingLineNumber = "125"
-         landmarkName = "-viewDidLoad"
+         startingLineNumber = "292"
+         endingLineNumber = "292"
+         landmarkName = "-fbDidLogin"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -34,12 +21,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AllergyScanner/ViewController.m"
-         timestampString = "356490716.699153"
+         timestampString = "356578024.797518"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "364"
-         endingLineNumber = "364"
-         landmarkName = "-selectAllergy:"
+         startingLineNumber = "565"
+         endingLineNumber = "565"
+         landmarkName = "-dismissActionSheet:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -47,12 +34,25 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AllergyScanner/ViewController.m"
-         timestampString = "356660147.179821"
+         timestampString = "356578024.797518"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "512"
-         endingLineNumber = "512"
-         landmarkName = "-scan:"
+         startingLineNumber = "564"
+         endingLineNumber = "564"
+         landmarkName = "-dismissActionSheet:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AllergyScanner/ViewController.m"
+         timestampString = "356578024.797518"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "563"
+         endingLineNumber = "563"
+         landmarkName = "-dismissActionSheet:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

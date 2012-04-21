@@ -57,15 +57,28 @@
     self.navigationItem.title = @"Results";
     
     //BACKGROUND COLOR 
-    self.view.backgroundColor = [UIColor brownColor];
+    //   self.view.backgroundColor = [UIColor brownColor];
+    self.view.backgroundColor = [UIColor clearColor];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"brown_back.png"]];
     
     //ADDING DISMISS BUTTON
     dismissResults = [[UIButton alloc] init];
-    dismissResults = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    dismissResults = [UIButton buttonWithType:UIButtonTypeCustom];
     [dismissResults addTarget:self action:@selector(dismissScreen:) forControlEvents:UIControlEventTouchUpInside];
-    dismissResults.frame = CGRectMake(70, 340, 180, 40.0);
-    [dismissResults setTitle: @"Done" forState: UIControlStateNormal];
+    UIImage* doneImage = [UIImage imageNamed:@"done_button.png"];    
+    dismissResults.frame = CGRectMake((320 - doneImage.size.width/2)/2, 340, doneImage.size.width/2, doneImage.size.height/2);
+    [dismissResults setImage:doneImage forState:UIControlStateNormal];
+    dismissResults.contentMode = UIViewContentModeScaleToFill;
+//    dismissResults.frame = CGRectMake(70, 340, 180, 40.0);
+//    [dismissResults setTitle: @"Done" forState: UIControlStateNormal];
     [self.view addSubview:dismissResults];   
+    
+    //IMAGE VIEWS 
+    UIImageView *resultsImage = [[UIImageView alloc] initWithFrame:CGRectMake((320-340*0.75)/2, 25, 340*0.75, 45*0.75)]; 
+    resultsImage.image = [UIImage imageNamed:@"scanning_results_title.png"];
+    [self.view addSubview: resultsImage];
+
+    
     
     //LABELS AREA
     description = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, 120, 40)];
@@ -105,6 +118,10 @@
     
     success = [[NSString alloc] init];
     alert = [[UIAlertView alloc] init];
+    HistoryMgr = [[History alloc] init];
+    HistoryMgr.delegate = self;
+    [HistoryMgr blabla];
+    [HistoryMgr addNewItem:@"new pro" withNewBrand:@"new brand"];
     [self getProductInfo:nil];
     
 }
@@ -178,10 +195,10 @@
 
     
     
-    HistoryMgr = [[History alloc] init];
-    HistoryMgr.delegate = self;
-    [HistoryMgr blabla];
-    
+//    HistoryMgr = [[History alloc] init];
+//    HistoryMgr.delegate = self;
+//    [HistoryMgr blabla];
+//    
     
     
     

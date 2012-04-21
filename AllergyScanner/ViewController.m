@@ -30,22 +30,52 @@ static NSString* kAppId = @"210437135727485";
 @synthesize keyAccess;
 @synthesize enableLocalKey;
 @synthesize keyAccessArray;
+@synthesize allergyImage;
+@synthesize allergyTextImage;
 @synthesize facebook;
 
 
 #pragma mark - View lifecycle
 
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self)
+    {
+        // this will appear as the title in the navigation bar
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
+        label.backgroundColor = [UIColor clearColor];
+        label.font = [UIFont boldSystemFontOfSize:20.0];
+        label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+        label.textAlignment = UITextAlignmentCenter;
+        label.textColor = [UIColor colorWithRed:170/255.f green:140/255.f blue:90/255.f alpha:1];
+//        label.textColor = [UIColor colorWithRed:191/255.f green:176/255.f blue:137/255.f alpha:1];
+        self.navigationItem.titleView = label;
+        label.text = @"Allergy Scanner";
+        [label sizeToFit];
+    }
+    
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+   
+//    [[UIBarButtonItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+//    [UIColor blackColor], UITextAttributeTextColor, 
+//    nil, UITextAttributeTextShadowColor, 
+//    nil, UITextAttributeTextShadowOffset,
+//    nil, UITextAttributeFont, nil] forState:UIControlStateNormal];
     
-    //VIEW TITLE
+     //VIEW TITLE
     //self.navigationItem.title = @"AllergyScanner";
     self.navigationItem.title= [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"];
-
     
     //BACKGROUND COLOR 
-    self.view.backgroundColor = [UIColor brownColor];
+//    self.view.backgroundColor = [UIColor brownColor];
+    self.view.backgroundColor = [UIColor clearColor];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"allergyscannermainpage.png"]];
     
     //NAV ITEMS
     UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"About" style:UIBarButtonItemStylePlain target:self action:@selector(about:)];      
@@ -54,15 +84,24 @@ static NSString* kAppId = @"210437135727485";
     //NAV ITEMS
 //    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"History" style:UIBarButtonItemStylePlain target:self action:@selector(history:)];      
     UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"Share" style:UIBarButtonItemStylePlain target:self action:@selector(sharingOption:)];      
-
     self.navigationItem.leftBarButtonItem = leftButton;
+
+    //IMAGE VIEWS 
+    UIImageView *searchingImage = [[UIImageView alloc] initWithFrame:CGRectMake((320-233)/2, 115, 233, 55)]; 
+    searchingImage.image = [UIImage imageNamed:@"searching_for.png"];
+    [self.view addSubview: searchingImage];
+
+    UIImageView *barImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 180, 320, 76)]; 
+    barImage.image = [UIImage imageNamed:@"brown_bar.png"];
+    [self.view addSubview: barImage];
+
     
     //LABELS
-    UILabel *myLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 40, 120, 40)];
-	myLabel.text = @"Searching for:";
-	myLabel.backgroundColor = [UIColor clearColor]; // [UIColor brownColor];
-    myLabel.font = [UIFont systemFontOfSize:18];
-	[self.view addSubview:myLabel];
+//    UILabel *myLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 40, 120, 40)];
+//	myLabel.text = @"Searching for:";
+//	myLabel.backgroundColor = [UIColor clearColor]; // [UIColor brownColor];
+//    myLabel.font = [UIFont systemFontOfSize:18];
+//	[self.view addSubview:myLabel];
     
     //INPUT USER LABEL
     userAllergy = [[UILabel alloc] initWithFrame:CGRectMake(170, 40, 120, 40)];
@@ -74,41 +113,43 @@ static NSString* kAppId = @"210437135727485";
     [self.view addSubview:userAllergy];
     
     //BARCODE LABEL
-    inputBarcode = [[UILabel alloc] initWithFrame:CGRectMake(50, 100, 240, 40)];
-    inputBarcode.backgroundColor = [UIColor clearColor]; 
-    inputBarcode.font = [UIFont systemFontOfSize:18];
-    inputBarcode.text = @"Barcode";
-    [self.view addSubview:inputBarcode];
+//    inputBarcode = [[UILabel alloc] initWithFrame:CGRectMake(50, 100, 240, 40)];
+//    inputBarcode.backgroundColor = [UIColor clearColor]; 
+//    inputBarcode.font = [UIFont systemFontOfSize:18];
+//    inputBarcode.text = @"Barcode";
+//    [self.view addSubview:inputBarcode];
     
     
     //ADDING ALLERGY BUTTON
     signin = [[UIButton alloc] init];
-    signin = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    signin = [UIButton buttonWithType:UIButtonTypeCustom];
     [signin addTarget:self action:@selector(selectAllergy:) forControlEvents:UIControlEventTouchUpInside];
-    signin.frame = CGRectMake(40, 210, 240, 50);
-    signin.titleLabel.text = @"Click here to scan ingredients";
-    [signin setTitle: @"1. Select Your Allergy" forState: UIControlStateNormal];
+    UIImage* myButtonImage1 = [UIImage imageNamed:@"select_your_allergy.png"];    
+    signin.frame = CGRectMake((320 - myButtonImage1.size.width/2)/2, 30, myButtonImage1.size.width/2, myButtonImage1.size.height/2);
+//    signin.frame = CGRectMake((320-270.5)/2, 50, 270.5, 48.5);
+//    signin.titleLabel.text = @"Click here to scan ingredients";
+//    [signin setTitle: @"1. Select Your Allergy" forState: UIControlStateNormal];
     //signin.backgroundColor = [UIColor blackColor];
     // signin.titleLabel.textColor = [UIColor colorWithRed:30/255.f green:34/255.f blue:47/255.f alpha:1];
-    //    UIImage* myButtonImage1 = [UIImage imageNamed:@"untitled-3.png"];    
-    //   [signin setBackgroundImage:myButtonImage1 forState:UIControlStateNormal];
-    //  signin.contentMode = UIViewContentModeScaleToFill;
+    [signin setBackgroundImage:myButtonImage1 forState:UIControlStateNormal];
+    signin.contentMode = UIViewContentModeScaleToFill;
     [self.view addSubview:signin];    
     
     //ADDING SCANNER BUTTON
     scanner = [[UIButton alloc] init];
-    scanner = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    scanner = [UIButton buttonWithType:UIButtonTypeCustom];
     [scanner addTarget:self action:@selector(scan:) forControlEvents:UIControlEventTouchUpInside];
-    scanner.frame = CGRectMake(40, 290, 240, 50);
-    scanner.titleLabel.text = @"Click here to scan ingredients";
-    [scanner setTitle: @"2. Scan Product's Barcode" forState: UIControlStateNormal];
+    UIImage* myButtonImage2 = [UIImage imageNamed:@"scan.png"];    
+    scanner.frame = CGRectMake((320 - myButtonImage2.size.width/2)/2, 310, myButtonImage2.size.width/2, myButtonImage2.size.height/2);
+    [scanner setImage:myButtonImage2 forState:UIControlStateNormal];
+    scanner.contentMode = UIViewContentModeScaleToFill;
     [self.view addSubview:scanner];    
     
     //PICKER AREA
     pickerList = [[NSMutableArray alloc] init];
     [pickerList addObject:@"Milk"];
     [pickerList addObject:@"Eggs"];
-    [pickerList addObject:@"Peanut"];
+    [pickerList addObject:@"Peanuts"];
     [pickerList addObject:@"Wheat"];
     [pickerList addObject:@"Shellfish"];
     [pickerList addObject:@"Tree Nut"];
@@ -141,7 +182,17 @@ static NSString* kAppId = @"210437135727485";
         
     //Facebook
     facebook = [[Facebook alloc] initWithAppId:@"210437135727485" andDelegate:self];
+
+    //ADDING ALLERGIES UI
+//    allergyImage = [[UIImageView alloc] initWithFrame:CGRectMake(60, 188, 60, 60)]; 
+//    allergyTextImage = [[UIImageView alloc] initWithFrame:CGRectMake(140, 208, 99, 20.5)]; 
+//    [self.view addSubview: allergyImage];
+//    [self.view addSubview: allergyTextImage];
     
+    allergyImage = [[UIImageView alloc] initWithFrame:CGRectMake(70, 188, 60, 60)]; //(60, 188, 60, 60)
+    allergyTextImage = [[UIImageView alloc] initWithFrame:CGRectMake(140, 208, 99, 20.5)]; //(140, 208, 99, 20.5)
+
+
 }
 
 
@@ -157,7 +208,7 @@ static NSString* kAppId = @"210437135727485";
     [popupQuery showInView:self.view];    
 }
 
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     
 
     if (buttonIndex == 1) //Twitter 
@@ -217,6 +268,25 @@ static NSString* kAppId = @"210437135727485";
     
 }
 
+//- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
+//    
+//}
+//
+//- (void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex {
+//
+//}
+//
+//- (void)actionSheetCancel:(UIActionSheet *)actionSheet {
+//    
+//}
+//
+//- (void)didPresentActionSheet:(UIActionSheet *)actionSheet {
+//    
+//}
+//
+//- (void)willPresentActionSheet:(UIActionSheet *)actionSheet {
+//    
+//}
 
 //FACEBOOK API
 - (void)fbDidLogin {
@@ -268,9 +338,8 @@ static NSString* kAppId = @"210437135727485";
 - (IBAction)about:(id)sender {  
 
     NSLog(@"entering about");
-    
     [FlurryAnalytics logEvent:@"CLICKING 'ABOUT' SECTION"];
-    
+
     About *aboutViewController = [[About alloc] initWithNibName:nil bundle:nil];
     UINavigationController *aboutNavigationController = [[UINavigationController alloc] initWithRootViewController:aboutViewController];
     aboutNavigationController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;    
@@ -322,8 +391,9 @@ static NSString* kAppId = @"210437135727485";
     [actionSheet addSubview:myLabel];    
     [actionSheet showInView:self.view];
     [actionSheet setBounds:CGRectMake(0, 0, 320, 440)];
-    
+
 }
+
 
 
 //Called when the user taps on our "Scan A Barcode" button
@@ -405,7 +475,7 @@ static NSString* kAppId = @"210437135727485";
                 UINavigationController *navCntrl1 = [[UINavigationController alloc] initWithRootViewController:reader];
                 
                 reader.readerDelegate = self;
-                reader.title = @"Scan a Barcode";
+                reader.title = @"Scan Barcode";
                 //    reader.navigationItem.backBarButt  backgroundColor = [UIColor brownColor];
                 reader.supportedOrientationsMask = ZBarOrientationMaskAll;
                 
@@ -416,6 +486,11 @@ static NSString* kAppId = @"210437135727485";
                 [scanner1 setSymbology: ZBAR_I25 config: ZBAR_CFG_ENABLE to: 0];
               //  [scanner1 setSymbology: 0 config: ZBAR_CFG_ENABLE to: 0];
                 [scanner1 setSymbology: ZBAR_QRCODE config: ZBAR_CFG_ENABLE to: 0];
+                
+                UIImageView *overlayImageSymbol = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"symbol2.png"]];
+                [overlayImageSymbol setFrame:CGRectMake((320-95)/2, 220, 95, 95)];
+                [navCntrl1.view addSubview:overlayImageSymbol];
+
                 
                 // present and release the controller
                 [self presentModalViewController:navCntrl1 animated:YES];
@@ -491,40 +566,126 @@ static NSString* kAppId = @"210437135727485";
 
 - (IBAction)dismissActionSheet:(id)sender {  
     
+
+    allergyImage.image = nil; 
+    allergyTextImage.image = nil; 
+    
+    float scalefactor = 0.5;
+    float shiftx = 145.0;
+    
+//    NSLog(@"allergyImage is %@", allergyImage);
+//    NSLog(@"allergyTextImage is %@", allergyTextImage);
+
     NSInteger row = [pickerView selectedRowInComponent:0]; 
     userAllergy.text = [pickerList objectAtIndex:row];
-    [actionSheet dismissWithClickedButtonIndex:0 animated:YES];
     
+    //SAVE USER ALLERGY 
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:userAllergy.text, @"user input allergy", nil];
+    
+    //SHOW IMAGE BASED ON THE ALLERGY SELECTED
+  //  allergyImage = [[UIImageView alloc] initWithFrame:CGRectMake(60, 188, 60, 60)]; 
+ //   UIImage *tempUIImage = [[UIImage alloc] init];
+    
+    if (userAllergy.text == @"Milk"){
+        allergyImage.image = [UIImage imageNamed:@"icon_milk.png"];
+        
+        UIImage *image1 = [UIImage imageNamed:@"milk.png"];
+        allergyTextImage = [[UIImageView alloc] initWithFrame:CGRectMake(shiftx, 180 + (76-scalefactor*image1.size.height)/2, scalefactor*image1.size.width, scalefactor*image1.size.height)]; //(140, 208, 99, 20.5)
+        allergyTextImage.image = [UIImage imageNamed:@"milk.png"];
+    }
+    else if (userAllergy.text == @"Eggs"){
+        allergyImage.image = [UIImage imageNamed:@"icon_eggs.png"];
+        UIImage *image1 = [UIImage imageNamed:@"eggs.png"];
+        allergyTextImage = [[UIImageView alloc] initWithFrame:CGRectMake(shiftx, 180 + (76-scalefactor*image1.size.height)/2, scalefactor*image1.size.width, scalefactor*image1.size.height)]; //(140, 208, 99, 20.5)
+        allergyTextImage.image = [UIImage imageNamed:@"eggs.png"];
+    }
+    else if (userAllergy.text == @"Peanuts"){
+        allergyImage.image = [UIImage imageNamed:@"icon_peanut.png"];
+        UIImage *image1 = [UIImage imageNamed:@"peanuts.png"];
+
+        allergyTextImage = [[UIImageView alloc] initWithFrame:CGRectMake(shiftx, 180 + (76-scalefactor*image1.size.height)/2, scalefactor*image1.size.width, scalefactor*image1.size.height)]; //(140, 208, 99, 20.5)
+        allergyTextImage.image = [UIImage imageNamed:@"peanuts.png"];
+    }
+    else if (userAllergy.text == @"Wheat"){
+        allergyImage.image = [UIImage imageNamed:@"icon_wheat.png"];
+        UIImage *image1 = [UIImage imageNamed:@"wheat.png"];
+        
+        allergyTextImage = [[UIImageView alloc] initWithFrame:CGRectMake(shiftx, 180 + (76-scalefactor*image1.size.height)/2, scalefactor*image1.size.width, scalefactor*image1.size.height)]; //(140, 208, 99, 20.5)
+        allergyTextImage.image = [UIImage imageNamed:@"wheat.png"];
+    }
+    else if (userAllergy.text == @"Shellfish"){
+        allergyImage.image = [UIImage imageNamed:@"icon_shellfish.png"];
+        UIImage *image1 = [UIImage imageNamed:@"shellfish.png"];
+        
+        allergyTextImage = [[UIImageView alloc] initWithFrame:CGRectMake(shiftx, 180 + (76-scalefactor*image1.size.height)/2, scalefactor*image1.size.width, scalefactor*image1.size.height)]; //(140, 208, 99, 20.5)
+        allergyTextImage.image = [UIImage imageNamed:@"shellfish.png"];
+    }
+    else if (userAllergy.text == @"Tree Nut"){
+        allergyImage.image = [UIImage imageNamed:@"icon_treenut.png"];
+        UIImage *image1 = [UIImage imageNamed:@"tree_nut.png"];
+        
+        allergyTextImage = [[UIImageView alloc] initWithFrame:CGRectMake(shiftx, 180 + (76-scalefactor*image1.size.height)/2, scalefactor*image1.size.width, scalefactor*image1.size.height)]; //(140, 208, 99, 20.5)
+        allergyTextImage.image = [UIImage imageNamed:@"tree_nut.png"];
+    }
+    else if (userAllergy.text == @"Corn"){
+        allergyImage.image = [UIImage imageNamed:@"icon_corn.png"];
+        UIImage *image1 = [UIImage imageNamed:@"corn.png"];
+        
+        allergyTextImage = [[UIImageView alloc] initWithFrame:CGRectMake(shiftx, 180 + (76-scalefactor*image1.size.height)/2, scalefactor*image1.size.width, scalefactor*image1.size.height)]; //(140, 208, 99, 20.5)
+        allergyTextImage.image = [UIImage imageNamed:@"corn.png"];
+    }
+    else if (userAllergy.text == @"Soy"){
+        allergyImage.image = [UIImage imageNamed:@"icon_soy.png"];
+        UIImage *image1 = [UIImage imageNamed:@"soy.png"];
+        
+        allergyTextImage = [[UIImageView alloc] initWithFrame:CGRectMake(shiftx, 180 + (76-scalefactor*image1.size.height)/2, scalefactor*image1.size.width, scalefactor*image1.size.height)]; //(140, 208, 99, 20.5)
+        allergyTextImage.image = [UIImage imageNamed:@"soy.png"];
+    }
+    else
+        NSLog (@"No image provided");
+    
+ //   allergyTextImage.image = tempUIImage;
+
+    [self.view addSubview: allergyImage];
+    [self.view addSubview: allergyTextImage];
+    
+    //FLURRY ZOME
     [FlurryAnalytics logEvent:@"DISMISS ALLERGIES ACTION SHEET AND SEND USER ALLERGY" withParameters:dictionary];
+//    allergyImage.image = nil;
+//    allergyTextImage.image = nil;
+    [actionSheet dismissWithClickedButtonIndex:0 animated:YES];
+//    NSLog(@"allergyImage is %@", allergyImage);
+//    NSLog(@"allergyTextImage is %@", allergyTextImage);
 
 }
 
+//PICKERVIEW METHODS 
+- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component {
+    return 40;
+}
 
-//TABLE VIEW METHODS 
--(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)thePickerView
-{
+- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
+    return 200;
+}
+
+-(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)thePickerView{
     return 1;
 }
 
-
--(NSInteger)pickerView:(UIPickerView *)thePickerView numberOfRowsInComponent:(NSInteger)component
-{
+-(NSInteger)pickerView:(UIPickerView *)thePickerView numberOfRowsInComponent:(NSInteger)component{
     return [pickerList count];
 }
 
-
--(NSString *)pickerView:(UIPickerView *)thePickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
-{
+-(NSString *)pickerView:(UIPickerView *)thePickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
     return [pickerList objectAtIndex:row];
 }
 
-
--(void)pickerView:(UIPickerView *)thePickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
-{
+-(void)pickerView:(UIPickerView *)thePickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
     NSLog(@"Selected item: %@ index of selected item: %i", [pickerList objectAtIndex:row], row);
-}
+//    allergyImage.image = nil;
+//    allergyTextImage.image = nil;
 
+}
 
 
 //- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
