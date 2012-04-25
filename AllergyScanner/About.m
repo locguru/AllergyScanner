@@ -18,6 +18,19 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        
+        // this will appear as the title in the navigation bar
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
+        label.backgroundColor = [UIColor clearColor];
+        label.font = [UIFont boldSystemFontOfSize:20.0];
+        label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+        label.textAlignment = UITextAlignmentCenter;
+        label.textColor = [UIColor colorWithRed:170/255.f green:140/255.f blue:90/255.f alpha:1];
+        //        label.textColor = [UIColor colorWithRed:191/255.f green:176/255.f blue:137/255.f alpha:1];
+        self.navigationItem.titleView = label;
+        label.text = @"About";
+        [label sizeToFit];
+
     }
     return self;
 }
@@ -38,12 +51,12 @@
     // Do any additional setup after loading the view from its nib.
     
     //NAV TITLE
-    self.navigationItem.title = @"About";
+   // self.navigationItem.title = @"About";
 
     //BACKGROUND COLOR 
  //   self.view.backgroundColor = [UIColor brownColor];
     self.view.backgroundColor = [UIColor clearColor];
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"brown_back.png"]];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"back2.png"]];
 
     //NAV ITEMS
     UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(done:)];      
@@ -54,7 +67,7 @@
     feedback = [UIButton buttonWithType:UIButtonTypeCustom];
     [feedback addTarget:self action:@selector(sendFeedback:) forControlEvents:UIControlEventTouchUpInside];
     UIImage* myButtonImage3 = [UIImage imageNamed:@"send_feedback_button.png"];    
-    feedback.frame = CGRectMake((320 - myButtonImage3.size.width*0.40)/2, 350, myButtonImage3.size.width*0.4, myButtonImage3.size.height*0.4);
+    feedback.frame = CGRectMake((320 - 0.8*myButtonImage3.size.width)/2, 350, 0.8*myButtonImage3.size.width, 0.8*myButtonImage3.size.height);
     [feedback setImage:myButtonImage3 forState:UIControlStateNormal];
     feedback.contentMode = UIViewContentModeScaleToFill;
  //   feedback.frame = CGRectMake(40, 350, 240, 40);
@@ -72,7 +85,8 @@
 //	[self.view addSubview:titleLabel];
     
     //IMAGE VIEWS 
-    UIImageView *welcomImage = [[UIImageView alloc] initWithFrame:CGRectMake((320-264)/2, 25, 264, 21)]; 
+    UIImage* welcomImageFile = [UIImage imageNamed:@"welcome_title.png"];    
+    UIImageView *welcomImage = [[UIImageView alloc] initWithFrame:CGRectMake((320-welcomImageFile.size.width)/2, 25, welcomImageFile.size.width, welcomImageFile.size.height)]; 
     welcomImage.image = [UIImage imageNamed:@"welcome_title.png"];
     [self.view addSubview: welcomImage];
 
@@ -145,10 +159,10 @@
     // e.g. self.myOutlet = nil;
 }
 
-//- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-//{
-//    // Return YES for supported orientations
-//    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-//}
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    // Return YES for supported orientations
+    return interfaceOrientation == UIInterfaceOrientationPortrait || interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown ;
+}
+
 
 @end

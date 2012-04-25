@@ -14,6 +14,7 @@
 #import "ServerConnectionController.h"
 #import "FlurryAnalytics.h"
 #import <Twitter/Twitter.h>
+#import "ProductDataBaseEngine.h"
 
 static NSString* kAppId = @"210437135727485";
 
@@ -74,8 +75,16 @@ static NSString* kAppId = @"210437135727485";
     
     //BACKGROUND COLOR 
 //    self.view.backgroundColor = [UIColor brownColor];
-    self.view.backgroundColor = [UIColor clearColor];
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"allergyscannermainpage.png"]];
+//    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"allergyscannermainpage.png"]];
+    
+//    self.view.backgroundColor = [UIColor clearColor];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"brown_back.png"]];
+//    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"back2.png"]];
+//    
+    
+//    UIColor *background = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"back2.png"]];
+//    self.view.backgroundColor = background;
+
     
     //NAV ITEMS
     UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"About" style:UIBarButtonItemStylePlain target:self action:@selector(about:)];      
@@ -87,21 +96,36 @@ static NSString* kAppId = @"210437135727485";
     self.navigationItem.leftBarButtonItem = leftButton;
 
     //IMAGE VIEWS 
-    UIImageView *searchingImage = [[UIImageView alloc] initWithFrame:CGRectMake((320-233)/2, 115, 233, 55)]; 
+    
+    UIImage* searchingImageFile = [UIImage imageNamed:@"searching_for.png"];    
+    UIImageView *searchingImage = [[UIImageView alloc] initWithFrame:CGRectMake((320 - searchingImageFile.size.width)/2, 115, searchingImageFile.size.width, searchingImageFile.size.height)]; 
+//    UIImageView *searchingImage = [[UIImageView alloc] initWithFrame:CGRectMake((320-233)/2, 115, 233, 55)]; 
     searchingImage.image = [UIImage imageNamed:@"searching_for.png"];
     [self.view addSubview: searchingImage];
-
-    UIImageView *barImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 180, 320, 76)]; 
+    
+    UIImage* barImageFile = [UIImage imageNamed:@"brown_bar.png"];    
+    UIImageView *barImage = [[UIImageView alloc] initWithFrame:CGRectMake((320 - barImageFile.size.width)/2, 180, barImageFile.size.width, barImageFile.size.height)]; 
+//    UIImageView *barImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 180, 320, 76)]; 
     barImage.image = [UIImage imageNamed:@"brown_bar.png"];
     [self.view addSubview: barImage];
 
     
     //LABELS
-//    UILabel *myLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 40, 120, 40)];
-//	myLabel.text = @"Searching for:";
+    
+//    UIImageView *overlayImageSymbol = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"symbol4.png"]];
+//    [overlayImageSymbol setFrame:CGRectMake((320-0.75*overlayImageSymbol.image.size.width)/2, 120, 0.75*overlayImageSymbol.image.size.width, 0.75*overlayImageSymbol.image.size.height)];
+//    [self.view addSubview:overlayImageSymbol];
+//
+//    UILabel *myLabel = [[UILabel alloc] initWithFrame:CGRectMake(40, 140, 240, 40)];
+//	myLabel.text = @"Center the barcode between the two lines to achieve quick scanning";
+//    myLabel.textColor = [UIColor whiteColor];
 //	myLabel.backgroundColor = [UIColor clearColor]; // [UIColor brownColor];
-//    myLabel.font = [UIFont systemFontOfSize:18];
+//    myLabel.font = [UIFont systemFontOfSize:14];
+//    myLabel.numberOfLines = 0;
+//    myLabel.lineBreakMode = UILineBreakModeWordWrap;
+//    [myLabel setTextAlignment:UITextAlignmentCenter];
 //	[self.view addSubview:myLabel];
+
     
     //INPUT USER LABEL
     userAllergy = [[UILabel alloc] initWithFrame:CGRectMake(170, 40, 120, 40)];
@@ -125,7 +149,7 @@ static NSString* kAppId = @"210437135727485";
     signin = [UIButton buttonWithType:UIButtonTypeCustom];
     [signin addTarget:self action:@selector(selectAllergy:) forControlEvents:UIControlEventTouchUpInside];
     UIImage* myButtonImage1 = [UIImage imageNamed:@"select_your_allergy.png"];    
-    signin.frame = CGRectMake((320 - myButtonImage1.size.width/2)/2, 30, myButtonImage1.size.width/2, myButtonImage1.size.height/2);
+    signin.frame = CGRectMake((320 - myButtonImage1.size.width)/2, 30, myButtonImage1.size.width, myButtonImage1.size.height);
 //    signin.frame = CGRectMake((320-270.5)/2, 50, 270.5, 48.5);
 //    signin.titleLabel.text = @"Click here to scan ingredients";
 //    [signin setTitle: @"1. Select Your Allergy" forState: UIControlStateNormal];
@@ -140,7 +164,7 @@ static NSString* kAppId = @"210437135727485";
     scanner = [UIButton buttonWithType:UIButtonTypeCustom];
     [scanner addTarget:self action:@selector(scan:) forControlEvents:UIControlEventTouchUpInside];
     UIImage* myButtonImage2 = [UIImage imageNamed:@"scan.png"];    
-    scanner.frame = CGRectMake((320 - myButtonImage2.size.width/2)/2, 310, myButtonImage2.size.width/2, myButtonImage2.size.height/2);
+    scanner.frame = CGRectMake((320 - myButtonImage2.size.width)/2, 310, myButtonImage2.size.width, myButtonImage2.size.height);
     [scanner setImage:myButtonImage2 forState:UIControlStateNormal];
     scanner.contentMode = UIViewContentModeScaleToFill;
     [self.view addSubview:scanner];    
@@ -155,6 +179,7 @@ static NSString* kAppId = @"210437135727485";
     [pickerList addObject:@"Tree Nut"];
     [pickerList addObject:@"Corn"];
     [pickerList addObject:@"Soy"];
+    [pickerList addObject:@"Fish"];
     
     //DEBUG SWITCH 
     enableLocalKey = [[UISwitch alloc] initWithFrame:CGRectMake(220, 360, 0, 40)];
@@ -228,7 +253,7 @@ static NSString* kAppId = @"210437135727485";
         else    
         {
             TWTweetComposeViewController *twitter = [[TWTweetComposeViewController alloc] init];
-            [twitter setInitialText:@"Enjoying using @Delengo recent app - AllergyScanner, what a great application! #iphone #appstore"];
+            [twitter setInitialText:@"Enjoying using @Delengo recent great app - AllergyScanner. Check it out! http://itunes.apple.com/us/app/allergy-scanner/id519416166?ls=1&mt=8 #iphone #appstore"];
             [self presentModalViewController:twitter animated:YES];
             
             // Called when the tweet dialog has been closed
@@ -256,6 +281,9 @@ static NSString* kAppId = @"210437135727485";
     else if (buttonIndex == 0) //Facebook
     {
         
+//        UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Allergy Scanner" message:@"Click OK to share Allergy Scanner on your Facebook wall" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Ok"];
+//        [alertView show];
+
         [FlurryAnalytics logEvent:@"POSTING ON FACEBOOK"];
         
         NSLog(@"entering POSTING ON FACEBOOK");
@@ -401,61 +429,18 @@ static NSString* kAppId = @"210437135727485";
     
     [FlurryAnalytics logEvent:@"CLICKING 'SCAN BARCODE' BUTTON"];
 
-     NSLog(@"userAllergy.text is %@", userAllergy.text);
+//     NSLog(@"userAllergy.text is %@", userAllergy.text);
     
-    //First check if the user selected an allergy to scan for
-    if (userAllergy.text == @"")
-    {        
-        [FlurryAnalytics logEvent:@"'ENTER ALLERGY FIRST' ALERT"];
-
-        UIAlertView *selectAlert = [[UIAlertView alloc] initWithTitle:@"Error" 
-                                                              message:@"Please select an allergy first"
-                                                             delegate:self 
-                                                    cancelButtonTitle:nil 
-                                                    otherButtonTitles:@"Ok", nil];
-        
-        [selectAlert show];
-        
-    }
-    else
+    //First check if the device has a camera
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) 
     {
-        
-        //RETREIVING ACCESS KEY FROM THE WEB SERVER / LOCALLY 
-        //if (enableLocalKey.on)
-        if(0)
-        {
-            NSLog(@"switch is on - using local key");
-            keyAccess = @"vaovqQqM4MHEXviNlTt5qp7ZBLva3lM";
-        }
-        else
-        {
-            NSLog(@"switch is off - using key from server");
-            ServerConnectionController *serverConnectionObject = [[ServerConnectionController alloc] init];
-            [serverConnectionObject retreiveAccessKey:nil];
-            keyAccess = [[NSString alloc] initWithFormat:serverConnectionObject.accessKey];
-            keyAccessArray = [[NSArray alloc] initWithArray:serverConnectionObject.accessKeyArray];
-            
-            NSLog(@"keyAccess is %@", keyAccess);
-            NSLog(@"keyAccessArray is %@", keyAccessArray);
-        }
-        
-        NSLog(@"[keyAccess length] is %d", [keyAccess length]);
-        
-        //    NSString *sub = [[NSString alloc] initWithFormat:@"ERR"];
-        //    NSString *results = [[NSString alloc] init];
-        //    results = [keyAccess substringWithRange:[keyAccess rangeOfString:sub]];
-        //    NSLog(@"results is %@", results);
-        
-        
-        
-        
-        //CHECKING IF THE KEY IS VALID
-        if ([keyAccess length] < 5 )
-        {
-            [FlurryAnalytics logEvent:@"KEY IS NOT VALID, LESS THAN 5 CHARATECTERS"];
+        //Check if the user selected an allergy to scan for
+        if (userAllergy.text == @"")
+        {        
+            [FlurryAnalytics logEvent:@"'ENTER ALLERGY FIRST' ALERT"];
 
-            UIAlertView *selectAlert = [[UIAlertView alloc] initWithTitle:@"AllergyScanner" 
-                                                                  message:@"Service unavailable. Please try again later."
+            UIAlertView *selectAlert = [[UIAlertView alloc] initWithTitle:@"Error" 
+                                                                  message:@"Please select an allergy first"
                                                                  delegate:self 
                                                         cancelButtonTitle:nil 
                                                         otherButtonTitles:@"Ok", nil];
@@ -463,57 +448,160 @@ static NSString* kAppId = @"210437135727485";
             [selectAlert show];
             
         }
-        else //Key is valid
+        else
         {
             
-            if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) 
+            //RETREIVING ACCESS KEY FROM THE WEB SERVER / LOCALLY 
+            //if (enableLocalKey.on)
+            if(0)
             {
-                [FlurryAnalytics logEvent:@"SCANNING PROPERLY"];
+            //    NSLog(@"switch is on - using local key");
+                keyAccess = @"FEW9sSVjaHhZux2oRuQ7wlK4xt1D3d0e";
+            }
+            else
+            {
+//                NSLog(@"switch is off - using key from server");
+                ServerConnectionController *serverConnectionObject = [[ServerConnectionController alloc] init];
+                [serverConnectionObject retreiveAccessKey:nil];
+                keyAccess = [[NSString alloc] initWithFormat:serverConnectionObject.accessKey];
+                keyAccessArray = [[NSArray alloc] initWithArray:serverConnectionObject.accessKeyArray];
+                
+//                NSLog(@"keyAccess is %@", keyAccess);
+//                NSLog(@"keyAccessArray is %@", keyAccessArray);
+            }
+            
+//            NSLog(@"[keyAccess length] is %d", [keyAccess length]);
+            
+            //    NSString *sub = [[NSString alloc] initWithFormat:@"ERR"];
+            //    NSString *results = [[NSString alloc] init];
+            //    results = [keyAccess substringWithRange:[keyAccess rangeOfString:sub]];
+            //    NSLog(@"results is %@", results);
+            
+            
+            
+            
+            //CHECKING IF THE KEY IS VALID
+            if ([keyAccess length] < 5 )
+            {
+                [FlurryAnalytics logEvent:@"KEY IS NOT VALID, LESS THAN 5 CHARATECTERS"];
 
-                // ADD: present a barcode reader that scans from the camera feed
-                ZBarReaderViewController *reader = [ZBarReaderViewController new];
-                UINavigationController *navCntrl1 = [[UINavigationController alloc] initWithRootViewController:reader];
+                UIAlertView *selectAlert = [[UIAlertView alloc] initWithTitle:@"AllergyScanner" 
+                                                                      message:@"Service unavailable. Please try again later."
+                                                                     delegate:self 
+                                                            cancelButtonTitle:nil 
+                                                            otherButtonTitles:@"Ok", nil];
                 
-                reader.readerDelegate = self;
-                reader.title = @"Scan Barcode";
-                //    reader.navigationItem.backBarButt  backgroundColor = [UIColor brownColor];
-                reader.supportedOrientationsMask = ZBarOrientationMaskAll;
+                [selectAlert show];
                 
-                ZBarImageScanner *scanner1 = reader.scanner;
-                // TODO: (optional) additional reader configuration here
+            }
+            else //Key is valid
+            {
                 
-                // EXAMPLE: disable rarely used I2/5 to improve performance
-                [scanner1 setSymbology: ZBAR_I25 config: ZBAR_CFG_ENABLE to: 0];
-              //  [scanner1 setSymbology: 0 config: ZBAR_CFG_ENABLE to: 0];
-                [scanner1 setSymbology: ZBAR_QRCODE config: ZBAR_CFG_ENABLE to: 0];
-                
-                UIImageView *overlayImageSymbol = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"symbol2.png"]];
-                [overlayImageSymbol setFrame:CGRectMake((320-95)/2, 220, 95, 95)];
-                [navCntrl1.view addSubview:overlayImageSymbol];
+                if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) 
+                {
+                    [FlurryAnalytics logEvent:@"SCANNING PROPERLY"];
 
-                
-                // present and release the controller
-                [self presentModalViewController:navCntrl1 animated:YES];
-                
-            } 
-            else //for debug and if there isnt a camera
-            {  
-                [FlurryAnalytics logEvent:@"DEBUG MODE - CAMERA IS NOT AVAILABLE IN THE DEVICE"];
+                    
+                    
+        //                ZBarReaderViewController *reader = [ZBarReaderViewController new];
+        //                reader.readerDelegate = self;
+        //                reader.supportedOrientationsMask = ZBarOrientationMaskAll;
+        //                
+        //                ZBarImageScanner *scanner3 = reader.scanner;
+        //                // TODO: (optional) additional reader configuration here
+        //                
+        //                // EXAMPLE: disable rarely used I2/5 to improve performance
+        //                [scanner3 setSymbology: ZBAR_I25
+        //                               config: ZBAR_CFG_ENABLE
+        //                                   to: 0];
+        //                
+        //                // present and release the controller
+        //                [self presentModalViewController: reader animated: YES];
 
-                NSString *temp = [[NSString alloc] init];
-                //temp = @"073731001059";
-                //temp = @"036632026071"; //missing ingredients 
-                temp = @"041196891072"; //bread crumps - full info
-                inputBarcode.text = temp;
-                [self showResults:temp];
-                
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Allergy Scanner" message:@"This device doesn't support barcode recognition (camera is not available). The application will be using a test barcode" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                
-                [alertView show];
+                    
+                    
+                    
+                    // ADD: present a barcode reader that scans from the camera feed
+                    ZBarReaderViewController *reader = [ZBarReaderViewController new];
+                    UINavigationController *navCntrl1 = [[UINavigationController alloc] initWithRootViewController:reader];
+                    
+                    reader.readerDelegate = self;
+                    reader.title = @"Scan Barcode";
+                    //    reader.navigationItem.backBarButt  backgroundColor = [UIColor brownColor];
+                    reader.supportedOrientationsMask = ZBarOrientationMaskAll;
+                    
+                    ZBarImageScanner *scanner1 = reader.scanner;
+                    // TODO: (optional) additional reader configuration here
+                    
+                    // EXAMPLE: disable rarely used I2/5 to improve performance
+                    [scanner1 setSymbology: ZBAR_I25 config: ZBAR_CFG_ENABLE to: 0];
+                  //  [scanner1 setSymbology: 0 config: ZBAR_CFG_ENABLE to: 0];
+                    [scanner1 setSymbology: ZBAR_QRCODE config: ZBAR_CFG_ENABLE to: 0];
+                    
+        //                UIImageView *overlayImageSymbol = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"symbol2.png"]];
+        //                [overlayImageSymbol setFrame:CGRectMake((320-95)/2, 220, 95, 95)];
+        //                [navCntrl1.view addSubview:overlayImageSymbol];
+
+
+                    UIImageView *overlayImageSymbol = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"symbol4.png"]];
+                    [overlayImageSymbol setFrame:CGRectMake((320-0.75*overlayImageSymbol.image.size.width)/2, 120, 0.75*overlayImageSymbol.image.size.width, 0.75*overlayImageSymbol.image.size.height)];
+                    [navCntrl1.view addSubview:overlayImageSymbol];
+                    
+                    UILabel *myLabel = [[UILabel alloc] initWithFrame:CGRectMake(40, 140, 240, 40)];
+                    myLabel.text = @"Center the barcode between the two lines to achieve quick scanning";
+                    myLabel.textColor = [UIColor whiteColor];
+                    myLabel.backgroundColor = [UIColor clearColor]; // [UIColor brownColor];
+                    myLabel.font = [UIFont systemFontOfSize:14];
+                    myLabel.numberOfLines = 0;
+                    myLabel.lineBreakMode = UILineBreakModeWordWrap;
+                    [myLabel setTextAlignment:UITextAlignmentCenter];
+                    [navCntrl1.view addSubview:myLabel];
+
+
+                    // present and release the controller
+                    //[self removeFromParentViewController];
+                    [self presentModalViewController:navCntrl1 animated:YES];
+
+                    
+                } 
+                else //for debug and if there isnt a camera
+                {  
+                    [FlurryAnalytics logEvent:@"DEBUG MODE - CAMERA IS NOT AVAILABLE IN THE DEVICE"];
+
+                    NSString *temp = [[NSString alloc] init];
+                    //temp = @"073731001059";
+                    //temp = @"036632026071"; //missing ingredients 
+                    temp = @"041196891072"; //bread crumps - full info
+                    inputBarcode.text = temp;
+                    [self showResults:temp];
+                    
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Allergy Scanner" message:@"This device doesn't support barcode recognition (camera is not available). The application will be using a test barcode" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                    
+                    [alertView show];
+                }
             }
         }
     }
-    
+    //NO CAMERA AND SIMULATOR CASE
+    else 
+    {
+
+        NSString *temp = [[NSString alloc] init];
+        keyAccess = @"FEW9sSVjaHhZux2oRuQ7wlK4xt1D3d0e";
+        temp = @"041196891072"; //041196891072 //9314458008732 //646422101002
+        inputBarcode.text = temp;
+        [self showResults:temp];
+
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Allergy Scanner" 
+                                                        message:@"Your device doesn't have a camera and can't be used to scan barcodes"
+                                                       delegate:self 
+                                              cancelButtonTitle:@"Dismiss" 
+                                              otherButtonTitles:nil ,nil];
+        [alert show];
+        
+    }
+
 }
 
 
@@ -527,17 +615,23 @@ static NSString* kAppId = @"210437135727485";
         // EXAMPLE: just grab the first barcode
         break;
     
-    // EXAMPLE: do something useful with the barcode data
     //resultText.text = symbol.data;
-    NSLog(@"symbol.data is %@", symbol.data);
+//    NSLog(@"symbol.data is %@", symbol.data);
     
-    // EXAMPLE: do something useful with the barcode image
- //   resultImage.image = [info objectForKey: UIImagePickerControllerOriginalImage];
+    //charind - character index
+	//sourceString - your source string
+	
+	NSString *newString = [[NSString alloc] init];
     
-    // ADD: dismiss the controller (NB dismiss from the *reader*!)
-    [reader dismissModalViewControllerAnimated: YES];
+    newString = [symbol.data stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:@""];
+
+//    NSLog(@"sourceString is %@", newString);
+
     
-    [self showResults:symbol.data];
+    [self dismissModalViewControllerAnimated: YES];
+    
+   // [self showResults:symbol.data];
+     [self showResults:newString];
     
 }
 
@@ -549,18 +643,130 @@ static NSString* kAppId = @"210437135727485";
 
 - (void) showResults: (NSString *) barcode {
     
-    NSLog(@"SHOW ME BARCODE %@", barcode);
+//    NSLog(@"SHOW ME BARCODE %@", barcode);
+//    NSLog(@"SHOW ME keyAccess %@", keyAccess);
+
     
-    Results *resultsViewController = [[Results alloc] initWithNibName:nil bundle:nil];
-    resultsViewController.tempBarcode = barcode;
-    resultsViewController.userAllergyText = userAllergy.text;
-    resultsViewController.key = keyAccess;
+    ProductDataBaseEngine *dbEngine = [[ProductDataBaseEngine alloc] init];
+    dbEngine.engineKey = keyAccess;
+    dbEngine.engineMethod = @"FetchNutritionFactsByUPC"; 
+    dbEngine.engineBarcode = barcode;
+
+    //CALLING FetchNutritionFactsByUPC TO RETREIVE INGREDIENTS
+    [dbEngine productDataBaseEngine];
     
-    UINavigationController *resultsNavigationController = [[UINavigationController alloc] initWithRootViewController:resultsViewController];
-    resultsNavigationController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-    [[[UIApplication sharedApplication]delegate].window setRootViewController:resultsNavigationController];
+    NSDictionary *myDict = [[NSDictionary alloc] init];
+    myDict = [dbEngine.engingJsonDict valueForKey:@"result"];
+    NSString *ingredientsArray = [myDict valueForKeyPath:@"ingredients"];
+
+    dbEngine.engineMethod = @"FetchProductByUPC"; 
+
+    //CALLING FetchProductByUPC TO RETREIVE GENERAL INFO
+    [dbEngine productDataBaseEngine];
+
+    myDict = [dbEngine.engingJsonDict valueForKey:@"result"];
+    NSString *tempProductDescription = [[NSString alloc] init];
+    tempProductDescription= [myDict valueForKey:@"description"];
+
     
-    //[self presentModalViewController:resultsViewController animated:YES];
+    NSLog(@"dbEngine.json_dict is %@", dbEngine.engingJsonDict);
+    NSLog(@"tempProductDescription is %@", tempProductDescription);
+    NSLog(@"[tempProductDescription length] is %d", [tempProductDescription length]);
+    NSLog(@"success is %@", [dbEngine.engingJsonDict valueForKey:@"success"]);
+    NSLog(@"ingredients is %@", ingredientsArray);
+    NSLog(@"ingredients is %d", [ingredientsArray length]);
+
+    int num; // = [[NSString alloc] init];
+    num = [[dbEngine.engingJsonDict valueForKey:@"success"] intValue];
+//    NSLog(@"numbeer is %d", num);
+    NSString *errorDict = [[NSString alloc] init];
+    NSString *errorCode = [[NSString alloc] init];
+    errorDict = [dbEngine.engingJsonDict valueForKey:@"error"];
+    errorCode = [errorDict valueForKey:@"code"];
+  //  errorCode = [errorCode valueForKey:@"code"];
+//    NSLog(@"errorDict is %@", errorDict);
+//   NSLog(@"errorCode is %@", errorCode);
+
+    //ERROR CASES
+    if (num == 0) 
+    {
+         if ([errorCode isEqualToString:@"4002"])
+         {
+             [FlurryAnalytics logEvent:@"ERROR 4002 - UPC NOT VALID"];
+             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"AllergyScanner" 
+                                                             message:@"The barcode you scanned is not valid"
+                                                            delegate:self 
+                                                   cancelButtonTitle:nil 
+                                                   otherButtonTitles:@"Ok", nil];
+             [alert show];
+
+         }
+         else if ([errorCode isEqualToString:@"4004"])
+         {
+             [FlurryAnalytics logEvent:@"ERROR 4004 - PRODUCT NOT FOUND IN DB"];
+              UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"AllergyScanner" 
+                                                                message:@"This product was not found in our database"
+                                                               delegate:self 
+                                                      cancelButtonTitle:nil 
+                                                      otherButtonTitles:@"Ok", nil];
+              [alert show];
+                
+         }
+         else 
+         {
+             [FlurryAnalytics logEvent:@"ERROR 400X - UNKNOWN ERROR"];
+             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"AllergyScanner" 
+                                                             message:@"Service unavailable. Please try again later."
+                                                            delegate:self 
+                                                   cancelButtonTitle:nil 
+                                                   otherButtonTitles:@"Ok", nil];
+             [alert show];
+            
+          }
+    }
+    else if ([ingredientsArray length] == 0) 
+    {
+        [FlurryAnalytics logEvent:@"ERROR INGREDIENTS ARE NOT AVAILABLE"];
+        UIAlertView *ingredientsAlert = [[UIAlertView alloc] initWithTitle:@"Missing Ingredients" 
+                                                                   message:@"We could not determine if you may be allergic to this product since the ingredients are not available"
+                                                                  delegate:self 
+                                                         cancelButtonTitle:nil 
+                                                         otherButtonTitles:@"Ok", nil];
+        [ingredientsAlert show];
+        
+    }
+    else if ([tempProductDescription length] == 0)
+    {
+                    
+            NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:tempProductDescription, @"productDescription.text", nil];
+            [FlurryAnalytics logEvent:@"GETPRODUCTINFO METHOD: PRODUCT WAS NOT FOUND IN DB" withParameters:dictionary];
+            
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Item Not Found" 
+                                               message:@"This product was not found in the database"
+                                              delegate:self 
+                                     cancelButtonTitle:nil 
+                                     otherButtonTitles:@"Ok", nil];
+            [alert show];
+    }
+    //SUCCESS
+    else 
+    {
+        Results *resultsViewController = [[Results alloc] initWithNibName:nil bundle:nil];
+        resultsViewController.tempBarcode = barcode;
+        resultsViewController.userAllergyText = userAllergy.text;
+        resultsViewController.key = keyAccess;
+        resultsViewController.ingredientsListForProcessing = ingredientsArray;
+       // resultsViewController.json_dict = dbEngine.json_dict;
+        
+        UINavigationController *resultsNavigationController = [[UINavigationController alloc] initWithRootViewController:resultsViewController];
+        resultsNavigationController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+        
+        [[[UIApplication sharedApplication]delegate].window setRootViewController:resultsNavigationController];
+        
+        // [self presentModalViewController:resultsViewController animated:YES];
+    }
+    
 }
 
 
@@ -570,7 +776,7 @@ static NSString* kAppId = @"210437135727485";
     allergyImage.image = nil; 
     allergyTextImage.image = nil; 
     
-    float scalefactor = 0.5;
+    float scalefactor = 1;
     float shiftx = 145.0;
     
 //    NSLog(@"allergyImage is %@", allergyImage);
@@ -588,7 +794,6 @@ static NSString* kAppId = @"210437135727485";
     
     if (userAllergy.text == @"Milk"){
         allergyImage.image = [UIImage imageNamed:@"icon_milk.png"];
-        
         UIImage *image1 = [UIImage imageNamed:@"milk.png"];
         allergyTextImage = [[UIImageView alloc] initWithFrame:CGRectMake(shiftx, 180 + (76-scalefactor*image1.size.height)/2, scalefactor*image1.size.width, scalefactor*image1.size.height)]; //(140, 208, 99, 20.5)
         allergyTextImage.image = [UIImage imageNamed:@"milk.png"];
@@ -602,44 +807,44 @@ static NSString* kAppId = @"210437135727485";
     else if (userAllergy.text == @"Peanuts"){
         allergyImage.image = [UIImage imageNamed:@"icon_peanut.png"];
         UIImage *image1 = [UIImage imageNamed:@"peanuts.png"];
-
         allergyTextImage = [[UIImageView alloc] initWithFrame:CGRectMake(shiftx, 180 + (76-scalefactor*image1.size.height)/2, scalefactor*image1.size.width, scalefactor*image1.size.height)]; //(140, 208, 99, 20.5)
         allergyTextImage.image = [UIImage imageNamed:@"peanuts.png"];
     }
     else if (userAllergy.text == @"Wheat"){
         allergyImage.image = [UIImage imageNamed:@"icon_wheat.png"];
         UIImage *image1 = [UIImage imageNamed:@"wheat.png"];
-        
         allergyTextImage = [[UIImageView alloc] initWithFrame:CGRectMake(shiftx, 180 + (76-scalefactor*image1.size.height)/2, scalefactor*image1.size.width, scalefactor*image1.size.height)]; //(140, 208, 99, 20.5)
         allergyTextImage.image = [UIImage imageNamed:@"wheat.png"];
     }
     else if (userAllergy.text == @"Shellfish"){
         allergyImage.image = [UIImage imageNamed:@"icon_shellfish.png"];
         UIImage *image1 = [UIImage imageNamed:@"shellfish.png"];
-        
         allergyTextImage = [[UIImageView alloc] initWithFrame:CGRectMake(shiftx, 180 + (76-scalefactor*image1.size.height)/2, scalefactor*image1.size.width, scalefactor*image1.size.height)]; //(140, 208, 99, 20.5)
         allergyTextImage.image = [UIImage imageNamed:@"shellfish.png"];
     }
     else if (userAllergy.text == @"Tree Nut"){
         allergyImage.image = [UIImage imageNamed:@"icon_treenut.png"];
         UIImage *image1 = [UIImage imageNamed:@"tree_nut.png"];
-        
         allergyTextImage = [[UIImageView alloc] initWithFrame:CGRectMake(shiftx, 180 + (76-scalefactor*image1.size.height)/2, scalefactor*image1.size.width, scalefactor*image1.size.height)]; //(140, 208, 99, 20.5)
         allergyTextImage.image = [UIImage imageNamed:@"tree_nut.png"];
     }
     else if (userAllergy.text == @"Corn"){
         allergyImage.image = [UIImage imageNamed:@"icon_corn.png"];
         UIImage *image1 = [UIImage imageNamed:@"corn.png"];
-        
         allergyTextImage = [[UIImageView alloc] initWithFrame:CGRectMake(shiftx, 180 + (76-scalefactor*image1.size.height)/2, scalefactor*image1.size.width, scalefactor*image1.size.height)]; //(140, 208, 99, 20.5)
         allergyTextImage.image = [UIImage imageNamed:@"corn.png"];
     }
     else if (userAllergy.text == @"Soy"){
         allergyImage.image = [UIImage imageNamed:@"icon_soy.png"];
         UIImage *image1 = [UIImage imageNamed:@"soy.png"];
-        
         allergyTextImage = [[UIImageView alloc] initWithFrame:CGRectMake(shiftx, 180 + (76-scalefactor*image1.size.height)/2, scalefactor*image1.size.width, scalefactor*image1.size.height)]; //(140, 208, 99, 20.5)
         allergyTextImage.image = [UIImage imageNamed:@"soy.png"];
+    }
+    else if (userAllergy.text == @"Fish"){
+        allergyImage.image = [UIImage imageNamed:@"icon_fish.png"];
+        UIImage *image1 = [UIImage imageNamed:@"fish.png"];
+        allergyTextImage = [[UIImageView alloc] initWithFrame:CGRectMake(shiftx, 180 + (76-scalefactor*image1.size.height)/2, scalefactor*image1.size.width, scalefactor*image1.size.height)]; //(140, 208, 99, 20.5)
+        allergyTextImage.image = [UIImage imageNamed:@"fish.png"];
     }
     else
         NSLog (@"No image provided");
@@ -688,10 +893,9 @@ static NSString* kAppId = @"210437135727485";
 }
 
 
-//- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-//{
-//    // Return YES for supported orientations
-//    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
-//}
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    // Return YES for supported orientations
+    return interfaceOrientation == UIInterfaceOrientationPortrait || interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown ;
+}
 
 @end

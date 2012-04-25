@@ -57,7 +57,7 @@
         allergyIndex = 1;
         urlString =  @"http://www.delengo.com/geteggslist.php";
     }
-    else if (allergyName == @"Peanut"){
+    else if (allergyName == @"Peanuts"){
         allergyIndex = 2;
         urlString =  @"http://www.delengo.com/getpeanutlist.php";
     }
@@ -80,6 +80,10 @@
     else if (allergyName == @"Soy"){
         allergyIndex = 7;
         urlString =  @"http://www.delengo.com/getsoylist.php";
+    }
+    else if (allergyName == @"Fish"){
+        allergyIndex = 7;
+        urlString =  @"http://www.delengo.com/getfishlist.php";
     }
     else    
         allergyIndex = 99;

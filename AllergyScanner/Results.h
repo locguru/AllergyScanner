@@ -25,12 +25,14 @@
     NSString *tempBarcode;
     UILabel *productBrand; 
     UILabel *productDescription;  
-    UILabel *ingredients; 
+    UILabel *ingredientsLabel; 
     NSString *userAllergyText;
     IngredientsProcessor *ingredientsProcessorObject; 
     NSString *key;
     NSString *success;
     UIAlertView *alert;
+    NSDictionary *json_dict;
+    NSString *ingredientsListForProcessing;
     
     History *HistoryMgr;
 }
@@ -41,12 +43,14 @@
 @property (nonatomic, retain) NSString *tempBarcode;
 @property (nonatomic, retain) UILabel *productBrand; 
 @property (nonatomic, retain) UILabel *productDescription;
-@property (nonatomic, retain) UILabel *ingredients; 
+@property (nonatomic, retain) UILabel *ingredientsLabel; 
 @property (nonatomic, retain) NSString *userAllergyText;
 @property (nonatomic, retain) IngredientsProcessor *ingredientsProcessorObject;
 @property (nonatomic, retain) NSString *key;
 @property (nonatomic, retain) NSString *success;
 @property (nonatomic, retain) UIAlertView *alert;
+@property (nonatomic, retain) NSDictionary *json_dict;
+@property (nonatomic, retain) NSString *ingredientsListForProcessing; 
 
 @property (nonatomic, retain) History *HistoryMgr;
 
