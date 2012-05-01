@@ -36,6 +36,8 @@
 		2CE03D9D153EFF5800A72364 /* brown_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CE03D9C153EFF5800A72364 /* brown_bar.png */; };
 		2CE03DA0153F1B0500A72364 /* icon_peanut.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CE03D9E153F1B0500A72364 /* icon_peanut.png */; };
 		2CE03DA1153F1B0500A72364 /* peanuts.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CE03D9F153F1B0500A72364 /* peanuts.png */; };
+		7C0E96DF154F5EBB00B3BDCF /* piece.png in Resources */ = {isa = PBXBuildFile; fileRef = 7C0E96DD154F5EBB00B3BDCF /* piece.png */; };
+		7C0E96E0154F5EBB00B3BDCF /* piece@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7C0E96DE154F5EBB00B3BDCF /* piece@2x.png */; };
 		7C289A69153CF6C2001C5190 /* allergyscannermainpage.png in Resources */ = {isa = PBXBuildFile; fileRef = 7C289A68153CF6C2001C5190 /* allergyscannermainpage.png */; };
 		7C2A209E151D1D3600A8C08D /* libFlurryAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C2A209D151D1D3600A8C08D /* libFlurryAnalytics.a */; };
 		7C2D7614154233E700CA3E4A /* symbol2.png in Resources */ = {isa = PBXBuildFile; fileRef = 7C2D7613154233E700CA3E4A /* symbol2.png */; };
@@ -150,6 +152,8 @@
 		2CE03D9C153EFF5800A72364 /* brown_bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = brown_bar.png; sourceTree = "<group>"; };
 		2CE03D9E153F1B0500A72364 /* icon_peanut.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_peanut.png; sourceTree = "<group>"; };
 		2CE03D9F153F1B0500A72364 /* peanuts.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = peanuts.png; sourceTree = "<group>"; };
+		7C0E96DD154F5EBB00B3BDCF /* piece.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = piece.png; sourceTree = "<group>"; };
+		7C0E96DE154F5EBB00B3BDCF /* piece@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "piece@2x.png"; sourceTree = "<group>"; };
 		7C289A68153CF6C2001C5190 /* allergyscannermainpage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = allergyscannermainpage.png; sourceTree = "<group>"; };
 		7C2A209C151D1D3600A8C08D /* FlurryAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryAnalytics.h; sourceTree = "<group>"; };
 		7C2A209D151D1D3600A8C08D /* libFlurryAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurryAnalytics.a; sourceTree = "<group>"; };
@@ -307,6 +311,8 @@
 		7C18AD0F153371AF00189BEF /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7C0E96DD154F5EBB00B3BDCF /* piece.png */,
+				7C0E96DE154F5EBB00B3BDCF /* piece@2x.png */,
 				7C8B1AD71543A9C1007257CF /* back2.png */,
 				7C2D7613154233E700CA3E4A /* symbol2.png */,
 				7C8B1AD21543A057007257CF /* symbol4.png */,
@@ -714,6 +720,8 @@
 				2C29EAFE154663C1008C0BF0 /* down.png in Resources */,
 				2C29EAFF154663C1008C0BF0 /* down@2x.png in Resources */,
 				2C29EB00154663C1008C0BF0 /* up@2x.png in Resources */,
+				7C0E96DF154F5EBB00B3BDCF /* piece.png in Resources */,
+				7C0E96E0154F5EBB00B3BDCF /* piece@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

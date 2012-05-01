@@ -127,7 +127,7 @@
     
     //RETREIVING ALLERGY LIST FROM SERVER
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
-    [request setTimeoutInterval:60.0];
+    [request setTimeoutInterval:1800.0]; //was 60.0
     [request setURL:[NSURL URLWithString:urlString]];
     [request setHTTPMethod:@"POST"];
     
@@ -135,7 +135,9 @@
     
 //    NSArray *myArray = [list componentsSeparatedByString:@","];
 //    
-//    NSLog(@"STRING IS 2%@1", list);
+    NSLog(@"STRING IS %@", list);
+    NSLog(@"STRING IS %@", urlString);
+
 //    NSLog(@"STRING IS 2%@1", myArray);
     
     //GETTING THE JSON TO AN ARRAY 
@@ -153,37 +155,121 @@
     
     //ASSIGNING THE ALLERGY LIST FROM THE SERVER 
     allergiList = json_dict;
-    ingredientsString = @"Bread Crumbs (Enriched Flour Peanuts [Wheat Flour, Malted Barley Flour, Niacin, Ferrous Sulfite, Thiamin Mononitrate, Riboflavin, Folic Acid], High Fructose Corn Syrup, Corn Syrup, Partially Hydrogenated Vegetable Oil [Soybean And/Or Cottonseed And/Or Corn And/Or";
+  //  ingredientsString = @"Bread Crumbs (Enriched Flour Peanuts [Wheat Flour, Malted Barley Flour, Niacin, Ferrous Sulfite, Thiamin Mononitrate, Riboflavin, Folic Acid], High Fructose Corn Syrup, Corn Syrup, Partially Hydrogenated Vegetable Oil [Soybean And/Or Cottonseed And/Or Corn And/Or";
+    
+  //  NSCharacterSet* characters = [NSCharacterSet characterSetWithCharactersInString:@".,"];
+
+    NSArray *tempIngredients = [[NSArray alloc] init];
+    //tempIngredients = [ingredientsString componentsSeparatedByString:@", "];
+   // tempIngredients1 = [tempIngredients componentsSeparatedByString:@"."];
+    tempIngredients = [ingredientsString componentsSeparatedByCharactersInSet: [NSCharacterSet characterSetWithCharactersInString:@",."]];
     
     
-    
+    NSLog(@"tempIngredients IS %@", tempIngredients);
+
+    NSLog(@"ingredientsString IS %@", ingredientsString);
     NSLog(@"allergiList IS %@", allergiList);
     NSLog(@"[allergiList count] IS %d", [allergiList count]);
     
     for (NSInteger i = 0; i < [allergiList count]; i++) 
     {
-        
+
         NSString *wordToLookFor = [[NSString alloc] initWithFormat:[allergiList objectAtIndex:i]];
         
-        NSLog(@"wordToLookFor IS 1%@2", wordToLookFor);
-//        NSLog(@"ingredientsString IS %@", ingredientsString);
-                
-        NSRange ran = [ingredientsString rangeOfString:wordToLookFor options:NSCaseInsensitiveSearch];
+        NSLog(@"wordToLookFor IS %@", wordToLookFor);
+        //        NSLog(@"ingredientsString IS %@", ingredientsString);
         
-        int location = ran.location;
-        int length = ran.length;
-        
-        NSLog(@"Location: %i, length: %i", location, length);
-        
-        NSString *displayString = [[NSString alloc] initWithFormat:@"Location: %i, length: %i", location, length];
-        
-        if (length > 0) {
-            NSLog(@"Searching for: %@, FOUND: %@", wordToLookFor, displayString);
-            [badIngredients addObject:wordToLookFor];
+        for (NSInteger j = 0; j < [tempIngredients count]; j++)
+        {
             
+            NSString *ingredientword = [[NSString alloc] initWithFormat:[tempIngredients objectAtIndex:j]];
+            NSLog(@"ingredientword IS %@", ingredientword);
+
+            NSRange ran = [ingredientword rangeOfString:wordToLookFor options:NSCaseInsensitiveSearch]; //looking for wordToLookFor in ingredientword
+            
+            int location = ran.location;
+            int length = ran.length;
+            
+            
+            
+//            NSLog(@"Location: %i, length: %i", location, length);
+//            if (length != 0){
+//                NSString *value = [ingredientsString substringWithRange:NSMakeRange(location, length)];
+//                NSLog(@"value IS %@", value); 
+//            }
+            
+            
+            NSString *displayString = [[NSString alloc] initWithFormat:@"Location: %i, length: %i", location, length];
+            
+            if (length > 0) 
+            {
+                NSLog(@"*****************  Searching for: %@ and %@, FOUND: %@", ingredientword, wordToLookFor, displayString);
+                
+                //CHECKING THAT THE WORDS MATCH EXACTLY
+                NSArray *subStringIngredients = [[NSArray alloc] init];
+                NSLog(@"ingredientword IS %@", ingredientword);
+                NSLog(@"subStringIngredients IS %@", subStringIngredients);
+                subStringIngredients = [ingredientword componentsSeparatedByString:@""];
+                
+                NSArray *array22 = [ingredientword componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                array22 = [array22 filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF != ''"]];
+                NSLog(@"array22 IS %@", array22);
+
+                
+                for (NSInteger k = 0; k < [array22 count]; k++)
+                {
+                    NSString *subStringIngredientswordToLookFor = [[NSString alloc] initWithFormat:[array22 objectAtIndex:k]];
+                    
+                    NSLog(@"SUCCESS %@ AND %@", subStringIngredientswordToLookFor, wordToLookFor);
+                    
+                    if ([subStringIngredientswordToLookFor isEqualToString:wordToLookFor] == 1){
+                     
+                    //    NSLog(@"SUCCESS %@ AND %@", subStringIngredientswordToLookFor, wordToLookFor);
+                        [badIngredients addObject:ingredientword];
+                    }
+                }
+                
+                //[badIngredients addObject:wordToLookFor];
+                //[badIngredients addObject:ingredientword];
+            }
         }
         
+        
+        
+        
+        
+        
+//        NSString *wordToLookFor = [[NSString alloc] initWithFormat:[allergiList objectAtIndex:i]];
+//        
+//        NSLog(@"wordToLookFor IS 1%@2", wordToLookFor);
+////        NSLog(@"ingredientsString IS %@", ingredientsString);
+//                
+//        NSRange ran = [ingredientsString rangeOfString:wordToLookFor options:NSCaseInsensitiveSearch];
+//        
+//        int location = ran.location;
+//        int length = ran.length;
+//        
+//        
+//
+//        NSLog(@"Location: %i, length: %i", location, length);
+//        if (length != 0){
+//            NSString *value = [ingredientsString substringWithRange:NSMakeRange(location, length)];
+//            NSLog(@"value IS %@", value); 
+//        }
+//        
+//        
+//        NSString *displayString = [[NSString alloc] initWithFormat:@"Location: %i, length: %i", location, length];
+//        
+//        if (length > 0) 
+//        {
+//            NSLog(@"Searching for: %@, FOUND: %@", wordToLookFor, displayString);
+//            //[badIngredients addObject:wordToLookFor];
+//              [badIngredients addObject:[allergiList objectAtIndex:i]];
+//        }
+        
     }
+    
+     NSLog(@"badIngredients: %@", badIngredients);
 }
 
 

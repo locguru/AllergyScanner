@@ -35,13 +35,6 @@
     return self;
 }
 
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
-}
 
 #pragma mark - View lifecycle
 
@@ -54,7 +47,6 @@
    // self.navigationItem.title = @"About";
 
     //BACKGROUND COLOR 
- //   self.view.backgroundColor = [UIColor brownColor];
     self.view.backgroundColor = [UIColor clearColor];
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"back2.png"]];
 
@@ -70,20 +62,8 @@
     feedback.frame = CGRectMake((320 - 0.8*myButtonImage3.size.width)/2, 350, 0.8*myButtonImage3.size.width, 0.8*myButtonImage3.size.height);
     [feedback setImage:myButtonImage3 forState:UIControlStateNormal];
     feedback.contentMode = UIViewContentModeScaleToFill;
- //   feedback.frame = CGRectMake(40, 350, 240, 40);
-    //   feedback.titleLabel.text = @"Click here to scan ingredients";
-  //  [feedback setTitle:@"Send us feedback!" forState: UIControlStateNormal];
-    //    feedback.titleLabel.font = [UIFont systemFontOfSize:18];
-    //feedback.titleLabel.font = [UIFont boldSystemFontOfSize:18];
     [self.view addSubview:feedback];    
-    
-    //TITLE LABEL
-//    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(45, 10, 300, 40)];
-//	titleLabel.text = @"Welcome to Allergy Scanner!";
-//	titleLabel.backgroundColor = [UIColor clearColor]; // [UIColor brownColor];
-//    titleLabel.font = [UIFont systemFontOfSize:18];
-//	[self.view addSubview:titleLabel];
-    
+        
     //IMAGE VIEWS 
     UIImage* welcomImageFile = [UIImage imageNamed:@"welcome_title.png"];    
     UIImageView *welcomImage = [[UIImageView alloc] initWithFrame:CGRectMake((320-welcomImageFile.size.width)/2, 25, welcomImageFile.size.width, welcomImageFile.size.height)]; 
@@ -92,7 +72,7 @@
 
     //DISCLAIMER LABEL
     UILabel *disclaimerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 285, 380)];
-	disclaimerLabel.text = @"Allergy Scanner was created with the purpose of educating and providing information to our users. Though our data is frequently updated, users of this application should not rely exclusively on the information provided. Users are advised to consult with their own healthcare professional and understand that this information should not be interpreted as a medical warning, advice or opinion. \n\nOur application is supported by a third-party database including over 100,000 products. AllergyScanner is not and cannot be held responsible and accountable for the accuracy or content of this database information. Food manufacturers may also change the content of their products at any given time without notice and therefore AllergyScanner cannot be liable for these changes. \n\nAllergyScanner will not be liable for any damage resulting directly or indirectly from the use of this application. The information in this application is presented without any guarantee, expressed or implied.";
+	disclaimerLabel.text = @"Allergy Scanner was created with the purpose of educating and providing information to our users. Though our data is frequently updated, users of this application should not rely exclusively on the information provided. Users are advised to consult with their own healthcare professional and understand that this information should not be interpreted as a medical warning, advice or opinion. \n\nOur application is supported by a third-party database including over 100,000 products. Allergy Scanner is not and cannot be held responsible and accountable for the accuracy or content of this database information. Food manufacturers may also change the content of their products at any given time without notice and therefore Allergy Scanner cannot be liable for these changes. \n\nAllergy Scanner will not be liable for any damage resulting directly or indirectly from the use of this application. The information in this application is presented without any guarantee, expressed or implied.";
     
     disclaimerLabel.backgroundColor = [UIColor clearColor]; // [UIColor brownColor];
     disclaimerLabel.font = [UIFont systemFontOfSize:12];
@@ -150,17 +130,7 @@
     [self dismissModalViewControllerAnimated:YES];
 }
 
-
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations
     return interfaceOrientation == UIInterfaceOrientationPortrait || interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown ;
 }
 

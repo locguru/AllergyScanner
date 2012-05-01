@@ -62,29 +62,11 @@ static NSString* kAppId = @"210437135727485";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-   
-//    [[UIBarButtonItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-//    [UIColor blackColor], UITextAttributeTextColor, 
-//    nil, UITextAttributeTextShadowColor, 
-//    nil, UITextAttributeTextShadowOffset,
-//    nil, UITextAttributeFont, nil] forState:UIControlStateNormal];
-    
+       
      //VIEW TITLE
-    //self.navigationItem.title = @"AllergyScanner";
+    //self.navigationItem.title = @"Allergy Scanner";
     self.navigationItem.title= [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"];
-    
-    //BACKGROUND COLOR 
-//    self.view.backgroundColor = [UIColor brownColor];
-//    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"allergyscannermainpage.png"]];
-    
-//    self.view.backgroundColor = [UIColor clearColor];
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"brown_back.png"]];
-//    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"back2.png"]];
-//    
-    
-//    UIColor *background = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"back2.png"]];
-//    self.view.backgroundColor = background;
-
     
     //NAV ITEMS
     UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"About" style:UIBarButtonItemStylePlain target:self action:@selector(about:)];      
@@ -99,32 +81,13 @@ static NSString* kAppId = @"210437135727485";
     
     UIImage* searchingImageFile = [UIImage imageNamed:@"searching_for.png"];    
     UIImageView *searchingImage = [[UIImageView alloc] initWithFrame:CGRectMake((320 - searchingImageFile.size.width)/2, 115, searchingImageFile.size.width, searchingImageFile.size.height)]; 
-//    UIImageView *searchingImage = [[UIImageView alloc] initWithFrame:CGRectMake((320-233)/2, 115, 233, 55)]; 
     searchingImage.image = [UIImage imageNamed:@"searching_for.png"];
     [self.view addSubview: searchingImage];
     
     UIImage* barImageFile = [UIImage imageNamed:@"brown_bar.png"];    
     UIImageView *barImage = [[UIImageView alloc] initWithFrame:CGRectMake((320 - barImageFile.size.width)/2, 180, barImageFile.size.width, barImageFile.size.height)]; 
-//    UIImageView *barImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 180, 320, 76)]; 
     barImage.image = [UIImage imageNamed:@"brown_bar.png"];
     [self.view addSubview: barImage];
-
-    
-    //LABELS
-    
-//    UIImageView *overlayImageSymbol = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"symbol4.png"]];
-//    [overlayImageSymbol setFrame:CGRectMake((320-0.75*overlayImageSymbol.image.size.width)/2, 120, 0.75*overlayImageSymbol.image.size.width, 0.75*overlayImageSymbol.image.size.height)];
-//    [self.view addSubview:overlayImageSymbol];
-//
-//    UILabel *myLabel = [[UILabel alloc] initWithFrame:CGRectMake(40, 140, 240, 40)];
-//	myLabel.text = @"Center the barcode between the two lines to achieve quick scanning";
-//    myLabel.textColor = [UIColor whiteColor];
-//	myLabel.backgroundColor = [UIColor clearColor]; // [UIColor brownColor];
-//    myLabel.font = [UIFont systemFontOfSize:14];
-//    myLabel.numberOfLines = 0;
-//    myLabel.lineBreakMode = UILineBreakModeWordWrap;
-//    [myLabel setTextAlignment:UITextAlignmentCenter];
-//	[self.view addSubview:myLabel];
 
     
     //INPUT USER LABEL
@@ -134,14 +97,7 @@ static NSString* kAppId = @"210437135727485";
 //    userAllergy.text = @"Placeholder";
     userAllergy.text = @"";
 
-    [self.view addSubview:userAllergy];
-    
-    //BARCODE LABEL
-//    inputBarcode = [[UILabel alloc] initWithFrame:CGRectMake(50, 100, 240, 40)];
-//    inputBarcode.backgroundColor = [UIColor clearColor]; 
-//    inputBarcode.font = [UIFont systemFontOfSize:18];
-//    inputBarcode.text = @"Barcode";
-//    [self.view addSubview:inputBarcode];
+//    [self.view addSubview:userAllergy];
     
     
     //ADDING ALLERGY BUTTON
@@ -150,11 +106,6 @@ static NSString* kAppId = @"210437135727485";
     [signin addTarget:self action:@selector(selectAllergy:) forControlEvents:UIControlEventTouchUpInside];
     UIImage* myButtonImage1 = [UIImage imageNamed:@"select_your_allergy.png"];    
     signin.frame = CGRectMake((320 - myButtonImage1.size.width)/2, 30, myButtonImage1.size.width, myButtonImage1.size.height);
-//    signin.frame = CGRectMake((320-270.5)/2, 50, 270.5, 48.5);
-//    signin.titleLabel.text = @"Click here to scan ingredients";
-//    [signin setTitle: @"1. Select Your Allergy" forState: UIControlStateNormal];
-    //signin.backgroundColor = [UIColor blackColor];
-    // signin.titleLabel.textColor = [UIColor colorWithRed:30/255.f green:34/255.f blue:47/255.f alpha:1];
     [signin setBackgroundImage:myButtonImage1 forState:UIControlStateNormal];
     signin.contentMode = UIViewContentModeScaleToFill;
     [self.view addSubview:signin];    
@@ -190,40 +141,19 @@ static NSString* kAppId = @"210437135727485";
 	debugText.backgroundColor = [UIColor clearColor]; // [UIColor brownColor];
     debugText.font = [UIFont systemFontOfSize:16];
 //	[self.view addSubview:debugText];
-    
-    //SERVER SANITY CHECK
-//    NSString *urlString =  @"http://www.delengo.com/getkey.php";
-//    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
-//    [request setTimeoutInterval:60.0];
-//    [request setURL:[NSURL URLWithString:urlString]];
-//    [request setHTTPMethod:@"POST"];
-//
-//    NSString *accessKey = [[NSString alloc] initWithData:[NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil] encoding:NSUTF8StringEncoding];
-//    NSLog(@"string from server is: %@", accessKey);
-//    NSString *alertKey = [NSString stringWithFormat:@"accessKey is %@", accessKey];
-//    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Allergy Scanner" message:alertKey delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-//    [alertView show];
-    
+        
         
     //Facebook
     facebook = [[Facebook alloc] initWithAppId:@"210437135727485" andDelegate:self];
 
-    //ADDING ALLERGIES UI
-//    allergyImage = [[UIImageView alloc] initWithFrame:CGRectMake(60, 188, 60, 60)]; 
-//    allergyTextImage = [[UIImageView alloc] initWithFrame:CGRectMake(140, 208, 99, 20.5)]; 
-//    [self.view addSubview: allergyImage];
-//    [self.view addSubview: allergyTextImage];
-    
     allergyImage = [[UIImageView alloc] initWithFrame:CGRectMake(70, 188, 60, 60)]; //(60, 188, 60, 60)
     allergyTextImage = [[UIImageView alloc] initWithFrame:CGRectMake(140, 208, 99, 20.5)]; //(140, 208, 99, 20.5)
-
-
 }
 
 
 - (IBAction)sharingOption:(id)sender {  
     
-    NSLog(@"entering sharingOption");
+    //NSLog(@"entering sharingOption");
     [FlurryAnalytics logEvent:@"SELECTING OPTIONS"];
     
     //ACTION SHEET
@@ -243,23 +173,23 @@ static NSString* kAppId = @"210437135727485";
         NSString* versionNumber = [[UIDevice currentDevice] systemVersion];
         int version;
         version = [versionNumber intValue];
-        NSLog(@"versionNumber %d", version);
+    //    NSLog(@"versionNumber %d", version);
         
         if (version < 5)
         {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Smart Phone" message:@"Youd OS version doesn't support Twitter on this app. Please upgrade your OS an try again" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles: nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Allergy Scanner" message:@"Youd OS version doesn't support Twitter on this app. Please upgrade your OS an try again" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles: nil];
             [alert show];
         }
         else    
         {
             TWTweetComposeViewController *twitter = [[TWTweetComposeViewController alloc] init];
-            [twitter setInitialText:@"Enjoying using @Delengo recent great app - AllergyScanner. Check it out! http://itunes.apple.com/us/app/allergy-scanner/id519416166?ls=1&mt=8 #iphone #appstore"];
+            [twitter setInitialText:@"Enjoying using @Delengo recent great app - Allergy Scanner. Check it out! http://itunes.apple.com/us/app/allergy-scanner/id519416166?ls=1&mt=8 #iphone #appstore"];
             [self presentModalViewController:twitter animated:YES];
             
             // Called when the tweet dialog has been closed
             twitter.completionHandler = ^(TWTweetComposeViewControllerResult result) 
             {
-                NSString *title = @"Smart Phone";
+                NSString *title = @"Allergy Scanner";
                 NSString *msg; 
                 
                 if (result == TWTweetComposeViewControllerResultCancelled)
@@ -281,12 +211,8 @@ static NSString* kAppId = @"210437135727485";
     else if (buttonIndex == 0) //Facebook
     {
         
-//        UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Allergy Scanner" message:@"Click OK to share Allergy Scanner on your Facebook wall" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Ok"];
-//        [alertView show];
-
-        [FlurryAnalytics logEvent:@"POSTING ON FACEBOOK"];
-        
-        NSLog(@"entering POSTING ON FACEBOOK");
+        [FlurryAnalytics logEvent:@"CLICKING ON 'POST ON FACEBOOK'"];
+   //     NSLog(@"entering POSTING ON FACEBOOK");
         [facebook authorize:[NSArray arrayWithObjects:@"publish_stream", nil]];
         
         return;
@@ -296,36 +222,17 @@ static NSString* kAppId = @"210437135727485";
     
 }
 
-//- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
-//    
-//}
-//
-//- (void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex {
-//
-//}
-//
-//- (void)actionSheetCancel:(UIActionSheet *)actionSheet {
-//    
-//}
-//
-//- (void)didPresentActionSheet:(UIActionSheet *)actionSheet {
-//    
-//}
-//
-//- (void)willPresentActionSheet:(UIActionSheet *)actionSheet {
-//    
-//}
-
 //FACEBOOK API
 - (void)fbDidLogin {
 
     NSLog(@"entering fbDidLogin");
-    
-    NSString *link = @"http://itunes.apple.com/us/app/smart-phone/id511179270?ls=1&mt=8";
-    NSString *linkName = @"AllergyScanner app By Delengo";
+    [FlurryAnalytics logEvent:@"POSTING ON FACEBOOK"];
+
+    NSString *link = @"http://itunes.apple.com/us/app/allergy-scanner/id519416166?ls=1&mt=8";
+    NSString *linkName = @"Allergy Scanner app By Delengo";
     NSString *linkCaption = @"Check it out on the App Store!";
     NSString *linkDescription = @"";
-    NSString *message = @"AllergyScanner app for the iPhone has made my life so much easier!";
+    NSString *message = @"Allergy Scanner app for the iPhone has made my life so much easier!";
     
     NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                    kAppId, @"api_key",
@@ -338,6 +245,12 @@ static NSString* kAppId = @"210437135727485";
     
     [facebook requestWithGraphPath: @"me/feed" andParams: params andHttpMethod: @"POST" andDelegate: self];
 
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Allergy Scanner" 
+                                                    message:@"You successfully shared Allergy Scanner on Facebook" 
+                                                   delegate:nil 
+                                          cancelButtonTitle:@"Dismiss"
+                                          otherButtonTitles:nil];
+    [alert show];
 
 }
 
@@ -353,11 +266,13 @@ static NSString* kAppId = @"210437135727485";
 }
 
 - (void)request:(FBRequest *)request didFailWithError:(NSError *)error{
+
+    [FlurryAnalytics logEvent:@"ERROR SHARING ON FACEBOOK"];
     NSLog(@"didFailWithError: %@", [error description]);
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Share on Facebook" 
                                                     message:@"An error occured" 
                                                    delegate:nil 
-                                          cancelButtonTitle:@"OK"
+                                          cancelButtonTitle:@"Dismiss"
                                           otherButtonTitles:nil];
     [alert show];
 }
@@ -365,7 +280,7 @@ static NSString* kAppId = @"210437135727485";
 //CUSTOME METHODS 
 - (IBAction)about:(id)sender {  
 
-    NSLog(@"entering about");
+    //NSLog(@"entering about");
     [FlurryAnalytics logEvent:@"CLICKING 'ABOUT' SECTION"];
 
     About *aboutViewController = [[About alloc] initWithNibName:nil bundle:nil];
@@ -470,22 +385,13 @@ static NSString* kAppId = @"210437135727485";
 //                NSLog(@"keyAccessArray is %@", keyAccessArray);
             }
             
-//            NSLog(@"[keyAccess length] is %d", [keyAccess length]);
-            
-            //    NSString *sub = [[NSString alloc] initWithFormat:@"ERR"];
-            //    NSString *results = [[NSString alloc] init];
-            //    results = [keyAccess substringWithRange:[keyAccess rangeOfString:sub]];
-            //    NSLog(@"results is %@", results);
-            
-            
-            
             
             //CHECKING IF THE KEY IS VALID
             if ([keyAccess length] < 5 )
             {
                 [FlurryAnalytics logEvent:@"KEY IS NOT VALID, LESS THAN 5 CHARATECTERS"];
 
-                UIAlertView *selectAlert = [[UIAlertView alloc] initWithTitle:@"AllergyScanner" 
+                UIAlertView *selectAlert = [[UIAlertView alloc] initWithTitle:@"Allergy Scanner" 
                                                                       message:@"Service unavailable. Please try again later."
                                                                      delegate:self 
                                                             cancelButtonTitle:nil 
@@ -538,18 +444,18 @@ static NSString* kAppId = @"210437135727485";
                   //  [scanner1 setSymbology: 0 config: ZBAR_CFG_ENABLE to: 0];
                     [scanner1 setSymbology: ZBAR_QRCODE config: ZBAR_CFG_ENABLE to: 0];
                     
-        //                UIImageView *overlayImageSymbol = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"symbol2.png"]];
-        //                [overlayImageSymbol setFrame:CGRectMake((320-95)/2, 220, 95, 95)];
-        //                [navCntrl1.view addSubview:overlayImageSymbol];
-
+//                UIImageView *overlayImageSymbol = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"symbol2.png"]];
+//                [overlayImageSymbol setFrame:CGRectMake((320-95)/2, 220, 95, 95)];
+//                [navCntrl1.view addSubview:overlayImageSymbol];
+//
 
                     UIImageView *overlayImageSymbol = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"symbol4.png"]];
                     [overlayImageSymbol setFrame:CGRectMake((320-0.75*overlayImageSymbol.image.size.width)/2, 120, 0.75*overlayImageSymbol.image.size.width, 0.75*overlayImageSymbol.image.size.height)];
                     [navCntrl1.view addSubview:overlayImageSymbol];
                     
                     UILabel *myLabel = [[UILabel alloc] initWithFrame:CGRectMake(40, 140, 240, 40)];
-                    myLabel.text = @"Center the barcode between the two lines to achieve quick scanning";
-                    myLabel.textColor = [UIColor whiteColor];
+                    myLabel.text = @"Center the barcode between the two lines to achieve quicker scanning";
+                    myLabel.textColor = [UIColor redColor];
                     myLabel.backgroundColor = [UIColor clearColor]; // [UIColor brownColor];
                     myLabel.font = [UIFont systemFontOfSize:14];
                     myLabel.numberOfLines = 0;
@@ -557,6 +463,16 @@ static NSString* kAppId = @"210437135727485";
                     [myLabel setTextAlignment:UITextAlignmentCenter];
                     [navCntrl1.view addSubview:myLabel];
 
+                    //HIDE INFO BUTTON
+                    UIButton *blackRect = [[UIButton alloc] init];
+                    blackRect = [UIButton buttonWithType:UIButtonTypeCustom];
+                    //[blackRect addTarget:self action:@selector(selectAllergy:) forControlEvents:UIControlEventTouchUpInside];
+                    UIImage* myButtonImage2 = [UIImage imageNamed:@"piece.png"];    
+                    [blackRect setImage:myButtonImage2 forState:UIControlStateNormal];
+                    blackRect.contentMode = UIViewContentModeScaleToFill;
+                    blackRect.frame = CGRectMake(280, 440.0, 40, 40.0);
+                    blackRect.adjustsImageWhenHighlighted = NO;
+                    [navCntrl1.view addSubview:blackRect];    
 
                     // present and release the controller
                     //[self removeFromParentViewController];
@@ -571,7 +487,9 @@ static NSString* kAppId = @"210437135727485";
                     NSString *temp = [[NSString alloc] init];
                     //temp = @"073731001059";
                     //temp = @"036632026071"; //missing ingredients 
-                    temp = @"041196891072"; //bread crumps - full info
+                    temp = @"02100061223"; //bread crumps - full info
+                    NSLog(@"barcode is %@", temp);
+
                     inputBarcode.text = temp;
                     [self showResults:temp];
                     
@@ -588,7 +506,8 @@ static NSString* kAppId = @"210437135727485";
 
         NSString *temp = [[NSString alloc] init];
         keyAccess = @"FEW9sSVjaHhZux2oRuQ7wlK4xt1D3d0e";
-        temp = @"041196891072"; //041196891072 //9314458008732 //646422101002
+        temp = @"073731001059"; //041196891072 //9314458008732 //646422101002 //76770700168 //02100061223 // gum: 012546617529
+        NSLog(@"barcode simulator is %@", temp);
         inputBarcode.text = temp;
         [self showResults:temp];
 
@@ -669,12 +588,12 @@ static NSString* kAppId = @"210437135727485";
     tempProductDescription= [myDict valueForKey:@"description"];
 
     
-    NSLog(@"dbEngine.json_dict is %@", dbEngine.engingJsonDict);
-    NSLog(@"tempProductDescription is %@", tempProductDescription);
-    NSLog(@"[tempProductDescription length] is %d", [tempProductDescription length]);
-    NSLog(@"success is %@", [dbEngine.engingJsonDict valueForKey:@"success"]);
-    NSLog(@"ingredients is %@", ingredientsArray);
-    NSLog(@"ingredients is %d", [ingredientsArray length]);
+//    NSLog(@"dbEngine.json_dict is %@", dbEngine.engingJsonDict);
+//    NSLog(@"tempProductDescription is %@", tempProductDescription);
+//    NSLog(@"[tempProductDescription length] is %d", [tempProductDescription length]);
+//    NSLog(@"success is %@", [dbEngine.engingJsonDict valueForKey:@"success"]);
+//    NSLog(@"ingredients is %@", ingredientsArray);
+//    NSLog(@"ingredients is %d", [ingredientsArray length]);
 
     int num; // = [[NSString alloc] init];
     num = [[dbEngine.engingJsonDict valueForKey:@"success"] intValue];
@@ -693,7 +612,7 @@ static NSString* kAppId = @"210437135727485";
          if ([errorCode isEqualToString:@"4002"])
          {
              [FlurryAnalytics logEvent:@"ERROR 4002 - UPC NOT VALID"];
-             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"AllergyScanner" 
+             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Allergy Scanner" 
                                                              message:@"The barcode you scanned is not valid"
                                                             delegate:self 
                                                    cancelButtonTitle:nil 
@@ -704,7 +623,7 @@ static NSString* kAppId = @"210437135727485";
          else if ([errorCode isEqualToString:@"4004"])
          {
              [FlurryAnalytics logEvent:@"ERROR 4004 - PRODUCT NOT FOUND IN DB"];
-              UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"AllergyScanner" 
+              UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Allergy Scanner" 
                                                                 message:@"This product was not found in our database"
                                                                delegate:self 
                                                       cancelButtonTitle:nil 
@@ -715,7 +634,7 @@ static NSString* kAppId = @"210437135727485";
          else 
          {
              [FlurryAnalytics logEvent:@"ERROR 400X - UNKNOWN ERROR"];
-             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"AllergyScanner" 
+             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Allergy Scanner" 
                                                              message:@"Service unavailable. Please try again later."
                                                             delegate:self 
                                                    cancelButtonTitle:nil 
@@ -752,6 +671,9 @@ static NSString* kAppId = @"210437135727485";
     //SUCCESS
     else 
     {
+        
+        [FlurryAnalytics logEvent:@"ENTERING RESULTS VIEW"];
+
         Results *resultsViewController = [[Results alloc] initWithNibName:nil bundle:nil];
         resultsViewController.tempBarcode = barcode;
         resultsViewController.userAllergyText = userAllergy.text;
@@ -772,7 +694,6 @@ static NSString* kAppId = @"210437135727485";
 
 - (IBAction)dismissActionSheet:(id)sender {  
     
-
     allergyImage.image = nil; 
     allergyTextImage.image = nil; 
     
@@ -787,60 +708,67 @@ static NSString* kAppId = @"210437135727485";
     
     //SAVE USER ALLERGY 
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:userAllergy.text, @"user input allergy", nil];
-    
-    //SHOW IMAGE BASED ON THE ALLERGY SELECTED
-  //  allergyImage = [[UIImageView alloc] initWithFrame:CGRectMake(60, 188, 60, 60)]; 
- //   UIImage *tempUIImage = [[UIImage alloc] init];
+        
+    NSLog(@"userAllergy.text is %@", userAllergy.text);
     
     if (userAllergy.text == @"Milk"){
+        [FlurryAnalytics logEvent:@"USER SELECTED MILK"];
         allergyImage.image = [UIImage imageNamed:@"icon_milk.png"];
         UIImage *image1 = [UIImage imageNamed:@"milk.png"];
         allergyTextImage = [[UIImageView alloc] initWithFrame:CGRectMake(shiftx, 180 + (76-scalefactor*image1.size.height)/2, scalefactor*image1.size.width, scalefactor*image1.size.height)]; //(140, 208, 99, 20.5)
         allergyTextImage.image = [UIImage imageNamed:@"milk.png"];
     }
     else if (userAllergy.text == @"Eggs"){
+        [FlurryAnalytics logEvent:@"USER SELECTED EGGS"];
         allergyImage.image = [UIImage imageNamed:@"icon_eggs.png"];
         UIImage *image1 = [UIImage imageNamed:@"eggs.png"];
         allergyTextImage = [[UIImageView alloc] initWithFrame:CGRectMake(shiftx, 180 + (76-scalefactor*image1.size.height)/2, scalefactor*image1.size.width, scalefactor*image1.size.height)]; //(140, 208, 99, 20.5)
         allergyTextImage.image = [UIImage imageNamed:@"eggs.png"];
     }
     else if (userAllergy.text == @"Peanuts"){
+        [FlurryAnalytics logEvent:@"USER SELECTED PEANUTS"];
         allergyImage.image = [UIImage imageNamed:@"icon_peanut.png"];
         UIImage *image1 = [UIImage imageNamed:@"peanuts.png"];
         allergyTextImage = [[UIImageView alloc] initWithFrame:CGRectMake(shiftx, 180 + (76-scalefactor*image1.size.height)/2, scalefactor*image1.size.width, scalefactor*image1.size.height)]; //(140, 208, 99, 20.5)
         allergyTextImage.image = [UIImage imageNamed:@"peanuts.png"];
     }
     else if (userAllergy.text == @"Wheat"){
+        [FlurryAnalytics logEvent:@"USER SELECTED WHEAT"];
         allergyImage.image = [UIImage imageNamed:@"icon_wheat.png"];
         UIImage *image1 = [UIImage imageNamed:@"wheat.png"];
         allergyTextImage = [[UIImageView alloc] initWithFrame:CGRectMake(shiftx, 180 + (76-scalefactor*image1.size.height)/2, scalefactor*image1.size.width, scalefactor*image1.size.height)]; //(140, 208, 99, 20.5)
         allergyTextImage.image = [UIImage imageNamed:@"wheat.png"];
     }
     else if (userAllergy.text == @"Shellfish"){
+        [FlurryAnalytics logEvent:@"USER SELECTED SHELLFISH"];
         allergyImage.image = [UIImage imageNamed:@"icon_shellfish.png"];
         UIImage *image1 = [UIImage imageNamed:@"shellfish.png"];
         allergyTextImage = [[UIImageView alloc] initWithFrame:CGRectMake(shiftx, 180 + (76-scalefactor*image1.size.height)/2, scalefactor*image1.size.width, scalefactor*image1.size.height)]; //(140, 208, 99, 20.5)
         allergyTextImage.image = [UIImage imageNamed:@"shellfish.png"];
     }
     else if (userAllergy.text == @"Tree Nut"){
+        [FlurryAnalytics logEvent:@"USER SELECTED TREENUT"];
         allergyImage.image = [UIImage imageNamed:@"icon_treenut.png"];
         UIImage *image1 = [UIImage imageNamed:@"tree_nut.png"];
         allergyTextImage = [[UIImageView alloc] initWithFrame:CGRectMake(shiftx, 180 + (76-scalefactor*image1.size.height)/2, scalefactor*image1.size.width, scalefactor*image1.size.height)]; //(140, 208, 99, 20.5)
         allergyTextImage.image = [UIImage imageNamed:@"tree_nut.png"];
     }
     else if (userAllergy.text == @"Corn"){
+        [FlurryAnalytics logEvent:@"USER SELECTED CORN"];
         allergyImage.image = [UIImage imageNamed:@"icon_corn.png"];
         UIImage *image1 = [UIImage imageNamed:@"corn.png"];
         allergyTextImage = [[UIImageView alloc] initWithFrame:CGRectMake(shiftx, 180 + (76-scalefactor*image1.size.height)/2, scalefactor*image1.size.width, scalefactor*image1.size.height)]; //(140, 208, 99, 20.5)
         allergyTextImage.image = [UIImage imageNamed:@"corn.png"];
     }
     else if (userAllergy.text == @"Soy"){
+        [FlurryAnalytics logEvent:@"USER SELECTED SOY"];
         allergyImage.image = [UIImage imageNamed:@"icon_soy.png"];
         UIImage *image1 = [UIImage imageNamed:@"soy.png"];
         allergyTextImage = [[UIImageView alloc] initWithFrame:CGRectMake(shiftx, 180 + (76-scalefactor*image1.size.height)/2, scalefactor*image1.size.width, scalefactor*image1.size.height)]; //(140, 208, 99, 20.5)
         allergyTextImage.image = [UIImage imageNamed:@"soy.png"];
     }
     else if (userAllergy.text == @"Fish"){
+        [FlurryAnalytics logEvent:@"USER SELECTED FISH"];
         allergyImage.image = [UIImage imageNamed:@"icon_fish.png"];
         UIImage *image1 = [UIImage imageNamed:@"fish.png"];
         allergyTextImage = [[UIImageView alloc] initWithFrame:CGRectMake(shiftx, 180 + (76-scalefactor*image1.size.height)/2, scalefactor*image1.size.width, scalefactor*image1.size.height)]; //(140, 208, 99, 20.5)
@@ -856,11 +784,7 @@ static NSString* kAppId = @"210437135727485";
     
     //FLURRY ZOME
     [FlurryAnalytics logEvent:@"DISMISS ALLERGIES ACTION SHEET AND SEND USER ALLERGY" withParameters:dictionary];
-//    allergyImage.image = nil;
-//    allergyTextImage.image = nil;
     [actionSheet dismissWithClickedButtonIndex:0 animated:YES];
-//    NSLog(@"allergyImage is %@", allergyImage);
-//    NSLog(@"allergyTextImage is %@", allergyTextImage);
 
 }
 
@@ -886,15 +810,10 @@ static NSString* kAppId = @"210437135727485";
 }
 
 -(void)pickerView:(UIPickerView *)thePickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
-    NSLog(@"Selected item: %@ index of selected item: %i", [pickerList objectAtIndex:row], row);
-//    allergyImage.image = nil;
-//    allergyTextImage.image = nil;
-
+    //NSLog(@"Selected item: %@ index of selected item: %i", [pickerList objectAtIndex:row], row);
 }
 
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations
     return interfaceOrientation == UIInterfaceOrientationPortrait || interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown ;
 }
 

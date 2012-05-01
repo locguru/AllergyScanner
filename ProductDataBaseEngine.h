@@ -12,7 +12,6 @@
     
     NSString *engineKey;
     NSString *engineMethod;
-    NSString *engineParamValue;
     NSString *success;
     NSString *engineBarcode;
     NSDictionary *engingJsonDict;
@@ -20,7 +19,6 @@
 
 @property (nonatomic, retain) NSString *engineKey;
 @property (nonatomic, retain) NSString *engineMethod;
-@property (nonatomic, retain) NSString *engineParamValue;
 @property (nonatomic, retain) NSString *success;
 @property (nonatomic, retain) NSString *engineBarcode;
 @property (nonatomic, retain) NSDictionary *engingJsonDict;

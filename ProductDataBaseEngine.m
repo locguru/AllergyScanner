@@ -13,30 +13,10 @@
 
 @synthesize engineKey;
 @synthesize engineMethod;
-@synthesize engineParamValue;
 @synthesize success;
 @synthesize engineBarcode;
 @synthesize engingJsonDict;
 
-//- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-//{
-//    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-//    if (self) {
-//        // Custom initialization
-//        engineKey = [[NSString alloc] init];
-//        accessMethod = [[NSString alloc] init];
-//        accessParamValue = [[NSString alloc] init];
-//        success = [[NSString alloc] init];
-//
-//    }
-//    return self;
-//}
-
-
-//- (void) productDataBaseEngine:(NSString *)accessKey withBarcode:(NSString *)accessBarcode withMethod:(NSString *)accessMethod withParamValue:(NSString *)accessParamValue {
-//    
-//    
-//}
 
 - (void) productDataBaseEngine {
     
@@ -72,7 +52,6 @@
   //  NSString *success = [[NSString alloc] init];
     success = [engingJsonDict valueForKey:@"success"];
 
-    
 }
 
 @end
