@@ -8,6 +8,7 @@
 
 #import "IngredientsProcessor.h"
 #import "JSON.h"
+#include "FlurryAnalytics.h"
 
 @implementation IngredientsProcessor
 
@@ -39,8 +40,6 @@
 //    NSArray *cornArray = [[NSArray alloc] initWithObjects: @"Acetic acid", @"Alcohol", @"Alpha tocopherol", @"Artificial flavorings", @"Artificial flavoring", @"Artificial sweeteners", @"Artificial sweetener", @"Ascorbates", @"Ascorbic acid", @"Aspartame", @"Astaxanthincorn", @"Corn meal", @"Citric acid", @"Hominy", @"Masa", @"Molasses", @"Grits", @"Maltodextrins", @"Maltose", @"MSG", @"Sorbitol", @"Vinegar", @"Popcorn", @"High fructose corn syrup", @"Corn syrup solids", @"Corn syrup", @"Corn flour", @"Corn starch", @"Mazena", @"Dextrose", @"Food starch", @"Vegetable starch", @"Corn oil", @"Corn sweetener", @"Baking powder", @"Maize", @"Dextrin", @"Vegetable gum", @"Modified gum starch", @"Vegetable protein", @"Vanilla extract", @"Vanilla flavoring", nil];
 //    
 //    NSArray *soyArray = [[NSArray alloc] initWithObjects: @"Edamame", @"Hydrolyzed soy protein", @"Miso", @"Natto", @"Shoyu sauce", @"Soy", @"Soy albumin", @"Soy fiber", @"Soy flour", @"Soy grits", @"Soy grit", @"Soy milk", @"Soy nut", @"Soy nuts", @"Tofu", @"Soya", @"Soybean", @"Soy protein", @"Soy sauce", @"Tamari", @"TVP", nil];
-    
-    
     
     
     badIngredients = [[NSMutableArray alloc] init];
@@ -88,188 +87,124 @@
     else    
         allergyIndex = 99;
     
-    
-    
-//    switch (allergyIndex)
-//    {
-//        case 0:
-//            allergiList = milkArray;
-//            break;
-//        case 1:
-//            allergiList = eggsArray;
-//            break;
-//        case 2:
-//            allergiList = peanutArray;
-//            break;
-//        case 3:
-//            allergiList = wheatArray;
-//            break;
-//        case 4:
-//            allergiList = shellfishArray;
-//            break;
-//        case 5:
-//            allergiList = treenutArray;
-//            break;
-//        case 6:
-//            allergiList = cornArray;
-//            break;
-//        case 7:
-//            allergiList = soyArray;
-//            break;
-//        default:
-//            allergiList = nil;
-//            break;
-//    }
-
-    
-    // NSString *urlString =  @"http://192.168.1.110/getwheatlist.php";
-    //urlString =  @"http://www.delengo.com/getwheatlist.php";
-    
+     
     //RETREIVING ALLERGY LIST FROM SERVER
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
-    [request setTimeoutInterval:1800.0]; //was 60.0
+    [request setTimeoutInterval:180.0]; //was 60.0
     [request setURL:[NSURL URLWithString:urlString]];
     [request setHTTPMethod:@"POST"];
     
     NSString *list = [[NSString alloc] initWithData:[NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil] encoding:NSUTF8StringEncoding];
     
-//    NSArray *myArray = [list componentsSeparatedByString:@","];
 //    
-    NSLog(@"STRING IS %@", list);
-    NSLog(@"STRING IS %@", urlString);
+    NSLog(@"STRING IS '%@'", list);
 
-//    NSLog(@"STRING IS 2%@1", myArray);
     
     //GETTING THE JSON TO AN ARRAY 
     NSArray *json_dict = [list JSONValue];
-    NSLog(@"response json_dict\n%@",json_dict);
-    
-    //   NSLog(@"STRING IS 2%@1", [myArray objectAtIndex:0]);
-    
-    // accessKey = [myArray objectAtIndex:0];
-    
-    //NSLog(@"%@",[[NSString alloc] initWithData:[NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil] encoding:NSUTF8StringEncoding]);
-
-    
-    
+        
     
     //ASSIGNING THE ALLERGY LIST FROM THE SERVER 
     allergiList = json_dict;
-  //  ingredientsString = @"Bread Crumbs (Enriched Flour Peanuts [Wheat Flour, Malted Barley Flour, Niacin, Ferrous Sulfite, Thiamin Mononitrate, Riboflavin, Folic Acid], High Fructose Corn Syrup, Corn Syrup, Partially Hydrogenated Vegetable Oil [Soybean And/Or Cottonseed And/Or Corn And/Or";
-    
-  //  NSCharacterSet* characters = [NSCharacterSet characterSetWithCharactersInString:@".,"];
+//  ingredientsString = @"Soy, Bread Crumbs (Enriched Flour Peanuts [Wheat Flour, Malted Barley Flour, Niacin, Ferrous Sulfite, Thiamin Mononitrate, Riboflavin, Folic Acid], High Fructose Corn Syrup, Corn Syrup, Partially Hydrogenated Vegetable Oil [Soybean And/Or Cottonseed And/Or Corn And/Or, Bread";
 
-    NSArray *tempIngredients = [[NSArray alloc] init];
-    //tempIngredients = [ingredientsString componentsSeparatedByString:@", "];
-   // tempIngredients1 = [tempIngredients componentsSeparatedByString:@"."];
-    tempIngredients = [ingredientsString componentsSeparatedByCharactersInSet: [NSCharacterSet characterSetWithCharactersInString:@",."]];
     
     
-    NSLog(@"tempIngredients IS %@", tempIngredients);
-
-    NSLog(@"ingredientsString IS %@", ingredientsString);
-    NSLog(@"allergiList IS %@", allergiList);
-    NSLog(@"[allergiList count] IS %d", [allergiList count]);
     
-    for (NSInteger i = 0; i < [allergiList count]; i++) 
-    {
+    //SEARCH ENGINE (LOCAL / SERVERSIDE)
+    [request setTimeoutInterval:180.0]; //was 60.0
+    [request setURL:[NSURL URLWithString:@"http://www.delengo.com/searchallergy.php"]];
+    [request setHTTPMethod:@"POST"];
+    
+    
 
-        NSString *wordToLookFor = [[NSString alloc] initWithFormat:[allergiList objectAtIndex:i]];
-        
-        NSLog(@"wordToLookFor IS %@", wordToLookFor);
-        //        NSLog(@"ingredientsString IS %@", ingredientsString);
-        
-        for (NSInteger j = 0; j < [tempIngredients count]; j++)
-        {
-            
-            NSString *ingredientword = [[NSString alloc] initWithFormat:[tempIngredients objectAtIndex:j]];
-            NSLog(@"ingredientword IS %@", ingredientword);
+    
+    NSString *searchresponse = [[NSString alloc] initWithData:[NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil] encoding:NSUTF8StringEncoding];
+    
+    NSLog(@"searchresponse STRING IS ,%@,", searchresponse);
 
-            NSRange ran = [ingredientword rangeOfString:wordToLookFor options:NSCaseInsensitiveSearch]; //looking for wordToLookFor in ingredientword
-            
-            int location = ran.location;
-            int length = ran.length;
-            
-            
-            
-//            NSLog(@"Location: %i, length: %i", location, length);
-//            if (length != 0){
-//                NSString *value = [ingredientsString substringWithRange:NSMakeRange(location, length)];
-//                NSLog(@"value IS %@", value); 
-//            }
-            
-            
-            NSString *displayString = [[NSString alloc] initWithFormat:@"Location: %i, length: %i", location, length];
-            
-            if (length > 0) 
-            {
-                NSLog(@"*****************  Searching for: %@ and %@, FOUND: %@", ingredientword, wordToLookFor, displayString);
-                
-                //CHECKING THAT THE WORDS MATCH EXACTLY
-                NSArray *subStringIngredients = [[NSArray alloc] init];
-                NSLog(@"ingredientword IS %@", ingredientword);
-                NSLog(@"subStringIngredients IS %@", subStringIngredients);
-                subStringIngredients = [ingredientword componentsSeparatedByString:@""];
-                
-                NSArray *array22 = [ingredientword componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-                array22 = [array22 filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF != ''"]];
-                NSLog(@"array22 IS %@", array22);
-
-                
-                for (NSInteger k = 0; k < [array22 count]; k++)
-                {
-                    NSString *subStringIngredientswordToLookFor = [[NSString alloc] initWithFormat:[array22 objectAtIndex:k]];
-                    
-                    NSLog(@"SUCCESS %@ AND %@", subStringIngredientswordToLookFor, wordToLookFor);
-                    
-                    if ([subStringIngredientswordToLookFor isEqualToString:wordToLookFor] == 1){
-                     
-                    //    NSLog(@"SUCCESS %@ AND %@", subStringIngredientswordToLookFor, wordToLookFor);
-                        [badIngredients addObject:ingredientword];
-                    }
-                }
-                
-                //[badIngredients addObject:wordToLookFor];
-                //[badIngredients addObject:ingredientword];
-            }
-        }
-        
-        
-        
-        
-        
-        
-//        NSString *wordToLookFor = [[NSString alloc] initWithFormat:[allergiList objectAtIndex:i]];
-//        
-//        NSLog(@"wordToLookFor IS 1%@2", wordToLookFor);
-////        NSLog(@"ingredientsString IS %@", ingredientsString);
-//                
-//        NSRange ran = [ingredientsString rangeOfString:wordToLookFor options:NSCaseInsensitiveSearch];
-//        
-//        int location = ran.location;
-//        int length = ran.length;
-//        
-//        
+    
+    NSArray *myArray = [searchresponse componentsSeparatedByString:@"\n"];
+    searchresponse = [myArray objectAtIndex:0];
+    
+    
+//    NSLog(@"accessKey IS %@", accessKey);
+//    NSLog(@"accessKeyArray IS %@", accessKeyArray);
+//    
+//    NSLog(@"[myArray objectAtIndex:0] IS %@", [myArray objectAtIndex:0]);
+//    
 //
-//        NSLog(@"Location: %i, length: %i", location, length);
-//        if (length != 0){
-//            NSString *value = [ingredientsString substringWithRange:NSMakeRange(location, length)];
-//            NSLog(@"value IS %@", value); 
-//        }
-//        
-//        
-//        NSString *displayString = [[NSString alloc] initWithFormat:@"Location: %i, length: %i", location, length];
-//        
-//        if (length > 0) 
-//        {
-//            NSLog(@"Searching for: %@, FOUND: %@", wordToLookFor, displayString);
-//            //[badIngredients addObject:wordToLookFor];
-//              [badIngredients addObject:[allergiList objectAtIndex:i]];
-//        }
-        
-    }
+//    
+//    
+//    
+//    
+//    
+//    
+//    
+//    
+//    
+//    
+//    
+//    
+//    NSError *error;
+//    NSData *jsonData = [searchresponse dataUsingEncoding:NSUTF8StringEncoding];
+//    NSDictionary *results1 = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
+//    NSString *myString = [[NSString alloc] initWithData:jsonData encoding:NSASCIIStringEncoding];
+//
+//    
+//    NSDictionary *searchresponse_dict = [searchresponse JSONValue];
+//
+//    //    
+    NSLog(@"searchresponse STRING IS ,%@,", searchresponse);
+    NSLog(@"myArray IS %@", myArray);
+//    NSLog(@"results1 IS %@", results1);
+//    
+//    NSLog(@"jsonData IS %@", jsonData);
+//    NSLog(@"myString IS %@", myString);
+//
     
-     NSLog(@"badIngredients: %@", badIngredients);
+    
+    
+    
+    
+    if ([searchresponse isEqualToString:@"ServerSideSearch"])
+    {
+        NSLog(@"SERVER SIDE SEARCH IS %@", searchresponse); 
+    }
+    else
+    {
+        //GETTING THE JSON TO AN ARRAY 
+        //NSArray *json_dict = [searchresponse JSONValue];
+
+        
+        for (NSInteger i = 0; i < [allergiList count]; i++) 
+        {
+
+            NSString *wordToLookFor = [[NSString alloc] initWithFormat:[allergiList objectAtIndex:i]];
+            
+            NSLog(@"wordToLookFor IS %@", wordToLookFor);
+     
+                NSRange ran = [ingredientsString rangeOfString:wordToLookFor options:NSCaseInsensitiveSearch]; //looking for wordToLookFor in ingredientsString
+                
+                int location = ran.location;
+                int length = ran.length;
+                            
+                NSString *displayString = [[NSString alloc] initWithFormat:@"Location: %i, length: %i", location, length];
+
+                if (length > 0) {
+                    NSLog(@"Searching for: %@, FOUND: %@", wordToLookFor, displayString);
+                    [badIngredients addObject:wordToLookFor];
+                }
+        }
+    
+    }
+        
+    NSLog(@"badIngredients: %@", badIngredients);
+    
+    //FLURRY ZONE
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:badIngredients, @"badIngredients", nil];
+    [FlurryAnalytics logEvent:@"LIST OF BAD INGREDIENTS FROM THE SEARCH" withParameters:dictionary];
+
 }
 
 

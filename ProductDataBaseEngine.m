@@ -8,6 +8,7 @@
 
 #import "ProductDataBaseEngine.h"
 #import "JSON.h"
+#import "FlurryAnalytics.h"
 
 @implementation ProductDataBaseEngine
 
@@ -17,25 +18,26 @@
 @synthesize engineBarcode;
 @synthesize engingJsonDict;
 
-
 - (void) productDataBaseEngine {
     
     NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];    
     NSMutableDictionary *paramsDict = [[NSMutableDictionary alloc] init];    
     
+    //BUILDING DATA OBJECT FOR SIMPLEUPC API POST CALL
     [jsonDict setObject:engineKey forKey:@"auth"];
     [jsonDict setObject:engineMethod forKey:@"method"];
     [paramsDict setObject:engineBarcode forKey:@"upc"];    
     [jsonDict setObject:paramsDict forKey:@"params"];
+    
+   // NSLog(@"jsonDict %@", jsonDict);
     
     //POSTING REQUEST DATA
     SBJsonWriter *jsonWriter = [SBJsonWriter new];
     NSString *jsonString = [jsonWriter stringWithObject:jsonDict];
     NSData *myJSONData =[jsonString dataUsingEncoding:NSUTF8StringEncoding];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString: @"http://api.simpleupc.com/v1.php"]];
-    
-    [request setHTTPMethod: @"POST"];
-    [request setHTTPBody: myJSONData];
+    [request setHTTPMethod:@"POST"];
+    [request setHTTPBody:myJSONData];
     
     //ANALYZING JSON RESPONSE 
     NSURLResponse *theResponse = NULL;
@@ -44,13 +46,14 @@
     NSString *theResponseString = [[NSString alloc] initWithData:theResponseData encoding:NSUTF8StringEncoding];
     
     //GETTING THE JSON TO AN NSDICTIONARY 
-//    NSDictionary *json_dict = [theResponseString JSONValue];
     engingJsonDict = [theResponseString JSONValue];
-
-    NSLog(@"response json_dict\n%@",engingJsonDict);
-    
-  //  NSString *success = [[NSString alloc] init];
     success = [engingJsonDict valueForKey:@"success"];
+
+ //   NSLog(@"engingJsonDict %@", engingJsonDict);
+
+    //FLURRY ZONE
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:engingJsonDict, @"engingJsonDict from API call", nil];
+    [FlurryAnalytics logEvent:@"DATA FROM SIMPLEUPC API CALL" withParameters:dictionary];
 
 }
 

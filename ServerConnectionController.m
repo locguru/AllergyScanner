@@ -8,6 +8,7 @@
 
 #import "ServerConnectionController.h"
 #import "JSON.h"
+#import "FlurryAnalytics.h"
 
 @implementation ServerConnectionController
 
@@ -37,7 +38,7 @@
     
     NSString *urlString =  @"http://www.delengo.com/getkey.php";
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
-    [request setTimeoutInterval:60.0];
+    [request setTimeoutInterval:180.0];
     [request setURL:[NSURL URLWithString:urlString]];
     [request setHTTPMethod:@"POST"];
     
@@ -47,65 +48,18 @@
     accessKeyArray = [accessKey componentsSeparatedByString:@"\n"];
     
     
-    
-    //    //PARSING THE JSON DATA
-    //    
-    //    
-    //    NSLog(@"accessKey IS %@", accessKey);
-    //    NSLog(@"accessKeyArray IS %@", accessKeyArray);
-    //
-    //    //ANALYZING JSON RESPONSE 
-    //    NSURLResponse *theResponse = NULL;
-    //    NSError *theError = NULL;
-    //    NSData *theResponseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&theResponse error:&theError];
-    //    NSString *theResponseString = [[[NSString alloc] initWithData:theResponseData encoding:NSUTF8StringEncoding] autorelease];
-    //
-    //    NSLog(@" theResponseData\n%@",theResponseData);
-    //
-    //    NSLog(@" theResponseString\n%@",theResponseString);
-    //
-    //    //GETTING THE JSON TO AN NSDICTIONARY 
-    //    //NSDictionary *json_dict = [theResponseString JSONValue];
-    //    SBJSON *parser = [[SBJSON alloc] init];
-    //    NSArray *statuses = [parser objectWithString:theResponseString error:nil];
-    //
-    //    NSLog(@"response json_dict\n%@",statuses);
-    
-    
-    
-    
-    
-    
     NSLog(@"accessKey IS %@", accessKey);
     NSLog(@"accessKeyArray IS %@", accessKeyArray);
     
     NSLog(@"[myArray objectAtIndex:0] IS %@", [myArray objectAtIndex:0]);
     
     accessKey = [myArray objectAtIndex:0];
-    //accessKey = theResponseString;
-    
-    //NSLog(@"%@",[[NSString alloc] initWithData:[NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil] encoding:NSUTF8StringEncoding]);
-    
-    
+   
+    //FLURRY ZONE
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:accessKey, @"Access Key from server", nil];
+    [FlurryAnalytics logEvent:@"RETREIVED ACCESS KEY" withParameters:dictionary];
+
 }
-
-
-#pragma mark - View lifecycle
-
-/*
- // Implement loadView to create a view hierarchy programmatically, without using a nib.
- - (void)loadView
- {
- }
- */
-
-/*
- // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
- - (void)viewDidLoad
- {
- [super viewDidLoad];
- }
- */
 
 
 @end

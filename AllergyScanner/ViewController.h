@@ -13,7 +13,9 @@
 #import "ZBarSDK.h"
 #import "Facebook.h"
 
-@interface ViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource, ResultsDelegate, ZBarReaderDelegate, FBSessionDelegate, FBRequestDelegate, UIActionSheetDelegate> {
+#import "MBProgressHUD.h"
+
+@interface ViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource, ResultsDelegate, ZBarReaderDelegate, FBSessionDelegate, FBRequestDelegate, UIActionSheetDelegate, MBProgressHUDDelegate> {
     
     UILabel *_codeInfoLabel;
     UILabel *userAllergy;
@@ -31,6 +33,7 @@
     UIImageView *allergyTextImage;
     
     Facebook *facebook;
+    MBProgressHUD *hudtemp;
     
 }
 
@@ -48,10 +51,11 @@
 @property (nonatomic, retain) UIImageView *allergyImage;
 @property (nonatomic, retain) UIImageView *allergyTextImage;
 @property (nonatomic, retain) Facebook *facebook;
+//@property (nonatomic, retain) MBProgressHUD *hudtemp;
 
 - (IBAction)selectAllergy:(id)sender;
 - (IBAction)scan:(id)sender;
 - (void) showResults: (NSString *) barcode; 
-
+- (void)myTask: (NSString *) dumbString;
 
 @end

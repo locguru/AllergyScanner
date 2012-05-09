@@ -16,6 +16,7 @@
 		2C29EAFE154663C1008C0BF0 /* down.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C29EAFA154663C1008C0BF0 /* down.png */; };
 		2C29EAFF154663C1008C0BF0 /* down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C29EAFB154663C1008C0BF0 /* down@2x.png */; };
 		2C29EB00154663C1008C0BF0 /* up@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C29EAFC154663C1008C0BF0 /* up@2x.png */; };
+		2C954C4015536A1B00901FBE /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C954C3E155367D400901FBE /* MBProgressHUD.m */; };
 		2CC297EA15409151001D19A5 /* corn.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CC297E215409151001D19A5 /* corn.png */; };
 		2CC297EB15409151001D19A5 /* eggs.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CC297E315409151001D19A5 /* eggs.png */; };
 		2CC297EC15409151001D19A5 /* milk.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CC297E415409151001D19A5 /* milk.png */; };
@@ -132,6 +133,8 @@
 		2C29EAFA154663C1008C0BF0 /* down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = down.png; sourceTree = "<group>"; };
 		2C29EAFB154663C1008C0BF0 /* down@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "down@2x.png"; sourceTree = "<group>"; };
 		2C29EAFC154663C1008C0BF0 /* up@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "up@2x.png"; sourceTree = "<group>"; };
+		2C954C3E155367D400901FBE /* MBProgressHUD.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		2C954C3F155367D400901FBE /* MBProgressHUD.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		2CC297E215409151001D19A5 /* corn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = corn.png; sourceTree = "<group>"; };
 		2CC297E315409151001D19A5 /* eggs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eggs.png; sourceTree = "<group>"; };
 		2CC297E415409151001D19A5 /* milk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = milk.png; sourceTree = "<group>"; };
@@ -469,6 +472,8 @@
 		7C6B9F1B146EC0EC002EA429 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				2C954C3F155367D400901FBE /* MBProgressHUD.h */,
+				2C954C3E155367D400901FBE /* MBProgressHUD.m */,
 				7C987EF91547927F00C0ABD0 /* ProductDataBaseEngine.h */,
 				7C987EFA1547927F00C0ABD0 /* ProductDataBaseEngine.m */,
 				7C6B9F20146EC12D002EA429 /* ServerConnectionController.h */,
@@ -751,6 +756,7 @@
 				7CC703AD152283D5006D1A90 /* FBFrictionlessRequestSettings.m in Sources */,
 				7CC703AE152283D5006D1A90 /* FBLoginDialog.m in Sources */,
 				7CC703AF152283D5006D1A90 /* FBRequest.m in Sources */,
+				2C954C4015536A1B00901FBE /* MBProgressHUD.m in Sources */,
 				7C987EFB1547927F00C0ABD0 /* ProductDataBaseEngine.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -783,8 +789,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: ITAI RAM (C8VWQ56ELU)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: ITAI RAM (C8VWQ56ELU)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Itai Ram";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Itai Ram";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -803,8 +809,8 @@
 					"-all_load",
 					"-lstdc++",
 				);
-				PROVISIONING_PROFILE = "DAC85DAB-D8AC-4745-BD36-60B2CD712BCD";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "DAC85DAB-D8AC-4745-BD36-60B2CD712BCD";
+				PROVISIONING_PROFILE = "176F786C-3C27-4E87-89AA-CA478058B93C";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "176F786C-3C27-4E87-89AA-CA478058B93C";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -815,8 +821,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: ITAI RAM (C8VWQ56ELU)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: ITAI RAM (C8VWQ56ELU)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Itai Ram";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Itai Ram";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -829,8 +835,8 @@
 					"-all_load",
 					"-lstdc++",
 				);
-				PROVISIONING_PROFILE = "DAC85DAB-D8AC-4745-BD36-60B2CD712BCD";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "DAC85DAB-D8AC-4745-BD36-60B2CD712BCD";
+				PROVISIONING_PROFILE = "176F786C-3C27-4E87-89AA-CA478058B93C";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "176F786C-3C27-4E87-89AA-CA478058B93C";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

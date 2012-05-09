@@ -15,6 +15,7 @@
 #import "FlurryAnalytics.h"
 #import <Twitter/Twitter.h>
 #import "ProductDataBaseEngine.h"
+#import "MBProgressHUD.h"
 
 static NSString* kAppId = @"210437135727485";
 
@@ -148,6 +149,17 @@ static NSString* kAppId = @"210437135727485";
 
     allergyImage = [[UIImageView alloc] initWithFrame:CGRectMake(70, 188, 60, 60)]; //(60, 188, 60, 60)
     allergyTextImage = [[UIImageView alloc] initWithFrame:CGRectMake(140, 208, 99, 20.5)]; //(140, 208, 99, 20.5)
+ 
+//    hudtemp = [[MBProgressHUD alloc] initWithView:self.view];
+//    [self.view addSubview:hudtemp];
+//    hudtemp.delegate = self;
+//    [hudtemp showWhileExecuting:@selector(myTask) onTarget:self withObject:nil animated:YES];
+//    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//    hudtemp = [[MBProgressHUD alloc] initWithView:self.view];
+//    [self.view addSubview:hudtemp];
+//    hudtemp.delegate = self;
+//    [hudtemp showWhileExecuting:@selector(myTask) onTarget:self withObject:nil animated:YES];
+
 }
 
 
@@ -506,7 +518,7 @@ static NSString* kAppId = @"210437135727485";
 
         NSString *temp = [[NSString alloc] init];
         keyAccess = @"FEW9sSVjaHhZux2oRuQ7wlK4xt1D3d0e";
-        temp = @"073731001059"; //041196891072 //9314458008732 //646422101002 //76770700168 //02100061223 // gum: 012546617529
+        temp = @"02100061223"; //041196891072 //9314458008732 //646422101002 //76770700168 //02100061223 // gum: 012546617529
         NSLog(@"barcode simulator is %@", temp);
         inputBarcode.text = temp;
         [self showResults:temp];
@@ -548,10 +560,12 @@ static NSString* kAppId = @"210437135727485";
 
     
     [self dismissModalViewControllerAnimated: YES];
+
     
-   // [self showResults:symbol.data];
-     [self showResults:newString];
+   // [self myTask:newString];
+
     
+    [self showResults:newString];
 }
 
 
@@ -559,8 +573,77 @@ static NSString* kAppId = @"210437135727485";
 	[self dismissModalViewControllerAnimated:YES];
 }
 
+- (void)myTask: (NSString *) dumbString {
+
+//    hudtemp = [[MBProgressHUD alloc] initWithView:self.view];
+//    [self.view addSubview:hudtemp];
+//    hudtemp.delegate = self;
+//    [hudtemp showWhileExecuting:@selector(showResults:dumbString) onTarget:self withObject:nil animated:YES];
+//
+//    
+//    sleep(4);
+//    NSLog(@"dbEngine.json_dict is WAITINGGGGGG");
+
+}
 
 - (void) showResults: (NSString *) barcode {
+    
+    
+//    hudtemp = [[MBProgressHUD alloc] initWithView:self.view];
+//    [self.view addSubview:hudtemp];
+//    hudtemp.delegate = self;
+
+//    [hudtemp showWhileExecuting:@selector(myTask) onTarget:self withObject:nil animated:YES];
+//    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+
+    
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.001 * NSEC_PER_SEC), dispatch_get_main_queue(), ^(void){
+//        sleep(4);
+//        NSLog(@"dbEngine.json_dict is WAITINGGGGGG");
+//    });
+    
+//    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.view];
+//	[self.view addSubview:HUD];
+//	[HUD showWhileExecuting:@selector(myTask) onTarget:self withObject:nil animated:YES];
+//    
+//    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+//        // Do something...
+//        
+//        sleep(4);
+//
+//        
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [MBProgressHUD hideHUDForView:self.view animated:YES];
+//        });
+//    });
+
+
+    
+    
+    //    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+    //        // Do something...
+    //        
+    //        //CALLING FetchNutritionFactsByUPC TO RETREIVE INGREDIENTS
+    //        [dbEngine productDataBaseEngine];
+    //        
+    //        
+    //        dispatch_async(dispatch_get_main_queue(), ^{
+    //            [MBProgressHUD hideHUDForView:self.view animated:YES];
+    //        });
+    //    });
+    
+    
+    //    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //    [dbEngine productDataBaseEngine];
+    //  //  [MBProgressHUD hideHUDForView:self.view animated:YES];
+ 
+    
+    
+    
+    
+    
     
 //    NSLog(@"SHOW ME BARCODE %@", barcode);
 //    NSLog(@"SHOW ME keyAccess %@", keyAccess);
@@ -571,16 +654,15 @@ static NSString* kAppId = @"210437135727485";
     dbEngine.engineMethod = @"FetchNutritionFactsByUPC"; 
     dbEngine.engineBarcode = barcode;
 
-    //CALLING FetchNutritionFactsByUPC TO RETREIVE INGREDIENTS
     [dbEngine productDataBaseEngine];
     
+    NSLog(@"dbEngine.json_dict is %@", dbEngine.engingJsonDict);
+
     NSDictionary *myDict = [[NSDictionary alloc] init];
     myDict = [dbEngine.engingJsonDict valueForKey:@"result"];
     NSString *ingredientsArray = [myDict valueForKeyPath:@"ingredients"];
 
-    dbEngine.engineMethod = @"FetchProductByUPC"; 
-
-    //CALLING FetchProductByUPC TO RETREIVE GENERAL INFO
+    dbEngine.engineMethod = @"FetchProductByUPC";     
     [dbEngine productDataBaseEngine];
 
     myDict = [dbEngine.engingJsonDict valueForKey:@"result"];
@@ -588,12 +670,12 @@ static NSString* kAppId = @"210437135727485";
     tempProductDescription= [myDict valueForKey:@"description"];
 
     
-//    NSLog(@"dbEngine.json_dict is %@", dbEngine.engingJsonDict);
-//    NSLog(@"tempProductDescription is %@", tempProductDescription);
-//    NSLog(@"[tempProductDescription length] is %d", [tempProductDescription length]);
-//    NSLog(@"success is %@", [dbEngine.engingJsonDict valueForKey:@"success"]);
-//    NSLog(@"ingredients is %@", ingredientsArray);
-//    NSLog(@"ingredients is %d", [ingredientsArray length]);
+    NSLog(@"dbEngine.json_dict is %@", dbEngine.engingJsonDict);
+    NSLog(@"tempProductDescription is %@", tempProductDescription);
+    NSLog(@"[tempProductDescription length] is %d", [tempProductDescription length]);
+    NSLog(@"success is %@", [dbEngine.engingJsonDict valueForKey:@"success"]);
+    NSLog(@"ingredients is %@", ingredientsArray);
+    NSLog(@"ingredients is %d", [ingredientsArray length]);
 
     int num; // = [[NSString alloc] init];
     num = [[dbEngine.engingJsonDict valueForKey:@"success"] intValue];
@@ -603,13 +685,25 @@ static NSString* kAppId = @"210437135727485";
     errorDict = [dbEngine.engingJsonDict valueForKey:@"error"];
     errorCode = [errorDict valueForKey:@"code"];
   //  errorCode = [errorCode valueForKey:@"code"];
-//    NSLog(@"errorDict is %@", errorDict);
-//   NSLog(@"errorCode is %@", errorCode);
+    NSLog(@"errorDict is %@", errorDict);
+    NSLog(@"errorCode is %@", errorCode);
+    NSLog(@"num is %d", num);
+
 
     //ERROR CASES
-    if (num == 0) 
+    if ([errorCode intValue] == 1)
     {
-         if ([errorCode isEqualToString:@"4002"])
+        [FlurryAnalytics logEvent:@"ERROR 1 - API Key Not Recognized"];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Allergy Scanner" 
+                                                        message:@"The service is temporarily unavailable. We apologize for the inconvenience, please try again later"
+                                                       delegate:self 
+                                              cancelButtonTitle:nil 
+                                              otherButtonTitles:@"Ok", nil];
+        [alert show];
+    }
+    else if (num == 0 && [errorCode intValue] == 0) 
+    {
+         if ([errorCode intValue] == 4002)
          {
              [FlurryAnalytics logEvent:@"ERROR 4002 - UPC NOT VALID"];
              UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Allergy Scanner" 
@@ -620,7 +714,7 @@ static NSString* kAppId = @"210437135727485";
              [alert show];
 
          }
-         else if ([errorCode isEqualToString:@"4004"])
+         else if ([errorCode intValue] == 4004)
          {
              [FlurryAnalytics logEvent:@"ERROR 4004 - PRODUCT NOT FOUND IN DB"];
               UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Allergy Scanner" 

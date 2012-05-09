@@ -116,8 +116,11 @@
     productDescription.backgroundColor = [UIColor clearColor]; 
     productDescription.textColor = [UIColor whiteColor];
     productDescription.font = [UIFont systemFontOfSize:16];
-    productDescription.numberOfLines = 0;
-    productDescription.lineBreakMode = UILineBreakModeWordWrap;
+
+    productDescription.adjustsFontSizeToFitWidth = YES;
+
+//    productDescription.numberOfLines = 0;
+//    productDescription.lineBreakMode = UILineBreakModeWordWrap;
     //	[self.view addSubview:productDescription];
     
     brand = [[UILabel alloc] initWithFrame:CGRectMake(20, 100, 120, 40)];
@@ -134,6 +137,8 @@
     productBrand.backgroundColor = [UIColor clearColor]; 
     productBrand.textColor = [UIColor whiteColor];
     productBrand.font = [UIFont systemFontOfSize:16];
+    productBrand.adjustsFontSizeToFitWidth = YES;
+
     //	[self.view addSubview:productBrand];
     
     ingredientsLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 230, 280, 120)];   
@@ -271,7 +276,7 @@
     {
         [FlurryAnalytics logEvent:@"ENTERING PROCESSINGREDIENTS METHOD - PRODUCT DOESN'T CONTAIN USER ALLERGY"];
 
-        ingredientsLabel.text = [NSString stringWithFormat:@"%@ %@ %@", @"Allergy Scanner did not find", userAllergyText,"in this produce. Please verify product ingredients."];
+        ingredientsLabel.text = [NSString stringWithFormat:@"%@ %@ %@", @"Allergy Scanner did not find", userAllergyText, @"in this product. Please verify product ingredients."];
         
         UIImage* barImageFile = [UIImage imageNamed:@"brown_bar.png"];    
         UIImage* upImageFile = [UIImage imageNamed:@"up.png"];    
@@ -283,7 +288,7 @@
     {
         //        ingredients.text = [ingredientsProcessorObject.badIngredients description]; //converting an NSArray to an NSString
         NSString *tempOutputText = [[ingredientsProcessorObject.badIngredients valueForKey:@"description"] componentsJoinedByString:@", "];
-        ingredientsLabel.text = [NSString stringWithFormat:@"%@ %@", @"This product contain: ", tempOutputText];
+        ingredientsLabel.text = [NSString stringWithFormat:@"%@ %@", @"This product may contain some form of: ", tempOutputText];
 
         UIImage* barImageFile = [UIImage imageNamed:@"brown_bar.png"];    
         UIImage* downImageFile = [UIImage imageNamed:@"down.png"];    

@@ -8,13 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ProductDataBaseEngine : NSObject {
+@interface ProductDataBaseEngine : NSObject{
     
     NSString *engineKey;
     NSString *engineMethod;
     NSString *success;
     NSString *engineBarcode;
     NSDictionary *engingJsonDict;
+
 }
 
 @property (nonatomic, retain) NSString *engineKey;
@@ -23,10 +24,7 @@
 @property (nonatomic, retain) NSString *engineBarcode;
 @property (nonatomic, retain) NSDictionary *engingJsonDict;
 
-
-
 - (void) productDataBaseEngine;
-//- (void) productDataBaseEngine:(NSString *)accessKey withBarcode:(NSString *)accessBarcode withMethod:(NSString *)accessMethod withParamValue:(NSString *)accessParamValue;
 
 
 @end

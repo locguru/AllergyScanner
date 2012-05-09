@@ -8,12 +8,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AllergyScanner/ViewController.m"
-         timestampString = "357403769.733557"
+         timestampString = "357843642.398126"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "308"
-         endingLineNumber = "308"
-         landmarkName = "-selectAllergy:"
+         startingLineNumber = "269"
+         endingLineNumber = "269"
+         landmarkName = "-fbDidNotLogin:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -21,12 +21,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AllergyScanner/ViewController.m"
-         timestampString = "357403769.733557"
+         timestampString = "357843642.398126"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "591"
-         endingLineNumber = "591"
-         landmarkName = "-showResults:"
+         startingLineNumber = "552"
+         endingLineNumber = "552"
+         landmarkName = "-imagePickerController:didFinishPickingMediaWithInfo:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -34,12 +34,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AllergyScanner/ViewController.m"
-         timestampString = "357403769.733557"
+         timestampString = "357843642.398126"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "590"
-         endingLineNumber = "590"
-         landmarkName = "-showResults:"
+         startingLineNumber = "551"
+         endingLineNumber = "551"
+         landmarkName = "-imagePickerController:didFinishPickingMediaWithInfo:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -47,12 +47,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AllergyScanner/ViewController.m"
-         timestampString = "357403769.733557"
+         timestampString = "357843642.398126"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "589"
-         endingLineNumber = "589"
-         landmarkName = "-showResults:"
+         startingLineNumber = "550"
+         endingLineNumber = "550"
+         landmarkName = "-imagePickerController:didFinishPickingMediaWithInfo:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -99,11 +99,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AllergyScanner/ViewController.m"
-         timestampString = "357403769.733557"
+         timestampString = "357850441.871212"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "685"
-         endingLineNumber = "685"
+         startingLineNumber = "706"
+         endingLineNumber = "706"
          landmarkName = "-showResults:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -142,9 +142,7 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "161"
-         endingLineNumber = "161"
-         landmarkName = "-ingredientsEngine:withIngreients:"
-         landmarkType = "5">
+         endingLineNumber = "161">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -155,9 +153,7 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "167"
-         endingLineNumber = "167"
-         landmarkName = "-ingredientsEngine:withIngreients:"
-         landmarkType = "5">
+         endingLineNumber = "167">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -169,6 +165,45 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "336"
          endingLineNumber = "336">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AllergyScanner/ViewController.m"
+         timestampString = "357850441.871212"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "649"
+         endingLineNumber = "649"
+         landmarkName = "-showResults:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "ProductDataBaseEngine.m"
+         timestampString = "357843642.398126"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "32"
+         endingLineNumber = "32"
+         landmarkName = "-productDataBaseEngine"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AllergyScanner/ViewController.m"
+         timestampString = "357843642.398126"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "572"
+         endingLineNumber = "572"
+         landmarkName = "-myTask:"
+         landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
 </Bucket>
