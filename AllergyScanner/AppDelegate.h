@@ -16,4 +16,6 @@
 
 @property (strong, nonatomic) ViewController *viewController;
 
+void uncaughtExceptionHandler(NSException *exception);
+
 @end

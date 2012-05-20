@@ -48,13 +48,23 @@
     //GETTING THE JSON TO AN NSDICTIONARY 
     engingJsonDict = [theResponseString JSONValue];
     success = [engingJsonDict valueForKey:@"success"];
-
- //   NSLog(@"engingJsonDict %@", engingJsonDict);
+    
+//    NSLog(@"engingJsonDict %@", ingredientsArray);
 
     //FLURRY ZONE
-    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:engingJsonDict, @"engingJsonDict from API call", nil];
-    [FlurryAnalytics logEvent:@"DATA FROM SIMPLEUPC API CALL" withParameters:dictionary];
-
+    if (engineMethod == @"FetchNutritionFactsByUPC")
+    {
+        NSDictionary *myDict = [[NSDictionary alloc] init];
+        myDict = [engingJsonDict valueForKey:@"result"];
+        NSString *ingredientsArray = [myDict valueForKeyPath:@"ingredients"];
+        NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:ingredientsArray, @"Ingredients from API call", nil];
+        [FlurryAnalytics logEvent:@"DATA FROM SIMPLEUPC API CALL - INGREDIENTS" withParameters:dictionary];
+    }
+    else 
+    {
+        NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:engingJsonDict, @"engingJsonDict from API call", nil];
+        [FlurryAnalytics logEvent:@"DATA FROM SIMPLEUPC API CALL" withParameters:dictionary];    
+    }
 }
 
 @end

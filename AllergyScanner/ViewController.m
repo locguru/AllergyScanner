@@ -34,6 +34,8 @@ static NSString* kAppId = @"210437135727485";
 @synthesize keyAccessArray;
 @synthesize allergyImage;
 @synthesize allergyTextImage;
+@synthesize productDesc;
+@synthesize productBrand;
 @synthesize facebook;
 
 
@@ -74,12 +76,10 @@ static NSString* kAppId = @"210437135727485";
     self.navigationItem.rightBarButtonItem = rightButton;
     
     //NAV ITEMS
-//    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"History" style:UIBarButtonItemStylePlain target:self action:@selector(history:)];      
     UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"Share" style:UIBarButtonItemStylePlain target:self action:@selector(sharingOption:)];      
     self.navigationItem.leftBarButtonItem = leftButton;
 
     //IMAGE VIEWS 
-    
     UIImage* searchingImageFile = [UIImage imageNamed:@"searching_for.png"];    
     UIImageView *searchingImage = [[UIImageView alloc] initWithFrame:CGRectMake((320 - searchingImageFile.size.width)/2, 115, searchingImageFile.size.width, searchingImageFile.size.height)]; 
     searchingImage.image = [UIImage imageNamed:@"searching_for.png"];
@@ -90,16 +90,11 @@ static NSString* kAppId = @"210437135727485";
     barImage.image = [UIImage imageNamed:@"brown_bar.png"];
     [self.view addSubview: barImage];
 
-    
     //INPUT USER LABEL
     userAllergy = [[UILabel alloc] initWithFrame:CGRectMake(170, 40, 120, 40)];
     userAllergy.backgroundColor = [UIColor clearColor]; 
     userAllergy.font = [UIFont systemFontOfSize:18];
-//    userAllergy.text = @"Placeholder";
-    userAllergy.text = @"";
-
-//    [self.view addSubview:userAllergy];
-    
+    userAllergy.text = @"";    
     
     //ADDING ALLERGY BUTTON
     signin = [[UIButton alloc] init];
@@ -135,14 +130,11 @@ static NSString* kAppId = @"210437135727485";
     
     //DEBUG SWITCH 
     enableLocalKey = [[UISwitch alloc] initWithFrame:CGRectMake(220, 360, 0, 40)];
-//    [self.view addSubview:enableLocalKey]; 
     
     UILabel *debugText = [[UILabel alloc] initWithFrame:CGRectMake(40, 360, 260, 40)];
 	debugText.text = @"Enable local key:";
 	debugText.backgroundColor = [UIColor clearColor]; // [UIColor brownColor];
-    debugText.font = [UIFont systemFontOfSize:16];
-//	[self.view addSubview:debugText];
-        
+    debugText.font = [UIFont systemFontOfSize:16];        
         
     //Facebook
     facebook = [[Facebook alloc] initWithAppId:@"210437135727485" andDelegate:self];
@@ -159,7 +151,9 @@ static NSString* kAppId = @"210437135727485";
 //    [self.view addSubview:hudtemp];
 //    hudtemp.delegate = self;
 //    [hudtemp showWhileExecuting:@selector(myTask) onTarget:self withObject:nil animated:YES];
-
+    
+    NSString *ttt = [[NSString alloc]initWithFormat:@"Prøv igen"];
+    NSLog(@"ttt is %@", ttt);
 }
 
 
@@ -170,13 +164,11 @@ static NSString* kAppId = @"210437135727485";
     
     //ACTION SHEET
     UIActionSheet *popupQuery = [[UIActionSheet alloc] initWithTitle:@"Share Options" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share on Facebook", @"Post to Twitter", nil];  
-    
     popupQuery.actionSheetStyle = UIActionSheetStyleBlackOpaque;
     [popupQuery showInView:self.view];    
 }
 
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {    
 
     if (buttonIndex == 1) //Twitter 
     {
@@ -185,7 +177,6 @@ static NSString* kAppId = @"210437135727485";
         NSString* versionNumber = [[UIDevice currentDevice] systemVersion];
         int version;
         version = [versionNumber intValue];
-    //    NSLog(@"versionNumber %d", version);
         
         if (version < 5)
         {
@@ -216,22 +207,15 @@ static NSString* kAppId = @"210437135727485";
             };
             
             return;
-            
         }
-        
     } 
     else if (buttonIndex == 0) //Facebook
-    {
-        
+    {        
         [FlurryAnalytics logEvent:@"CLICKING ON 'POST ON FACEBOOK'"];
-   //     NSLog(@"entering POSTING ON FACEBOOK");
         [facebook authorize:[NSArray arrayWithObjects:@"publish_stream", nil]];
-        
         return;
     } 
-    
-    [FlurryAnalytics logEvent:@"CANCELING ACTION SHEET"];
-    
+    [FlurryAnalytics logEvent:@"CANCELING ACTION SHEET"];    
 }
 
 //FACEBOOK API
@@ -263,7 +247,6 @@ static NSString* kAppId = @"210437135727485";
                                           cancelButtonTitle:@"Dismiss"
                                           otherButtonTitles:nil];
     [alert show];
-
 }
 
 -(void)fbDidNotLogin:(BOOL)cancelled {
@@ -316,10 +299,8 @@ static NSString* kAppId = @"210437135727485";
 - (IBAction)selectAllergy:(id)sender {  
     
     [FlurryAnalytics logEvent:@"CLICKING 'SELECT ALLERGY' BUTTON"];
-
     actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
     [actionSheet setActionSheetStyle:UIActionSheetStyleDefault];
-        
     pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 40, 0, 0)];
     pickerView.showsSelectionIndicator = YES;
     pickerView.dataSource = self;
@@ -346,7 +327,6 @@ static NSString* kAppId = @"210437135727485";
     [actionSheet addSubview:myLabel];    
     [actionSheet showInView:self.view];
     [actionSheet setBounds:CGRectMake(0, 0, 320, 440)];
-
 }
 
 
@@ -354,8 +334,7 @@ static NSString* kAppId = @"210437135727485";
 //Called when the user taps on our "Scan A Barcode" button
 - (IBAction)scan:(id)sender {  
     
-    [FlurryAnalytics logEvent:@"CLICKING 'SCAN BARCODE' BUTTON"];
-
+    [FlurryAnalytics logEvent:@"SCAN BARCODE"];
 //     NSLog(@"userAllergy.text is %@", userAllergy.text);
     
     //First check if the device has a camera
@@ -364,7 +343,7 @@ static NSString* kAppId = @"210437135727485";
         //Check if the user selected an allergy to scan for
         if (userAllergy.text == @"")
         {        
-            [FlurryAnalytics logEvent:@"'ENTER ALLERGY FIRST' ALERT"];
+            [FlurryAnalytics logEvent:@"ALERT: Please select an allergy first"];
 
             UIAlertView *selectAlert = [[UIAlertView alloc] initWithTitle:@"Error" 
                                                                   message:@"Please select an allergy first"
@@ -401,7 +380,7 @@ static NSString* kAppId = @"210437135727485";
             //CHECKING IF THE KEY IS VALID
             if ([keyAccess length] < 5 )
             {
-                [FlurryAnalytics logEvent:@"KEY IS NOT VALID, LESS THAN 5 CHARATECTERS"];
+                [FlurryAnalytics logEvent:@"KEY IS NOT VALID, LESS THAN 5 CHARATECTERS, ALERT: Service unavailable. Please try again later."];
 
                 UIAlertView *selectAlert = [[UIAlertView alloc] initWithTitle:@"Allergy Scanner" 
                                                                       message:@"Service unavailable. Please try again later."
@@ -418,26 +397,6 @@ static NSString* kAppId = @"210437135727485";
                 if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) 
                 {
                     [FlurryAnalytics logEvent:@"SCANNING PROPERLY"];
-
-                    
-                    
-        //                ZBarReaderViewController *reader = [ZBarReaderViewController new];
-        //                reader.readerDelegate = self;
-        //                reader.supportedOrientationsMask = ZBarOrientationMaskAll;
-        //                
-        //                ZBarImageScanner *scanner3 = reader.scanner;
-        //                // TODO: (optional) additional reader configuration here
-        //                
-        //                // EXAMPLE: disable rarely used I2/5 to improve performance
-        //                [scanner3 setSymbology: ZBAR_I25
-        //                               config: ZBAR_CFG_ENABLE
-        //                                   to: 0];
-        //                
-        //                // present and release the controller
-        //                [self presentModalViewController: reader animated: YES];
-
-                    
-                    
                     
                     // ADD: present a barcode reader that scans from the camera feed
                     ZBarReaderViewController *reader = [ZBarReaderViewController new];
@@ -445,22 +404,12 @@ static NSString* kAppId = @"210437135727485";
                     
                     reader.readerDelegate = self;
                     reader.title = @"Scan Barcode";
-                    //    reader.navigationItem.backBarButt  backgroundColor = [UIColor brownColor];
                     reader.supportedOrientationsMask = ZBarOrientationMaskAll;
                     
-                    ZBarImageScanner *scanner1 = reader.scanner;
-                    // TODO: (optional) additional reader configuration here
-                    
-                    // EXAMPLE: disable rarely used I2/5 to improve performance
+                    ZBarImageScanner *scanner1 = reader.scanner;                    
                     [scanner1 setSymbology: ZBAR_I25 config: ZBAR_CFG_ENABLE to: 0];
-                  //  [scanner1 setSymbology: 0 config: ZBAR_CFG_ENABLE to: 0];
                     [scanner1 setSymbology: ZBAR_QRCODE config: ZBAR_CFG_ENABLE to: 0];
                     
-//                UIImageView *overlayImageSymbol = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"symbol2.png"]];
-//                [overlayImageSymbol setFrame:CGRectMake((320-95)/2, 220, 95, 95)];
-//                [navCntrl1.view addSubview:overlayImageSymbol];
-//
-
                     UIImageView *overlayImageSymbol = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"symbol4.png"]];
                     [overlayImageSymbol setFrame:CGRectMake((320-0.75*overlayImageSymbol.image.size.width)/2, 120, 0.75*overlayImageSymbol.image.size.width, 0.75*overlayImageSymbol.image.size.height)];
                     [navCntrl1.view addSubview:overlayImageSymbol];
@@ -489,8 +438,6 @@ static NSString* kAppId = @"210437135727485";
                     // present and release the controller
                     //[self removeFromParentViewController];
                     [self presentModalViewController:navCntrl1 animated:YES];
-
-                    
                 } 
                 else //for debug and if there isnt a camera
                 {  
@@ -517,8 +464,8 @@ static NSString* kAppId = @"210437135727485";
     {
 
         NSString *temp = [[NSString alloc] init];
-        keyAccess = @"FEW9sSVjaHhZux2oRuQ7wlK4xt1D3d0e";
-        temp = @"02100061223"; //041196891072 //9314458008732 //646422101002 //76770700168 //02100061223 // gum: 012546617529
+        keyAccess = @"OjGfafRq7wSak9hAmxWEIbAs6eKPp2f";
+        temp = @"737539191205"; //041196891072 //9314458008732 //646422101002 //76770700168 //cheese: 02100061223 // gum: 012546617529
         NSLog(@"barcode simulator is %@", temp);
         inputBarcode.text = temp;
         [self showResults:temp];
@@ -539,32 +486,15 @@ static NSString* kAppId = @"210437135727485";
 //ZBarSDK Finish Scanning
 - (void) imagePickerController: (UIImagePickerController*) reader didFinishPickingMediaWithInfo: (NSDictionary*) info
 {
-    // ADD: get the decode results
     id<NSFastEnumeration> results = [info objectForKey: ZBarReaderControllerResults];
     ZBarSymbol *symbol = nil;
     for(symbol in results)
         // EXAMPLE: just grab the first barcode
         break;
     
-    //resultText.text = symbol.data;
-//    NSLog(@"symbol.data is %@", symbol.data);
-    
-    //charind - character index
-	//sourceString - your source string
-	
 	NSString *newString = [[NSString alloc] init];
-    
     newString = [symbol.data stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:@""];
-
-//    NSLog(@"sourceString is %@", newString);
-
-    
     [self dismissModalViewControllerAnimated: YES];
-
-    
-   // [self myTask:newString];
-
-    
     [self showResults:newString];
 }
 
@@ -648,6 +578,9 @@ static NSString* kAppId = @"210437135727485";
 //    NSLog(@"SHOW ME BARCODE %@", barcode);
 //    NSLog(@"SHOW ME keyAccess %@", keyAccess);
 
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:barcode, @"barcode", nil];
+    [FlurryAnalytics logEvent:@"BARCODE IS:" withParameters:dictionary];
+
     
     ProductDataBaseEngine *dbEngine = [[ProductDataBaseEngine alloc] init];
     dbEngine.engineKey = keyAccess;
@@ -666,13 +599,15 @@ static NSString* kAppId = @"210437135727485";
     [dbEngine productDataBaseEngine];
 
     myDict = [dbEngine.engingJsonDict valueForKey:@"result"];
-    NSString *tempProductDescription = [[NSString alloc] init];
-    tempProductDescription= [myDict valueForKey:@"description"];
+    productDesc = [[NSString alloc] init];
+    productBrand = [[NSString alloc] init];
+    productDesc= [myDict valueForKey:@"description"];
+    productBrand= [myDict valueForKey:@"brand"];
 
     
     NSLog(@"dbEngine.json_dict is %@", dbEngine.engingJsonDict);
-    NSLog(@"tempProductDescription is %@", tempProductDescription);
-    NSLog(@"[tempProductDescription length] is %d", [tempProductDescription length]);
+    NSLog(@"tempProductDescription is %@", productDesc);
+    NSLog(@"[tempProductDescription length] is %d", [productDesc length]);
     NSLog(@"success is %@", [dbEngine.engingJsonDict valueForKey:@"success"]);
     NSLog(@"ingredients is %@", ingredientsArray);
     NSLog(@"ingredients is %d", [ingredientsArray length]);
@@ -748,11 +683,11 @@ static NSString* kAppId = @"210437135727485";
         [ingredientsAlert show];
         
     }
-    else if ([tempProductDescription length] == 0)
+    else if ([productDesc length] == 0)
     {
                     
-            NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:tempProductDescription, @"productDescription.text", nil];
-            [FlurryAnalytics logEvent:@"GETPRODUCTINFO METHOD: PRODUCT WAS NOT FOUND IN DB" withParameters:dictionary];
+            NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:productDesc, @"productDesc", nil];
+            [FlurryAnalytics logEvent:@"ALERT: This product was not found in the database" withParameters:dictionary];
             
             
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Item Not Found" 
@@ -766,13 +701,19 @@ static NSString* kAppId = @"210437135727485";
     else 
     {
         
-        [FlurryAnalytics logEvent:@"ENTERING RESULTS VIEW"];
+        NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:ingredientsArray, @"list of product ingredients", nil];
+        [FlurryAnalytics logEvent:@"GOOD PRODUCT - MOVING TO RESULTS VIEW. Ingredients are:" withParameters:dictionary];
 
         Results *resultsViewController = [[Results alloc] initWithNibName:nil bundle:nil];
         resultsViewController.tempBarcode = barcode;
         resultsViewController.userAllergyText = userAllergy.text;
         resultsViewController.key = keyAccess;
         resultsViewController.ingredientsListForProcessing = ingredientsArray;
+        resultsViewController.productDescriptionString = productDesc;
+        resultsViewController.productBrandString = productBrand;
+        
+        NSLog(@"prod desc %@", productDesc);
+        
        // resultsViewController.json_dict = dbEngine.json_dict;
         
         UINavigationController *resultsNavigationController = [[UINavigationController alloc] initWithRootViewController:resultsViewController];

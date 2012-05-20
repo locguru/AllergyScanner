@@ -31,6 +31,8 @@
     NSArray *keyAccessArray;
     UIImageView *allergyImage;
     UIImageView *allergyTextImage;
+    NSString *productDesc;
+    NSString *productBrand;
     
     Facebook *facebook;
     MBProgressHUD *hudtemp;
@@ -50,6 +52,9 @@
 @property (nonatomic, retain) NSArray *keyAccessArray;
 @property (nonatomic, retain) UIImageView *allergyImage;
 @property (nonatomic, retain) UIImageView *allergyTextImage;
+@property (nonatomic, retain) NSString *productDesc;
+@property (nonatomic, retain) NSString *productBrand;
+
 @property (nonatomic, retain) Facebook *facebook;
 //@property (nonatomic, retain) MBProgressHUD *hudtemp;
 

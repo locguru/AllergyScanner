@@ -24,13 +24,14 @@
     UIButton *dismissResults; 
     NSString *tempBarcode;
     UILabel *productBrand; 
-    UILabel *productDescription;  
+    NSString *productBrandString;
+    UILabel *productDescription; 
+    NSString *productDescriptionString;
     UILabel *ingredientsLabel; 
     NSString *userAllergyText;
     IngredientsProcessor *ingredientsProcessorObject; 
     NSString *key;
-    NSString *success;
-    UIAlertView *alert;
+//    NSString *success;
     NSDictionary *json_dict;
     NSString *ingredientsListForProcessing;
     
@@ -42,19 +43,19 @@
 @property (nonatomic, retain) UIButton *dismissResults; 
 @property (nonatomic, retain) NSString *tempBarcode;
 @property (nonatomic, retain) UILabel *productBrand; 
+@property (nonatomic, retain) NSString *productBrandString;
 @property (nonatomic, retain) UILabel *productDescription;
+@property (nonatomic, retain) NSString *productDescriptionString;
 @property (nonatomic, retain) UILabel *ingredientsLabel; 
 @property (nonatomic, retain) NSString *userAllergyText;
 @property (nonatomic, retain) IngredientsProcessor *ingredientsProcessorObject;
 @property (nonatomic, retain) NSString *key;
-@property (nonatomic, retain) NSString *success;
-@property (nonatomic, retain) UIAlertView *alert;
+//@property (nonatomic, retain) NSString *success;
 @property (nonatomic, retain) NSDictionary *json_dict;
 @property (nonatomic, retain) NSString *ingredientsListForProcessing; 
 
 @property (nonatomic, retain) History *HistoryMgr;
 
-- (void) getProductInfo:(id)sender;
 - (void) lookupAlergie:(NSString *)barcodeLabel withMethod:(NSString *) method withAlergy:(NSString *)allergyText;
 - (void) processIngredients:(NSString *) listOfIngredients;
 

@@ -106,9 +106,11 @@
     
     //ASSIGNING THE ALLERGY LIST FROM THE SERVER 
     allergiList = json_dict;
-//  ingredientsString = @"Soy, Bread Crumbs (Enriched Flour Peanuts [Wheat Flour, Malted Barley Flour, Niacin, Ferrous Sulfite, Thiamin Mononitrate, Riboflavin, Folic Acid], High Fructose Corn Syrup, Corn Syrup, Partially Hydrogenated Vegetable Oil [Soybean And/Or Cottonseed And/Or Corn And/Or, Bread";
+//  ingredientsString = @"Soy, Prøv, Bread Crumbs (Enriched Flour Peanuts [Wheat Flour, Malted Barley Flour, Niacin, Ferrous Sulfite, Thiamin Mononitrate, Riboflavin, Folic Acid], High Fructose Corn Syrup, Corn Syrup, Partially Hydrogenated Vegetable Oil [Soybean And/Or Cottonseed And/Or Corn And/Or, Bread";
 
+ //   allergiList = @"Soy, Prøv, Bread Crumbs (Enriched Flour Peanuts [Wheat Flour, Malted Barley Flour, Niacin, Ferrous Sulfite, Thiamin Mononitrate, Riboflavin, Folic Acid], High Fructose Corn Syrup, Corn Syrup, Partially Hydrogenated Vegetable Oil [Soybean And/Or Cottonseed And/Or Corn And/Or, Bread";
     
+  
     
     
     //SEARCH ENGINE (LOCAL / SERVERSIDE)
@@ -116,8 +118,6 @@
     [request setURL:[NSURL URLWithString:@"http://www.delengo.com/searchallergy.php"]];
     [request setHTTPMethod:@"POST"];
     
-    
-
     
     NSString *searchresponse = [[NSString alloc] initWithData:[NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil] encoding:NSUTF8StringEncoding];
     

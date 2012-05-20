@@ -21,14 +21,15 @@
 @synthesize brand;
 @synthesize dismissResults;
 @synthesize productBrand;
+@synthesize productBrandString;
 @synthesize productDescription;
+@synthesize productDescriptionString;
 @synthesize ingredientsLabel;
 @synthesize tempBarcode;
 @synthesize userAllergyText;
 @synthesize ingredientsProcessorObject;
 @synthesize key;
-@synthesize success;
-@synthesize alert;
+//@synthesize success;
 @synthesize json_dict;
 @synthesize ingredientsListForProcessing;
 
@@ -109,20 +110,16 @@
     description.lineBreakMode = UILineBreakModeWordWrap;
     description.shadowColor = [UIColor blackColor];
     description.shadowOffset = CGSizeMake(0.5, 1);
-    //	[self.view addSubview:description];
-    
+    [self.view addSubview:description];
+
     productDescription = [[UILabel alloc] initWithFrame:CGRectMake(110, 60, 190, 40)];   
-    productDescription.text = @"";
+    productDescription.text = productDescriptionString;//@"";
     productDescription.backgroundColor = [UIColor clearColor]; 
     productDescription.textColor = [UIColor whiteColor];
     productDescription.font = [UIFont systemFontOfSize:16];
-
     productDescription.adjustsFontSizeToFitWidth = YES;
+    [self.view addSubview:productDescription];
 
-//    productDescription.numberOfLines = 0;
-//    productDescription.lineBreakMode = UILineBreakModeWordWrap;
-    //	[self.view addSubview:productDescription];
-    
     brand = [[UILabel alloc] initWithFrame:CGRectMake(20, 100, 120, 40)];
     brand.text = @"Brand:";
 	brand.backgroundColor = [UIColor clearColor]; 
@@ -130,19 +127,18 @@
     brand.font = [UIFont boldSystemFontOfSize:20];
     brand.shadowColor = [UIColor blackColor];
     brand.shadowOffset = CGSizeMake(0.5, 1);
-    //	[self.view addSubview:brand];
-    
+    [self.view addSubview:brand];
+
     productBrand = [[UILabel alloc] initWithFrame:CGRectMake(110, 100, 190, 40)];
-    productBrand.text = @"";
+    productBrand.text = productBrandString;//@"";
     productBrand.backgroundColor = [UIColor clearColor]; 
     productBrand.textColor = [UIColor whiteColor];
     productBrand.font = [UIFont systemFontOfSize:16];
     productBrand.adjustsFontSizeToFitWidth = YES;
+    [self.view addSubview:productBrand];
 
-    //	[self.view addSubview:productBrand];
-    
     ingredientsLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 230, 280, 120)];   
-    ingredientsLabel.text = @"Ingredients";
+    ingredientsLabel.text = @"";
     ingredientsLabel.backgroundColor = [UIColor clearColor]; 
     ingredientsLabel.textColor = [UIColor whiteColor];
     ingredientsLabel.numberOfLines = 0;
@@ -150,134 +146,27 @@
     [ingredientsLabel setTextAlignment:UITextAlignmentCenter];
     ingredientsLabel.adjustsFontSizeToFitWidth = YES;
     ingredientsLabel.lineBreakMode =  UILineBreakModeWordWrap; //UILineBreakModeCharacterWrap;
-    
-    success = [[NSString alloc] init];
-    alert = [[UIAlertView alloc] init];
+    [self.view addSubview:ingredientsLabel];
 
-   // [self getProductInfo:nil];
-    
-    [self lookupAlergie:tempBarcode withMethod:@"FetchProductByUPC" withAlergy:userAllergyText];
-    [self lookupAlergie:tempBarcode withMethod:@"FetchNutritionFactsByUPC" withAlergy:userAllergyText];
-    
-}
+    [self processIngredients:ingredientsListForProcessing];
 
-//- (void) getProductInfo:(id)sender {
-//    
+//    success = [[NSString alloc] init];
+    
 //    [self lookupAlergie:tempBarcode withMethod:@"FetchProductByUPC" withAlergy:userAllergyText];
 //    [self lookupAlergie:tempBarcode withMethod:@"FetchNutritionFactsByUPC" withAlergy:userAllergyText];
-//    
-//}
-
-- (void) lookupAlergie:(NSString *)barcodeLabel withMethod:(NSString *) method withAlergy:(NSString *)allergyText{
-    
-    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:allergyText, @"allergyText", nil];
-    [FlurryAnalytics logEvent:@"ENTERING LOOKUPALLERGY METHOD" withParameters:dictionary];
-    
-    //POSTING JSON OBJECT TO WEBSERVER  
-    ProductDataBaseEngine *dbEngine = [[ProductDataBaseEngine alloc] init];
-    dbEngine.engineKey = key;
-    dbEngine.engineMethod = method;
-    dbEngine.engineBarcode = barcodeLabel;
-    
-    [dbEngine productDataBaseEngine];
-    
-    NSDictionary *myDict = [[NSDictionary alloc] init];
-    myDict = [dbEngine.engingJsonDict valueForKey:@"result"];
-    NSString *tempProductDescription = [[NSString alloc] init];
-    tempProductDescription= [myDict valueForKey:@"description"];
-    
-//    NSLog(@"dbEngine.json_dict is %@", dbEngine.engingJsonDict);
-//    NSLog(@"tempProductDescription is %@", tempProductDescription);
-//    NSLog(@"[tempProductDescription length] is %d", [tempProductDescription length]);
-//    NSLog(@"success is %@", [dbEngine.engingJsonDict valueForKey:@"success"]);
-
-    //FETCHING BASIC PRODUCT INFO
-    if ([method isEqualToString:@"FetchProductByUPC"])
-    {
-        
-        //NSLog(@"myDict is %@",myDict);
-        productBrand.text = [myDict valueForKey:@"brand"];
-        productDescription.text = [myDict valueForKey:@"description"];
-
-        [self.view addSubview:description];
-        [self.view addSubview:productDescription];
-        [self.view addSubview:brand];
-        [self.view addSubview:productBrand];
-        
-        //LOADING NSUserDefaults
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];            
-        NSArray *brandsArray = [defaults arrayForKey:@"brands"]; 
-        NSArray *productNamesArray = [defaults arrayForKey:@"productNames"]; 
-        
-        //LOCAL DB IS EMPTY - ADDING THE CURRENT PRODUCT BEING SCANNED 
-        if ([brandsArray count] == 0) 
-        {
-            
-            NSArray *brandsArrayTemp = [[ NSArray alloc] initWithObjects:productBrand.text, nil];  
-            NSArray *productNamesArrayTemp = [[ NSArray alloc] initWithObjects:productDescription.text, nil];  
-            
-           // NSLog(@"brandsArrayTemp array %@", brandsArrayTemp);
-           // NSLog(@"productNamesArrayTemp array %@", productNamesArrayTemp);
-            
-            [defaults setObject:brandsArrayTemp forKey:@"brands"];  //set the prev Array for key value "favourites"
-            [defaults setObject:productNamesArrayTemp forKey:@"productNames"];  //set the prev Array for key value "favourites"
-            
-            brandsArray = [defaults arrayForKey:@"brands"]; 
-           // NSLog(@"favorites array %@", brandsArray);
-            
-        }
-        //LOCAL DB IS NOT EMPTY - READINIG IT, ADDING THE CURRENT PRODUCT, AND WRITING BACK
-        else
-        {
-            
-            //NSLog(@"favorites array %@ %@", brandsArray, productNamesArray);
-            
-            NSMutableArray *brandsArrayTemp = [[NSMutableArray alloc] initWithArray:brandsArray]; 
-            //[brandsArrayTemp addObject:productBrand.text];
-            [brandsArrayTemp insertObject:productBrand.text atIndex:0]; 
-            NSMutableArray *productNamesArrayTemp = [[NSMutableArray alloc] initWithArray:productNamesArray];  
-            //[productNamesArrayTemp addObject:productDescription.text];
-            [productNamesArrayTemp insertObject:productDescription.text atIndex:0];
-            
-            //NSLog(@"brandsArrayTemp array %@", brandsArrayTemp);
-           // NSLog(@"productNamesArrayTemp array %@", productNamesArrayTemp);
-            
-            [defaults setObject:brandsArrayTemp forKey:@"brands"];  //set the prev Array for key value "favourites"
-            [defaults setObject:productNamesArrayTemp forKey:@"productNames"];  //set the prev Array for key value "favourites"
-            
-        }
-            
-    }
-    
-    //FETCHING INGREDIENTS INFO
-    else if ([method isEqualToString:@"FetchNutritionFactsByUPC"])
-    {
-            [self.view addSubview:ingredientsLabel];
-            [self processIngredients:ingredientsListForProcessing];
-    
-    }
-    //OTHER API CALL METHOD
-    else 
-    {
-        
-    }
-    
 }
-
 
 - (void) processIngredients:(NSString *) listOfIngredients {
     
-     NSLog(@"listOfIngredients array %@", listOfIngredients);
+    NSLog(@"listOfIngredients array %@", listOfIngredients);
     
     //PROCESSING INGREDIENTS - SEARCH
     [ingredientsProcessorObject ingredientsEngine:userAllergyText withIngreients:listOfIngredients];
     
     if ([ingredientsProcessorObject.badIngredients count] == 0) 
     {
-        [FlurryAnalytics logEvent:@"ENTERING PROCESSINGREDIENTS METHOD - PRODUCT DOESN'T CONTAIN USER ALLERGY"];
-
+        [FlurryAnalytics logEvent:@"PRODUCT DOESN'T CONTAIN USER ALLERGY"];
         ingredientsLabel.text = [NSString stringWithFormat:@"%@ %@ %@", @"Allergy Scanner did not find", userAllergyText, @"in this product. Please verify product ingredients."];
-        
         UIImage* barImageFile = [UIImage imageNamed:@"brown_bar.png"];    
         UIImage* upImageFile = [UIImage imageNamed:@"up.png"];    
         UIImageView *upImage = [[UIImageView alloc] initWithFrame:CGRectMake((320 - upImageFile.size.width)/2, 160 + (barImageFile.size.height-upImageFile.size.height)/2, upImageFile.size.width, upImageFile.size.height)]; 
@@ -286,37 +175,85 @@
     }
     else
     {
-        //        ingredients.text = [ingredientsProcessorObject.badIngredients description]; //converting an NSArray to an NSString
         NSString *tempOutputText = [[ingredientsProcessorObject.badIngredients valueForKey:@"description"] componentsJoinedByString:@", "];
         ingredientsLabel.text = [NSString stringWithFormat:@"%@ %@", @"This product may contain some form of: ", tempOutputText];
-
         UIImage* barImageFile = [UIImage imageNamed:@"brown_bar.png"];    
         UIImage* downImageFile = [UIImage imageNamed:@"down.png"];    
         UIImageView *downImage = [[UIImageView alloc] initWithFrame:CGRectMake((320 - downImageFile.size.width)/2, 160 + (barImageFile.size.height-downImageFile.size.height)/2, downImageFile.size.width, downImageFile.size.height)]; 
         downImage.image = [UIImage imageNamed:@"down.png"];
         [self.view addSubview: downImage];
-
         NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:ingredientsLabel.text, @"ingredients.text", nil];
-        [FlurryAnalytics logEvent:@"ENTERING PROCESSINGREDIENTS METHOD - SAVING THE BAD INGRESIENTS STRING" withParameters:dictionary];
-
+        [FlurryAnalytics logEvent:@"SAVING THE BAD INGRESIENTS STRING" withParameters:dictionary];
     }
-    
 }
+
+
+//- (void) lookupAlergie:(NSString *)barcodeLabel withMethod:(NSString *) method withAlergy:(NSString *)allergyText{
+//    
+//    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:allergyText, @"allergyText", nil];
+//    [FlurryAnalytics logEvent:@"ENTERING LOOKUPALLERGY METHOD" withParameters:dictionary];
+//    
+////    //POSTING JSON OBJECT TO WEBSERVER  
+////    ProductDataBaseEngine *dbEngine = [[ProductDataBaseEngine alloc] init];
+////    dbEngine.engineKey = key;
+////    dbEngine.engineMethod = method;
+////    dbEngine.engineBarcode = barcodeLabel;
+////    
+////    [dbEngine productDataBaseEngine];
+//    
+//    //FETCHING BASIC PRODUCT INFO
+//    if ([method isEqualToString:@"FetchProductByUPC"])
+//    {        
+//        //LOADING NSUserDefaults
+//        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];            
+//        NSArray *brandsArray = [defaults arrayForKey:@"brands"]; 
+//        NSArray *productNamesArray = [defaults arrayForKey:@"productNames"]; 
+//        
+//        //LOCAL DB IS EMPTY - ADDING THE CURRENT PRODUCT BEING SCANNED 
+//        if ([brandsArray count] == 0) 
+//        {            
+//            NSArray *brandsArrayTemp = [[ NSArray alloc] initWithObjects:productBrand.text, nil];  
+//            NSArray *productNamesArrayTemp = [[ NSArray alloc] initWithObjects:productDescription.text, nil];  
+//            [defaults setObject:brandsArrayTemp forKey:@"brands"];  //set the prev Array for key value "favourites"
+//            [defaults setObject:productNamesArrayTemp forKey:@"productNames"];  //set the prev Array for key value "favourites"
+//            brandsArray = [defaults arrayForKey:@"brands"]; 
+//           // NSLog(@"favorites array %@", brandsArray);
+//        }
+//        //LOCAL DB IS NOT EMPTY - READINIG IT, ADDING THE CURRENT PRODUCT, AND WRITING BACK
+//        else
+//        {
+//                        
+//            NSMutableArray *brandsArrayTemp = [[NSMutableArray alloc] initWithArray:brandsArray]; 
+//            //[brandsArrayTemp addObject:productBrand.text];
+//            [brandsArrayTemp insertObject:productBrand.text atIndex:0]; 
+//            NSMutableArray *productNamesArrayTemp = [[NSMutableArray alloc] initWithArray:productNamesArray];  
+//            //[productNamesArrayTemp addObject:productDescription.text];
+//            [productNamesArrayTemp insertObject:productDescription.text atIndex:0];
+//             [defaults setObject:brandsArrayTemp forKey:@"brands"];  //set the prev Array for key value "favourites"
+//            [defaults setObject:productNamesArrayTemp forKey:@"productNames"];  //set the prev Array for key value "favourites"
+//            
+//        }
+//    }
+//    //FETCHING INGREDIENTS INFO
+//    else if ([method isEqualToString:@"FetchNutritionFactsByUPC"])
+//    {
+//            [self processIngredients:ingredientsListForProcessing];
+//    
+//    }
+//    //OTHER API CALL METHOD
+//    else 
+//    {
+//    }
+//}
+
 
 - (IBAction) dismissScreen : (id)sender
 {
-    
-    //     [self.parentViewController.view removeFromSuperview];
-     //   [self.view removeFromSuperview];
-  //  [self dismissModalViewControllerAnimated:YES];
-    
-    
     ViewController *aboutViewController = [[ViewController alloc] initWithNibName:nil bundle:nil];
     UINavigationController *aboutNavigationController = [[UINavigationController alloc] initWithRootViewController:aboutViewController];
     aboutNavigationController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;    
     [self presentModalViewController:aboutNavigationController animated:YES];    
 }
-
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
         return interfaceOrientation == UIInterfaceOrientationPortrait || interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown ;
