@@ -67,14 +67,16 @@
              }
          }];
         
+        [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"lastStartDate"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
     }
     else 
     {
         NSLog(@"Not enough time has elapsed for the update notification to show up");
     }
     
-    [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"lastStartDate"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+
     
     //WINDOW CALL
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];

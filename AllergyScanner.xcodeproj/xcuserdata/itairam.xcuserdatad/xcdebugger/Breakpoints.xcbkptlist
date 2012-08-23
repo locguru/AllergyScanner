@@ -39,7 +39,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "288"
          endingLineNumber = "288"
-         landmarkName = "-request:didFailWithError:"
+         landmarkName = "-history:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -52,7 +52,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "502"
          endingLineNumber = "502"
-         landmarkName = "-scan:"
+         landmarkName = "-cancelTapped"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -65,7 +65,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "515"
          endingLineNumber = "515"
-         landmarkName = "-scan:"
+         landmarkName = "-myTask:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -91,7 +91,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "556"
          endingLineNumber = "556"
-         landmarkName = "-imagePickerController:didFinishPickingMediaWithInfo:"
+         landmarkName = "-showResults:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -117,8 +117,8 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "484"
          endingLineNumber = "484"
-         landmarkName = "-scan:"
-         landmarkType = "5">
+         landmarkName = "@implementation ViewController"
+         landmarkType = "3">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
